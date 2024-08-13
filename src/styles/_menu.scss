@@ -1,0 +1,29 @@
+.menu {
+	height: 80px;
+	border: 1px solid red;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.menu-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+	width: 66px;
+
+	.icon {
+		width: 30px;
+		height: 30px;
+		border-radius: 5px;
+		border: 1px solid red;
+	}
+
+	.label, .label:active {
+		color: $font;
+		text-decoration: none;
+		font-size: 11.5px;
+	}
+}

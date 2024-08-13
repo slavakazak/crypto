@@ -1,17 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import "./styles/styles.scss"
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
+import App from "./components/App"
+import { BrowserRouter } from "react-router-dom"
+import { initializeApp } from "firebase/app"
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const firebaseConfig = {
+	apiKey: "AIzaSyAmAI-cBx5zPljDITn96HrZXM9PP2oh3-c",
+	authDomain: "crypto-58ebb.firebaseapp.com",
+	projectId: "crypto-58ebb",
+	storageBucket: "crypto-58ebb.appspot.com",
+	messagingSenderId: "374182859359",
+	appId: "1:374182859359:web:65092308887fd9a47f01ea"
+}
+
+const app = initializeApp(firebaseConfig)
+
+const root = createRoot(document.getElementById("root"))
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+	<StrictMode>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</StrictMode>
+)
