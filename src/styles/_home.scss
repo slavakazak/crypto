@@ -1,4 +1,248 @@
 .home {
 	width: 100%;
 	height: 100%;
+	padding: 11px 15px 15px 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+
+	.top-menu {
+		height: 46px;
+		display: flex;
+		gap: 8px;
+
+		.profile {
+			background: $second;
+			height: 100%;
+			flex-grow: 1;
+			margin-right: 7px;
+			border-radius: $radius;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			padding: 0 13px 0 10px;
+			cursor: pointer;
+
+			img {
+				width: 34px;
+				height: 34px;
+				border-radius: $radius;
+				object-fit: cover;
+				object-position: center;
+			}
+
+			span {
+				font-size: 16px;
+				font-weight: 400;
+				line-height: 21.1px;
+				letter-spacing: -0.04em;
+				flex-grow: 1;
+			}
+		}
+
+		.button {
+			background: $gradient;
+			height: 100%;
+			width: 46px;
+			border-radius: $radius;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	.card {
+		flex-grow: 1;
+		background: $radial-gradient;
+		border-radius: $radius;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+
+		&-header {
+			height: 73px;
+			background: $border-gradient;
+			border-radius: $radius;
+			display: block;
+			padding: 1px;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+
+			&-content {
+				background: $main-gradient;
+				border-radius: $radius;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 15px 0 22px;
+			}
+		}
+
+		.balance {
+			cursor: pointer;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			.title {
+				margin-bottom: 1px;
+				display: flex;
+				align-items: center;
+
+				span {
+					color: $second-font;
+					font-size: 10px;
+					font-weight: 400;
+					letter-spacing: -0.2px;
+					margin-right: 1px;
+				}
+			}
+
+			.value {
+				display: flex;
+				align-items: center;
+
+				span {
+					color: $gold;
+					font-size: 20px;
+					font-weight: 500;
+					letter-spacing: -0.4px;
+					margin-right: 4px;
+				}
+			}
+		}
+
+		.level {
+			cursor: pointer;
+			text-align: center;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			.title {
+				color: $second-font;
+				font-size: 10px;
+				font-weight: 400;
+				letter-spacing: -0.2px;
+			}
+
+			.value {
+				font-size: 32px;
+				font-weight: 700;
+				letter-spacing: -0.64px;
+			}
+		}
+
+		.career {
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			height: 100%;
+
+			span {
+				color: $accent;
+				font-size: 10px;
+				font-weight: 400;
+				letter-spacing: -0.2px;
+				margin-right: 2px;
+			}
+		}
+
+		.messages {
+			cursor: pointer;
+			position: relative;
+
+			.count {
+				width: 9px;
+				height: 9px;
+				background: $accent;
+				border-radius: 5px;
+				color: $font;
+				font-size: 5px;
+				font-weight: 500;
+				letter-spacing: -0.1px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: absolute;
+				top: 0;
+				right: -4px;
+			}
+		}
+
+		.character {
+			cursor: pointer;
+			width: 186px;
+			height: 186px;
+			border-radius: 38px;
+			box-shadow: 0px 4px 8.9px 0px rgba(0, 0, 0, 0.68);
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center;
+				border-radius: 38px;
+			}
+		}
+
+		.share {
+			cursor: pointer;
+		}
+
+		.income {
+			position: absolute;
+			bottom: 14px;
+			display: flex;
+			flex-direction: column;
+
+			.title {
+				color: $second-font;
+				font-size: 10px;
+				font-weight: 400;
+				letter-spacing: -0.2px;
+				margin-bottom: 1px;
+			}
+
+			.value {
+				display: flex;
+				align-items: center;
+
+				span {
+					font-size: 20px;
+					font-weight: 500;
+					letter-spacing: -0.4px;
+					margin-right: 1px;
+					line-height: 25px;
+				}
+
+				svg {
+					margin-top: -2px;
+				}
+			}
+
+			&.all-time {
+				left: 21px;
+			}
+
+			&.month {
+				right: 14px;
+				align-items: flex-end;
+			}
+		}
+	}
+
+	.slider {
+		height: 165px;
+		background: $second;
+		border-radius: $radius;
+	}
 }

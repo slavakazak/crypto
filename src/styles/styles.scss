@@ -2,11 +2,15 @@
 
 $bg: #000;
 $font: #fff;
+$second-font: #A4A4A6;
 $second: #151517;
 $accent: #5A35EE;
+$gold: #FED32C;
 $gradient: linear-gradient(225deg, $second 51%, #202024 100%);
+$border-gradient: linear-gradient(231.27deg, $second 26.8%, #343232 100%);
 $main-gradient: linear-gradient(231.27deg, $second 26.8%, #24242A 100.25%);
 $radial-gradient: radial-gradient(50% 50% at 50% 50%, #1C1633 0%, #171719 100%);
+$radius: 17px;
 
 /* Reset and base styles  */
 * {
