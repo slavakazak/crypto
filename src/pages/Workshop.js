@@ -18,11 +18,11 @@ export default function Workshop({ tg }) {
 
 
 	return (
-		<div className="workshop">
+		<div id="workshop">
 			<div>Workshop</div>
 			{tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.username : 'пользователь не найден'}
-			{posts.map(post => (
-				<div>{post.title.rendered}</div>
+			{posts.map((post, i) => (
+				<div key={i}>{post.title.rendered}</div>
 			))}
 		</div>
 	)

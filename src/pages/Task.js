@@ -1,6 +1,6 @@
 export default function Task() {
 	return (
-		<div className="task">
+		<div id="task">
 			Task
 		</div>
 	)

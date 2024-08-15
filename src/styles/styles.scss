@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
-$bg: #000;
-$font: #fff;
+$bg: #111;
+$font: #FCFCFC;
 $second-font: #A4A4A6;
+$third-font: #C0C0C0;
 $second: #151517;
 $accent: #5A35EE;
 $gold: #FED32C;
@@ -31,10 +32,12 @@ $radius: 17px;
 
 a, a:link, a:visited {
 	text-decoration: none;
+	color: $font;
 }
 
 a:hover {
 	text-decoration: none;
+	color: $font;
 }
 
 /* Common */
@@ -108,14 +111,13 @@ body {
 	background-color: $bg;
 	color: $font;
 	overflow: hidden;
-	font-family: "Roboto Mono", monospace;
+	font-family: "Roboto Mono", system-ui;
 	font-weight: 400;
 	width: 100dvw;
 	min-width: 360px;
 }
 
 .App {
-	font-family: sans-serif;
 	width: 100%;
 	height: 100dvh;
 	position: relative;
@@ -128,6 +130,39 @@ body {
 
 .content {
 	flex-grow: 1;
+	overflow-y: auto;
+	box-sizing: border-box;
+	background-repeat: no-repeat;
+	background-position: bottom center;
+	background-size: cover;
+}
+
+.button {
+	background: $gradient;
+	height: 100%;
+	width: 46px;
+	border-radius: $radius;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.back {
+	width: 46px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	margin-right: auto;
+
+	svg {
+		fill: #AEAEB0;
+		width: 14px;
+		height: 14px;
+		transform: rotate(180deg);
+	}
 }
 
 @import 'menu';
@@ -136,3 +171,4 @@ body {
 @import 'rating';
 @import 'task';
 @import 'workshop';
+@import 'profile';
