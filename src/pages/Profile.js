@@ -1,9 +1,19 @@
 
 import robot from '../img/robot.png'
 import Back from "../components/Back"
-import { TelegramIcon, EditIcon, EyeActiveIcon, EyeInactiveIcon, FlagRusIcon, HistoryIcon, RightArrowIcon, BookIcon, QuestionIcon, SupportIcon } from "../components/Icons"
+import { TelegramIcon, EditIcon, EyeActiveIcon, EyeInactiveIcon, HistoryIcon, RightArrowIcon, BookIcon, QuestionIcon, SupportIcon } from "../components/Icons"
+import { Link } from 'react-router-dom'
 
-export default function Profile({ tg }) {
+export default function Profile({ profileData, username, setUsername }) {
+
+	function nameClickHandler() {
+		if (profileData.fullName && username === profileData.nickname) {
+			setUsername(profileData.fullName)
+		} else {
+			setUsername(profileData.nickname)
+		}
+	}
+
 	return (
 		<div id="profile">
 			<div className="top-menu">
@@ -11,33 +21,35 @@ export default function Profile({ tg }) {
 				<div className="button">
 					<TelegramIcon />
 				</div>
-				<div className="button">
+				<Link to={'/settings'} className="button">
 					<EditIcon />
-				</div>
+				</Link>
 			</div>
 			<div className="profile-card">
 				<div className="avatar">
-					<img src={robot} alt='trofi2222' />
+					<img src={robot} alt={username} />
 				</div>
-				<div className='name-container'>
+				<div className='name-container' onClick={nameClickHandler}>
 					<div className='row nickname'>
-						<span>trofi2222</span>
-						<EyeActiveIcon />
+						<span>{username}</span>
+						{profileData.fullName && <EyeActiveIcon />}
 					</div>
-					<div className='row full-name'>
-						<span>ФИО, если есть в настройках</span>
-						<EyeInactiveIcon />
-					</div>
+					{profileData.fullName &&
+						<div className='row full-name'>
+							<span>{username === profileData.nickname ? profileData.fullName : profileData.nickname}</span>
+							<EyeInactiveIcon />
+						</div>
+					}
 				</div>
 			</div>
-			<div className='profile-data'>
-				<div className='item'>Пол</div>
-				<div className='item'>Возраст</div>
-				<div className='item active'>
-					<FlagRusIcon />
-					<span>Россия</span>
+			<Link to='/settings' className='profile-data'>
+				<div className={'item' + (profileData.gender ? ' active' : '')}>{profileData.gender || 'Пол'}</div>
+				<div className={'item' + (profileData.age ? ' active' : '')}>{profileData.age || 'Возраст'}</div>
+				<div className='item item-center active'>
+					{profileData.country.icon}
+					{/* <span>{profileData.country.value}</span> */}
 				</div>
-			</div>
+			</Link>
 			<div className='info'>
 				<div className='item'>
 					<HistoryIcon />

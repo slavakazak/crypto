@@ -8,45 +8,38 @@
 	box-sizing: border-box;
 	background: $bg;
 
-	.top-menu {
-		height: 46px;
+	.profile {
+		background: $second;
+		height: 100%;
+		flex-grow: 1;
+		margin-right: 7px;
+		border-radius: $radius;
 		display: flex;
-		flex-shrink: 0;
-		gap: 8px;
+		align-items: center;
+		gap: 5px;
+		padding: 0 13px 0 10px;
+		cursor: pointer;
 
-		.profile {
-			background: $second;
-			height: 100%;
-			flex-grow: 1;
-			margin-right: 7px;
+		img {
+			width: 34px;
+			height: 34px;
 			border-radius: $radius;
-			display: flex;
-			align-items: center;
-			gap: 5px;
-			padding: 0 13px 0 10px;
-			cursor: pointer;
+			object-fit: cover;
+			object-position: center;
+		}
 
-			img {
-				width: 34px;
-				height: 34px;
-				border-radius: $radius;
-				object-fit: cover;
-				object-position: center;
-			}
+		span {
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 21.1px;
+			letter-spacing: -0.04em;
+			flex-grow: 1;
+		}
 
-			span {
-				font-size: 16px;
-				font-weight: 400;
-				line-height: 21.1px;
-				letter-spacing: -0.04em;
-				flex-grow: 1;
-			}
-
-			svg {
-				fill: #AEAEB0;
-				width: 11px;
-				height: 11px;
-			}
+		svg {
+			fill: $font;
+			width: 11px;
+			height: 11px;
 		}
 	}
 
@@ -285,7 +278,7 @@
 			}
 
 			p {
-				color: $third-font;
+				color: $second-font;
 				font-size: 14px;
 				font-weight: 400;
 				letter-spacing: -0.42px;

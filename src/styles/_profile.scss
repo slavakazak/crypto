@@ -3,11 +3,11 @@
 	padding: 18px 15px 15px 15px;
 
 	.top-menu {
-		height: 46px;
-		display: flex;
-		gap: 8px;
-		align-items: center;
 		margin-bottom: 2px;
+
+		.back {
+			margin-right: auto;
+		}
 	}
 
 	.profile-card {
@@ -22,6 +22,7 @@
 			border-radius: 50%;
 			cursor: pointer;
 			position: relative;
+			flex-shrink: 0;
 
 			img {
 				width: 100%;
@@ -42,7 +43,7 @@
 				align-items: center;
 				justify-content: center;
 				border-radius: 8px;
-				background: #262626;
+				background: $third;
 				font-size: 16px;
 				font-weight: 500;
 				letter-spacing: -0.64px;
@@ -52,12 +53,16 @@
 		.name-container {
 			flex-grow: 1;
 			padding-right: 15px;
+			cursor: pointer;
 
 			.row {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
-				cursor: pointer;
+
+				svg {
+					flex-shrink: 0;
+				}
 			}
 
 			.nickname {
@@ -72,39 +77,6 @@
 				font-size: 12px;
 				font-weight: 400;
 				letter-spacing: -0.24px;
-			}
-		}
-	}
-
-	.profile-data {
-		display: flex;
-		align-items: center;
-		height: 48px;
-		gap: 12px;
-		margin-bottom: 12px;
-
-		.item {
-			border-radius: $radius;
-			background: $gradient;
-			display: flex;
-			align-items: center;
-			padding: 0 16px;
-			color: $second-font;
-			font-size: 12px;
-			font-weight: 400;
-			letter-spacing: -0.24px;
-			height: 100%;
-			width: 33%;
-			cursor: pointer;
-
-			svg {
-				margin-left: -6px;
-				margin-right: 6px;
-			}
-
-			&.active {
-				color: $font;
-				font-weight: 500;
 			}
 		}
 	}

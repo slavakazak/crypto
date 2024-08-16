@@ -5,7 +5,7 @@
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
-	border-top: 1px solid #2D2D2D;
+	border-top: 1px solid $border;
 }
 
 .menu-item {
@@ -24,11 +24,16 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-	}
 
-	svg {
-		fill: $font;
-		transition-duration: 0.2s;
+		svg {
+			fill: $font;
+			transition-duration: 0.2s;
+		}
+
+		&.icon-workshop svg {
+			stroke: $font;
+			fill: transparent;
+		}
 	}
 
 	.label, .label:active {
@@ -51,8 +56,15 @@
 	}
 
 	&.active {
-		svg {
-			fill: $accent;
+		.icon-container {
+			svg {
+				fill: $accent;
+			}
+
+			&.icon-workshop svg {
+				stroke: $accent;
+				fill: transparent;
+			}
 		}
 
 		.label, .label:active {
@@ -64,14 +76,4 @@
 			margin-left: -10px;
 		}
 	}
-}
-
-.menu-workshop svg {
-	stroke: $font;
-	fill: transparent;
-}
-
-.menu-workshop.active svg {
-	stroke: $accent;
-	fill: transparent;
 }
