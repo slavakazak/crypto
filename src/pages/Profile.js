@@ -43,7 +43,7 @@ export default function Profile({ profileData, username, setUsername }) {
 				</div>
 			</div>
 			<Link to='/settings' className='profile-data'>
-				<div className={'item' + (profileData.gender ? ' active' : '')}>{profileData.gender || 'Пол'}</div>
+				<div className={'item' + (profileData.gender ? ' active' : '')}>{profileData.gender.value || 'Пол'}</div>
 				<div className={'item' + (profileData.age ? ' active' : '')}>{profileData.age || 'Возраст'}</div>
 				<div className='item item-center active'>
 					{profileData.country.icon}

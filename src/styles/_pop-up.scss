@@ -111,7 +111,7 @@
 		text-align: center;
 	}
 
-	.title {
+	.description {
 		color: $second-font;
 		font-size: 14px;
 		font-weight: 400;
@@ -121,11 +121,11 @@
 	}
 
 	.search {
-		height: 46px;
+		height: $block-height;
 		border-radius: $radius;
 		border: 1px solid $border;
 		margin-bottom: 32px;
-		line-height: 46px;
+		line-height: $block-height;
 		padding: 0 15px;
 		font-size: 12px;
 		font-weight: 500;
@@ -144,7 +144,7 @@
 			border: 1px solid $border;
 			display: flex;
 			flex-shrink: 0;
-			height: 46px;
+			height: $block-height;
 			border-radius: $radius;
 			padding: 0 11px;
 			align-items: center;
@@ -176,6 +176,17 @@
 			&.active .ok {
 				opacity: 1;
 			}
+		}
+
+		input {
+			height: $block-height;
+			border-radius: $radius;
+			border: 1px solid $border;
+			padding: 0 19px;
+			line-height: $block-height;
+			font-size: 12px;
+			font-weight: 400;
+			letter-spacing: -0.24px;
 		}
 	}
 }

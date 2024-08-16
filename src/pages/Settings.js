@@ -1,8 +1,10 @@
 import Back from "../components/Back"
 import { useState } from "react"
-import { CrossIcon, MenIcon, OkIcon, WomenIcon } from "../components/Icons"
+import { EyeCrossedIcon, MenIcon, SettingsIcon, WomenIcon } from "../components/Icons"
 import showMessage from "../utils/showMessage"
 import SaveRow from "../components/SaveRow"
+import PopUp from "../components/PopUp"
+import Option from "../components/Option"
 
 export default function Settings({ profileData, setProfileData, setUsername, countries, tg }) {
 	const genders = [
@@ -21,35 +23,40 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 	const [fullName, setFullName] = useState(profileData.fullName)
 	const [mail, setMail] = useState(profileData.mail)
 
-	const [popUpGender, setPopUpGender] = useState(false)
-	const [genderAnimation, setGenderAnimation] = useState(false)
 	const [gender, setGender] = useState(profileData.gender)
+	const [popUpGender, setPopUpGender] = useState(false)
 
 	const [age, setAge] = useState(profileData.age)
 
-	const [popUpCountry, setPopUpCountry] = useState(false)
-	const [countryAnimation, setCountryAnimation] = useState(false)
 	const [country, setCountry] = useState(profileData.country)
+	const [popUpCountry, setPopUpCountry] = useState(false)
 	const [countrySearch, setCountrySearch] = useState('')
 
 	const [login, setLogin] = useState(profileData.login)
 
 	const [password, setPassword] = useState(profileData.password)
+	const [popUpSeePassword, setPopUpSeePassword] = useState(false)
+	const [pinToSeePassword, setPinToSeePassword] = useState('')
+	const [seePassword, setSeePassword] = useState(false)
+
+	const [popUpChangePassword, setPopUpChangePassword] = useState(false)
+	const [currentPassword, setCurrentPassword] = useState('')
+	const [newPassword, setNewPassword] = useState('')
+	const [pinToChangePassword, setPinToChangePassword] = useState('')
+
 	const [pin, setPin] = useState(profileData.pin)
+	const [popUpChangePin, setPopUpChangePin] = useState(false)
+	const [currentPin, setCurrentPin] = useState('')
+	const [newPin, setNewPin] = useState('')
 
 	const [wallet, setWallet] = useState(profileData.wallet)
 
-	function nickChangeHandler(e) {
-		setNickname(e.target.value)
-		setFormChanged(true)
-	}
-	function fullNameChangeHandler(e) {
-		setFullName(e.target.value)
-		setFormChanged(true)
-	}
-	function mailChangeHandler(e) {
-		setMail(e.target.value)
-		setFormChanged(true)
+	//обработчики ввода полей
+	function handler(setter, number = false) {
+		return e => {
+			setter(e.target.value)
+			setFormChanged(true)
+		}
 	}
 	function ageChangeHandler(e) {
 		if (Number.isInteger(+e.target.value)) {
@@ -57,56 +64,135 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 			setFormChanged(true)
 		}
 	}
-	function loginChangeHandler(e) {
-		setLogin(e.target.value)
-		setFormChanged(true)
-	}
-	function passwordChangeHandler(e) {
-		setPassword(e.target.value)
-		setFormChanged(true)
-	}
-	function pinChangeHandler(e) {
-		setPin(e.target.value)
-		setFormChanged(true)
-	}
-	function walletChangeHandler(e) {
-		setWallet(e.target.value)
-		setFormChanged(true)
-	}
 
+	//всплывающее окно смены пола
 	function genderClickHandler() {
 		setPopUpGender(true)
-		setGenderAnimation(true)
 	}
-
 	function genderCancelClickHandler() {
 		setGender(profileData.gender)
 		setPopUpGender(false)
 	}
-
 	function genderSaveClickHandler() {
 		if (gender === profileData.gender) return
 		setProfileData(previous => ({ ...previous, gender }))
 		setPopUpGender(false)
 	}
 
+	//всплывающее окно смены страны
 	function countryClickHandler() {
 		setPopUpCountry(true)
-		setCountryAnimation(true)
 	}
-
 	function countryCancelClickHandler() {
 		setCountry(profileData.country)
 		setCountrySearch('')
 		setPopUpCountry(false)
 	}
-
 	function countrySaveClickHandler() {
 		if (country.value === profileData.country.value) return
 		setProfileData(previous => ({ ...previous, country }))
 		setPopUpCountry(false)
 	}
 
+	//всплывающее окно просмотра пароля
+	function seePasswordClickHandler() {
+		if (seePassword) {
+			setSeePassword(false)
+			return
+		}
+		if (!password) {
+			showMessage(tg, 'Введите пароль!')
+			return
+		}
+		if (!profileData.pin) {
+			showMessage(tg, 'Установите PIN!')
+			return
+		}
+		setPopUpSeePassword(true)
+	}
+	function seePasswordCancelClickHandler() {
+		setPinToSeePassword('')
+		setPopUpSeePassword(false)
+	}
+	function seePasswordSaveClickHandler() {
+		setPinToSeePassword('')
+		setPopUpSeePassword(false)
+		if (pinToSeePassword !== profileData.pin) {
+			showMessage(tg, 'Неверный PIN!')
+			return
+		}
+		setSeePassword(true)
+	}
+
+	//всплывающее окно смены пароля
+	function changePasswordClickHandler() {
+		if (!profileData.password) {
+			showMessage(tg, 'Установите пароль!')
+			return
+		}
+		if (!profileData.pin) {
+			showMessage(tg, 'Установите PIN!')
+			return
+		}
+		setPopUpChangePassword(true)
+	}
+	function changePasswordCancelClickHandler() {
+		setCurrentPassword('')
+		setNewPassword('')
+		setPinToChangePassword('')
+		setPopUpChangePassword(false)
+	}
+	function changePasswordSaveClickHandler() {
+		setCurrentPassword('')
+		setNewPassword('')
+		setPinToChangePassword('')
+		setPopUpChangePassword(false)
+		if (profileData.password !== currentPassword) {
+			showMessage(tg, 'Неверный пароль!')
+			return
+		}
+		if (newPassword.includes(' ')) {
+			showMessage(tg, 'Пароль не должен содержать пробелы!')
+			return
+		}
+		if (profileData.pin !== pinToChangePassword) {
+			showMessage(tg, 'Неверный PIN!')
+			return
+		}
+		setPassword(newPassword)
+		setProfileData(previous => ({ ...previous, password: newPassword }))
+	}
+
+	//всплывающее окно смены PIN
+	function changePinClickHandler() {
+		if (!profileData.pin) {
+			showMessage(tg, 'Установите PIN!')
+			return
+		}
+		setPopUpChangePin(true)
+	}
+	function changePinCancelClickHandler() {
+		setCurrentPin('')
+		setNewPin('')
+		setPopUpChangePin(false)
+	}
+	function changePinSaveClickHandler() {
+		setCurrentPin('')
+		setNewPin('')
+		setPopUpChangePin(false)
+		if (profileData.pin !== currentPin) {
+			showMessage(tg, 'Неверный PIN!')
+			return
+		}
+		if (newPin.includes(' ')) {
+			showMessage(tg, 'Pin не должен содержать пробелы!')
+			return
+		}
+		setPin(newPin)
+		setProfileData(previous => ({ ...previous, pin: newPin }))
+	}
+
+	//отменить изменения
 	function cancelClickHandler(e) {
 		setNickname(profileData.nickname)
 		setFullName(profileData.fullName)
@@ -119,6 +205,7 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 		setFormChanged(false)
 	}
 
+	//сохранить изменения
 	function saveClickHandler(e) {
 		if (!formChanged) return
 		if (!nickname.trim()) {
@@ -150,7 +237,7 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 			showMessage(tg, 'Pin не должен содержать пробелы!')
 			return
 		}
-		if (wallet.slice(0, 2) !== '0x' || wallet.includes(' ')) {
+		if (wallet && (wallet.slice(0, 2) !== '0x' || wallet.includes(' '))) {
 			showMessage(tg, 'Неверный адрес кошелька!')
 			return
 		}
@@ -183,11 +270,11 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 				</div>
 				<div className="form-section">
 					<div className="label">Личные данные</div>
-					<input placeholder="Nickname" className="input" value={nickname} onChange={nickChangeHandler} />
-					<input placeholder="Иванов Иван Иванович" className="input" value={fullName} onChange={fullNameChangeHandler} />
-					<input placeholder="Ваша почта" type='email' className="input" value={mail} onChange={mailChangeHandler} />
+					<input placeholder="Nickname" className="input" value={nickname} onChange={handler(setNickname)} />
+					<input placeholder="Иванов Иван Иванович" className="input" value={fullName} onChange={handler(setFullName)} />
+					<input placeholder="Ваша почта" type='email' className="input" value={mail} onChange={handler(setMail)} />
 					<div className='profile-data'>
-						<div className={'item' + (profileData.gender ? ' active' : '')} onClick={genderClickHandler}>{profileData.gender || 'Пол'}</div>
+						<div className={'item' + (profileData.gender ? ' active' : '')} onClick={genderClickHandler}>{profileData.gender.value || 'Пол'}</div>
 						<input className='item' placeholder="Возраст" value={age} onChange={ageChangeHandler} />
 						<div className='item item-center active' onClick={countryClickHandler}>
 							{profileData.country.icon}
@@ -197,54 +284,97 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 				</div>
 				<div className="form-section">
 					<div className="label">Данные входа</div>
-					<input placeholder="Логин" className="input" value={login} onChange={loginChangeHandler} />
-					<input placeholder="Пароль" className="input" type="password" value={password} onChange={passwordChangeHandler} />
-					<input placeholder="Pin (требуется для проверки операций)" type="password" className="input" value={pin} onChange={pinChangeHandler} />
+					<input placeholder="Логин" className="input" value={login} onChange={handler(setLogin)} />
+					<div className="input-container">
+						<input placeholder="Пароль" className={'input' + (profileData.password ? ' password' : '')} readOnly={profileData.password !== ''} type={seePassword ? 'text' : 'password'} value={password} onChange={handler(setPassword)} />
+						{profileData.password && <>
+							<div className={'eye' + (seePassword ? ' active' : '')} onClick={seePasswordClickHandler}><EyeCrossedIcon /></div>
+							<div className="settings" onClick={changePasswordClickHandler}><SettingsIcon /></div>
+						</>}
+					</div>
+					<div className="input-container">
+						<input placeholder="Pin (требуется для проверки операций)" className={'input' + (profileData.pin ? ' pin' : '')} readOnly={profileData.pin !== ''} type="password" value={pin} onChange={handler(setPin)} />
+						{profileData.pin && <div className="settings" onClick={changePinClickHandler}><SettingsIcon /></div>}
+					</div>
 				</div>
 				<div className="form-section">
 					<div className="label">Финансовые данные</div>
-					<input placeholder="Адрес кошелька USDT в сети BEP20" className="input" value={wallet} onChange={walletChangeHandler} />
+					<input placeholder="Адрес кошелька USDT в сети BEP20" className="input" value={wallet} onChange={handler(setWallet)} />
 				</div>
-				<SaveRow onCancel={cancelClickHandler} onSave={saveClickHandler} isActive={formChanged} />
+				<SaveRow onCancel={cancelClickHandler} onSave={saveClickHandler} active={formChanged} />
 			</div>
-			<div className={"pop-up-wrapper" + (popUpGender ? ' active' : '') + (genderAnimation ? ' animate' : '')} onClick={() => setPopUpGender(false)}>
-				<div className="pop-up" onClick={e => e.stopPropagation()}>
-					<h2>Редактировать пол</h2>
-					<p className="title">Выберите свой пол</p>
-					<div className="select">
-						{genders.map((item, i) => (
-							<div key={i} className={"option" + (gender === item.value ? ' active' : '')} onClick={() => setGender(item.value)}>
-								{item.icon}
-								<span>{item.value}</span>
-								<OkIcon />
-							</div>
-						))}
-					</div>
-					<SaveRow onCancel={genderCancelClickHandler} onSave={genderSaveClickHandler} isActive={gender !== profileData.gender} />
-				</div>
-			</div>
-			<div className={"pop-up-wrapper" + (popUpCountry ? ' active' : '') + (countryAnimation ? ' animate' : '')} onClick={() => setPopUpCountry(false)}>
-				<div className="pop-up pop-up-full" onClick={e => e.stopPropagation()}>
-					<div className="cross" onClick={() => setPopUpCountry(false)}>
-						<CrossIcon />
-					</div>
-					<div className="pop-up-head">
-						<h2>Выберите страну</h2>
-						<p className="title">Выберите свою страну</p>
-					</div>
-					<input placeholder="Поиск" className="search" value={countrySearch} onChange={e => setCountrySearch(e.target.value)} />
-					<div className="select">
-						{countries.filter(item => item.value.toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
-							<div key={i} className={"option" + (country.value === item.value ? ' active' : '')} onClick={() => setCountry(item)}>
-								{item.icon}
-								<span>{item.value}</span>
-								<OkIcon />
-							</div>
-						))}
-					</div>
-					<SaveRow onCancel={countryCancelClickHandler} onSave={countrySaveClickHandler} isActive={country.value !== profileData.country.value} />
-				</div>
-			</div>
+
+			<PopUp
+				active={popUpGender}
+				setActive={setPopUpGender}
+				title='Редактировать пол'
+				description='Выберите свой пол'
+				onCancel={genderCancelClickHandler}
+				onSave={genderSaveClickHandler}
+				saveActive={gender !== profileData.gender}
+			>
+				{genders.map((item, i) => (
+					<Option key={i} item={item} selected={gender} setSelected={setGender} />
+				))}
+			</PopUp>
+
+			<PopUp
+				active={popUpCountry}
+				setActive={setPopUpCountry}
+				title='Выберите страну'
+				description='Выберите свою страну'
+				onCancel={countryCancelClickHandler}
+				onSave={countrySaveClickHandler}
+				saveActive={country.value !== profileData.country.value}
+				full={true}
+				search={countrySearch}
+				setSearch={setCountrySearch}
+			>
+				{countries.filter(item => item.value.toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
+					<Option key={i} item={item} selected={country} setSelected={setCountry} />
+				))}
+			</PopUp>
+
+			<PopUp
+				active={popUpSeePassword}
+				setActive={setPopUpSeePassword}
+				title='Введите PIN'
+				description='Введите свой PIN для просмотра пароля'
+				onCancel={seePasswordCancelClickHandler}
+				onSave={seePasswordSaveClickHandler}
+				saveActive={pinToSeePassword}
+				saveText="подтвердить"
+			>
+				<input placeholder="PIN" type="password" value={pinToSeePassword} onChange={e => setPinToSeePassword(e.target.value)} />
+			</PopUp>
+
+			<PopUp
+				active={popUpChangePassword}
+				setActive={setPopUpChangePassword}
+				title='Смена пароля'
+				description='Введите данные ниже для смены'
+				onCancel={changePasswordCancelClickHandler}
+				onSave={changePasswordSaveClickHandler}
+				saveActive={currentPassword && newPassword && pinToChangePassword}
+			>
+				<input placeholder="Текущий пароль" type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
+				<input placeholder="Новый пароль" type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+				<input placeholder="PIN" type="password" value={pinToChangePassword} onChange={e => setPinToChangePassword(e.target.value)} />
+			</PopUp>
+
+			<PopUp
+				active={popUpChangePin}
+				setActive={setPopUpChangePin}
+				title='Смена PIN'
+				description='Введите данные ниже для смены'
+				onCancel={changePinCancelClickHandler}
+				onSave={changePinSaveClickHandler}
+				saveActive={currentPin && newPin}
+			>
+				<input placeholder="Текущий PIN" type="password" value={currentPin} onChange={e => setCurrentPin(e.target.value)} />
+				<input placeholder="Новый PIN" type="password" value={newPin} onChange={e => setNewPin(e.target.value)} />
+			</PopUp>
+
 		</>
 	)
 }
