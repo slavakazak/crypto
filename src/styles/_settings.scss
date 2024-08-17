@@ -27,12 +27,12 @@
 		margin-bottom: 12px;
 		background: $gradient;
 		border-radius: $radius;
-		padding: 0 19px;
 		line-height: $block-height;
 		color: $font;
 		font-size: 12px;
 		font-weight: 500;
 		letter-spacing: -0.24px;
+		padding: 0 19px;
 
 		&.password {
 			padding: 0 85px 0 19px;
@@ -62,14 +62,36 @@
 		}
 
 		.eye {
-			right: 40px;
-
 			svg {
 				fill: $second-font;
 			}
 
 			&.active svg {
 				fill: $font;
+			}
+		}
+
+		.input {
+			padding: 0 19px;
+		}
+
+		&.one-icon {
+			.input {
+				padding: 0 59px 0 19px;
+			}
+
+			.eye {
+				right: 14px;
+			}
+		}
+
+		&.two-icon {
+			.input {
+				padding: 0 85px 0 19px;
+			}
+
+			.eye {
+				right: 40px;
 			}
 		}
 	}

@@ -11,6 +11,7 @@ import Settings from "../pages/Settings"
 import { FlagRusIcon } from "./Icons"
 import afghanistan from '../img/afghanistan.png'
 import albania from '../img/albania.png'
+import createUserInWordpress from "../utils/createUserInWordpress"
 
 export default function App() {
 	const countries = [
@@ -33,22 +34,22 @@ export default function App() {
 	]
 
 	const [profileData, setProfileData] = useState({
-		nickname: 'Trofi2222',
+		nickname: 'noname',
 		fullName: '',
 		mail: '',
 		gender: '',
 		age: '',
 		country: countries[0],
-		login: 'Trofi2222',
-		password: '',
+		login: 'noname',
+		password: '1234',
+		passwordChanged: false,
 		pin: '',
 		wallet: ''
 	})
 	const [tg, setTg] = useState()
-	const [username, setUsername] = useState('Trofi2222')
+	const [username, setUsername] = useState('noname')
 
 	useEffect(() => {
-		console.log('useTelegram')
 		function initTg() {
 			if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
 				console.log('Telegram WebApp is set')
@@ -59,6 +60,13 @@ export default function App() {
 				tgData.setBackgroundColor('#111')
 				tgData.disableVerticalSwipes()
 				tgData.expand()
+
+				if (tgData && tgData.initDataUnsafe && tgData.initDataUnsafe.user) {
+					const user = tgData.initDataUnsafe.user
+					createUserInWordpress(user, setProfileData, setUsername)
+				} else {
+					console.log('Телеграм не запущен!')
+				}
 			} else {
 				console.log('Telegram WebApp is undefined, retrying…')
 				setTimeout(initTg, 500)

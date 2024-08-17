@@ -52,7 +52,7 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 	const [wallet, setWallet] = useState(profileData.wallet)
 
 	//обработчики ввода полей
-	function handler(setter, number = false) {
+	function handler(setter) {
 		return e => {
 			setter(e.target.value)
 			setFormChanged(true)
@@ -96,6 +96,10 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 
 	//всплывающее окно просмотра пароля
 	function seePasswordClickHandler() {
+		if (!profileData.passwordChanged) {
+			setSeePassword(previous => !previous)
+			return
+		}
 		if (seePassword) {
 			setSeePassword(false)
 			return
@@ -229,6 +233,10 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 			showMessage(tg, 'Логин занят!')
 			return
 		}
+		if (password.trim() === '') {
+			showMessage(tg, 'Пароль не должен быть пустым!')
+			return
+		}
 		if (password.includes(' ')) {
 			showMessage(tg, 'Пароль не должен содержать пробелы!')
 			return
@@ -242,6 +250,8 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 			return
 		}
 
+		const passwordChanged = profileData.passwordChanged || profileData.password !== password
+
 		setProfileData(previous => ({
 			...previous,
 			nickname: nickname.trim(),
@@ -250,6 +260,7 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 			age,
 			login: login.trim(),
 			password,
+			passwordChanged,
 			pin,
 			wallet
 		}))
@@ -285,15 +296,13 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 				<div className="form-section">
 					<div className="label">Данные входа</div>
 					<input placeholder="Логин" className="input" value={login} onChange={handler(setLogin)} />
-					<div className="input-container">
-						<input placeholder="Пароль" className={'input' + (profileData.password ? ' password' : '')} readOnly={profileData.password !== ''} type={seePassword ? 'text' : 'password'} value={password} onChange={handler(setPassword)} />
-						{profileData.password && <>
-							<div className={'eye' + (seePassword ? ' active' : '')} onClick={seePasswordClickHandler}><EyeCrossedIcon /></div>
-							<div className="settings" onClick={changePasswordClickHandler}><SettingsIcon /></div>
-						</>}
+					<div className={'input-container' + (profileData.passwordChanged ? ' two-icon' : ' one-icon')}>
+						<input placeholder="Пароль" className='input' readOnly={profileData.passwordChanged} type={seePassword ? 'text' : 'password'} value={password} onChange={handler(setPassword)} />
+						<div className={'eye' + (seePassword ? ' active' : '')} onClick={seePasswordClickHandler}><EyeCrossedIcon /></div>
+						{profileData.passwordChanged && <div className="settings" onClick={changePasswordClickHandler}><SettingsIcon /></div>}
 					</div>
-					<div className="input-container">
-						<input placeholder="Pin (требуется для проверки операций)" className={'input' + (profileData.pin ? ' pin' : '')} readOnly={profileData.pin !== ''} type="password" value={pin} onChange={handler(setPin)} />
+					<div className={'input-container' + (profileData.pin ? ' one-icon' : '')}>
+						<input placeholder="Pin (требуется для проверки операций)" className='input' readOnly={profileData.pin !== ''} type="password" value={pin} onChange={handler(setPin)} />
 						{profileData.pin && <div className="settings" onClick={changePinClickHandler}><SettingsIcon /></div>}
 					</div>
 				</div>
