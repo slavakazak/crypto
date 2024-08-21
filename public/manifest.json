@@ -1,6 +1,6 @@
 {
-	"short_name": "App",
-	"name": "Telegram mini app",
+	"short_name": "K2",
+	"name": "K2",
 	"icons": [
 		{
 			"src": "favicon.ico",
@@ -20,6 +20,6 @@
 	],
 	"start_url": ".",
 	"display": "standalone",
-	"theme_color": "#000000",
-	"background_color": "#ffffff"
+	"theme_color": "#111",
+	"background_color": "#111"
 }

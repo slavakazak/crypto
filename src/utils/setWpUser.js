@@ -12,7 +12,7 @@ export default async function setWpUser(user, setProfileData, setWpId) {
 			nickname: meta.t_nickname || previous.nickname,
 			fullName: meta.t_full_name || previous.fullName,
 			username: meta.t_username || previous.username,
-			mail: wpUser.email || previous.email,
+			email: wpUser.email || previous.email,
 			gender: genders.find(gender => gender.value === meta.t_gender) || previous.gender,
 			age: meta.t_age || previous.age,
 			country: countries.find(country => country.value === meta.t_country) || previous.country,

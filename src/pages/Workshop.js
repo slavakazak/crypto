@@ -1,47 +1,69 @@
-import { useEffect, useState } from 'react'
-import axios from "axios"
+import axios from 'axios'
+import showMessage from '../utils/showMessage'
+const url = process.env.REACT_APP_SITE_URL
+const consumerKey = process.env.REACT_APP_CONSUMER_KEY
+const consumerSecret = process.env.REACT_APP_CONSUMER_SECRET
 
-export default function Workshop({ tg }) {
-	const [posts, setPosts] = useState([]);
-
-	const fetchPosts = () => {
-		axios
-			.get("https://k2-bot.com/wp-json/wp/v2/posts")
-			.then((res) => {
-				setPosts(res.data);
-			});
+export default function Workshop({ profileData, wpId, tg }) {
+	// Данные заказа
+	const orderData = {
+		customer_id: wpId,
+		payment_method: "bacs",
+		payment_method_title: "Direct Bank Transfer",
+		set_paid: true,
+		billing: {
+			first_name: profileData.fullName,
+			email: profileData.email
+		},
+		line_items: [
+			{
+				product_id: 16,
+				quantity: 1
+			}
+		]
 	}
 
-	useEffect(() => {
-		fetchPosts()
-	}, [])
+	// Функция для создания заказа
+	async function createOrder(orderData) {
+		try {
+			const response = await axios.post(`${url}/wp-json/wc/v3/orders`, orderData, {
+				auth: { username: consumerKey, password: consumerSecret },
+				headers: { 'Content-Type': 'application/json' }
+			})
+			console.log('Order created:', response.data)
+			return response.data
+		} catch (error) {
+			console.error('Error creating order:', error.response ? error.response.data : error.message)
+		}
+	}
 
+	// Данные для обновления статуса заказа
+	const updateData = { status: 'completed' }
+
+	// Функция для обновления статуса заказа
+	async function updateOrderStatus(orderId, updateData) {
+		try {
+			const response = await axios.put(`${url}/wp-json/wc/v3/orders/${orderId}`, updateData, {
+				auth: { username: consumerKey, password: consumerSecret },
+				headers: { 'Content-Type': 'application/json' }
+			})
+			console.log('Order updated:', response.data)
+			return response.data
+		} catch (error) {
+			console.error('Error updating order status:', error.response ? error.response.data : error.message)
+		}
+	}
+
+	async function buyClickHandler() {
+		const order = await createOrder(orderData)
+		await updateOrderStatus(order.id, updateData)
+		showMessage(tg, 'Заказ создан!')
+	}
 
 	return (
 		<div id="workshop">
 			<div>Workshop</div>
-			<hr />
-			<div className='init-data'>id*: {tg.initDataUnsafe.user.id}</div>
-			<hr />
-			<div className='init-data'>is_bot: {tg.initDataUnsafe.user.is_bot}</div>
-			<hr />
-			<div className='init-data'>first_name*: {tg.initDataUnsafe.user.first_name}</div>
-			<hr />
-			<div className='init-data'>last_name: {tg.initDataUnsafe.user.last_name}</div>
-			<hr />
-			<div className='init-data'>username: {tg.initDataUnsafe.user.username}</div>
-			<hr />
-			<div className='init-data'>language_code: {tg.initDataUnsafe.user.language_code}</div>
-			<hr />
-			<div className='init-data'>is_premium: {tg.initDataUnsafe.user.is_premium}</div>
-			<hr />
-			<div className='init-data'>allows_write_to_pm: {tg.initDataUnsafe.user.allows_write_to_pm}</div>
-			<hr />
-			<div className='init-data'>photo_url: {tg.initDataUnsafe.user.photo_url}</div>
-			<hr />
-			{posts.map((post, i) => (
-				<div key={i}>{post.title.rendered}</div>
-			))}
+			<div className='buy' onClick={buyClickHandler}>Создать заказ</div>
 		</div>
 	)
 }

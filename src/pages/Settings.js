@@ -1,5 +1,5 @@
 import Back from "../components/Back"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { EyeCrossedIcon, SettingsIcon } from "../components/Icons"
 import showMessage from "../utils/showMessage"
 import SaveRow from "../components/SaveRow"
@@ -7,11 +7,11 @@ import PopUp from "../components/PopUp"
 import Option from "../components/Option"
 import { genders, countries } from "../utils/constants"
 
-export default function Settings({ profileData, setData, tg }) {
+export default function Settings({ profileData, setData, tg, wpId }) {
 	const [formChanged, setFormChanged] = useState(false)
 	const [nickname, setNickname] = useState(profileData.nickname)
 	const [fullName, setFullName] = useState(profileData.fullName)
-	const [mail, setMail] = useState(profileData.mail)
+	const [email, setEmail] = useState(profileData.email)
 
 	const [gender, setGender] = useState(profileData.gender)
 	const [popUpGender, setPopUpGender] = useState(false)
@@ -40,6 +40,19 @@ export default function Settings({ profileData, setData, tg }) {
 	const [newPin, setNewPin] = useState('')
 
 	const [wallet, setWallet] = useState(profileData.wallet)
+
+	useEffect(() => {
+		setNickname(profileData.nickname)
+		setFullName(profileData.fullName)
+		setEmail(profileData.email)
+		setGender(profileData.gender)
+		setAge(profileData.age)
+		setCountry(profileData.country)
+		setLogin(profileData.login)
+		setPassword(profileData.password)
+		setPin(profileData.pin)
+		setWallet(profileData.wallet)
+	}, [wpId])
 
 	//обработчики ввода полей
 	function handler(setter) {
@@ -190,7 +203,7 @@ export default function Settings({ profileData, setData, tg }) {
 	function cancelClickHandler(e) {
 		setNickname(profileData.nickname)
 		setFullName(profileData.fullName)
-		setMail(profileData.mail)
+		setEmail(profileData.email)
 		setAge(profileData.age)
 		setLogin(profileData.login)
 		setPassword(profileData.password)
@@ -207,7 +220,7 @@ export default function Settings({ profileData, setData, tg }) {
 			return
 		}
 		const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu
-		if (mail.trim() && !EMAIL_REGEXP.test(mail.trim())) {
+		if (email.trim() && !EMAIL_REGEXP.test(email.trim())) {
 			showMessage(tg, 'Неверный email!')
 			return
 		}
@@ -251,7 +264,7 @@ export default function Settings({ profileData, setData, tg }) {
 			nickname: nickname.trim(),
 			fullName: fullName.trim(),
 			username: newUsername,
-			mail: mail.trim(),
+			email: email.trim(),
 			age,
 			login: login.trim(),
 			password,
@@ -274,7 +287,7 @@ export default function Settings({ profileData, setData, tg }) {
 					<div className="label">Личные данные</div>
 					<input placeholder="Nickname" className="input" value={nickname} onChange={handler(setNickname)} />
 					<input placeholder="Иванов Иван Иванович" className="input" value={fullName} onChange={handler(setFullName)} />
-					<input placeholder="Ваша почта" type='email' className="input" value={mail} onChange={handler(setMail)} />
+					<input placeholder="Ваша почта" type='email' className="input" value={email} onChange={handler(setEmail)} />
 					<div className='profile-data'>
 						<div className={'item' + (profileData.gender ? ' active' : '')} onClick={genderClickHandler}>{profileData.gender.value || 'Пол'}</div>
 						<input className='item' placeholder="Возраст" value={age || ''} onChange={ageChangeHandler} />
