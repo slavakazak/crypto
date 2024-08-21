@@ -4,13 +4,13 @@ import Back from "../components/Back"
 import { TelegramIcon, EditIcon, EyeActiveIcon, EyeInactiveIcon, HistoryIcon, RightArrowIcon, BookIcon, QuestionIcon, SupportIcon } from "../components/Icons"
 import { Link } from 'react-router-dom'
 
-export default function Profile({ profileData, username, setUsername }) {
+export default function Profile({ profileData, setData }) {
 
 	function nameClickHandler() {
-		if (profileData.fullName && username === profileData.nickname) {
-			setUsername(profileData.fullName)
+		if (profileData.fullName && profileData.username === profileData.nickname) {
+			setData({ username: profileData.fullName })
 		} else {
-			setUsername(profileData.nickname)
+			setData({ username: profileData.nickname })
 		}
 	}
 
@@ -27,16 +27,16 @@ export default function Profile({ profileData, username, setUsername }) {
 			</div>
 			<div className="profile-card">
 				<div className="avatar">
-					<img src={robot} alt={username} />
+					<img src={robot} alt={profileData.username} />
 				</div>
 				<div className='name-container' onClick={nameClickHandler}>
 					<div className='row nickname'>
-						<span>{username}</span>
+						<span>{profileData.username}</span>
 						{profileData.fullName && <EyeActiveIcon />}
 					</div>
 					{profileData.fullName &&
 						<div className='row full-name'>
-							<span>{username === profileData.nickname ? profileData.fullName : profileData.nickname}</span>
+							<span>{profileData.username === profileData.nickname ? profileData.fullName : profileData.nickname}</span>
 							<EyeInactiveIcon />
 						</div>
 					}

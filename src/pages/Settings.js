@@ -6,7 +6,7 @@ import SaveRow from "../components/SaveRow"
 import PopUp from "../components/PopUp"
 import Option from "../components/Option"
 
-export default function Settings({ profileData, setProfileData, setUsername, countries, tg }) {
+export default function Settings({ profileData, setData, countries, tg }) {
 	const genders = [
 		{
 			value: 'Мужчина',
@@ -75,7 +75,7 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 	}
 	function genderSaveClickHandler() {
 		if (gender === profileData.gender) return
-		setProfileData(previous => ({ ...previous, gender }))
+		setData({ gender })
 		setPopUpGender(false)
 	}
 
@@ -90,7 +90,7 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 	}
 	function countrySaveClickHandler() {
 		if (country.value === profileData.country.value) return
-		setProfileData(previous => ({ ...previous, country }))
+		setData({ country })
 		setPopUpCountry(false)
 	}
 
@@ -164,7 +164,7 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 			return
 		}
 		setPassword(newPassword)
-		setProfileData(previous => ({ ...previous, password: newPassword }))
+		setData({ password: newPassword })
 	}
 
 	//всплывающее окно смены PIN
@@ -193,7 +193,7 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 			return
 		}
 		setPin(newPin)
-		setProfileData(previous => ({ ...previous, pin: newPin }))
+		setData({ pin: newPin })
 	}
 
 	//отменить изменения
@@ -252,10 +252,15 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 
 		const passwordChanged = profileData.passwordChanged || profileData.password !== password
 
-		setProfileData(previous => ({
-			...previous,
+		let newUsername = nickname.trim()
+		if (profileData.username === profileData.fullName && fullName.trim()) {
+			newUsername = fullName.trim()
+		}
+
+		setData({
 			nickname: nickname.trim(),
 			fullName: fullName.trim(),
+			username: newUsername,
 			mail: mail.trim(),
 			age,
 			login: login.trim(),
@@ -263,11 +268,7 @@ export default function Settings({ profileData, setProfileData, setUsername, cou
 			passwordChanged,
 			pin,
 			wallet
-		}))
-
-		if (!fullName.trim()) {
-			setUsername(nickname.trim())
-		}
+		})
 
 		setFormChanged(false)
 	}

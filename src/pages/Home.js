@@ -5,7 +5,7 @@ import { CoinCryptoIcon, CoinDollarIcon, FlagRusIcon, MessagesIcon, QuestionIcon
 import Slider from "react-slick"
 import { Link } from 'react-router-dom'
 
-export default function Home({ username }) {
+export default function Home({ profileData }) {
 	const settingsCharacterSlider = {
 		dots: false,
 		infinite: true,
@@ -30,7 +30,7 @@ export default function Home({ username }) {
 			<div className="top-menu">
 				<Link to='/profile' className="profile">
 					<img src={logo} alt="K2" />
-					<span>{username}</span>
+					<span>{profileData.username}</span>
 					<RightArrowIcon />
 				</Link>
 				<div className="button">
@@ -73,8 +73,8 @@ export default function Home({ username }) {
 					</div>
 					<div className='character'>
 						<Slider {...settingsCharacterSlider}>
-							<img src={avatar} alt={username} />
-							<img src={avatar} alt={username} />
+							<img src={avatar} alt={profileData.username} />
+							<img src={avatar} alt={profileData.username} />
 						</Slider>
 					</div>
 					<div className='share'>
