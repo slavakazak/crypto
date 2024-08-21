@@ -1,4 +1,4 @@
-export default function generateSecurePassword(length) {
+export default function generatePassword(length) {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+"
 	let password = ""
 	const cryptoArray = new Uint32Array(length)

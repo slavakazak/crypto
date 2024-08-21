@@ -8,41 +8,18 @@ import Invite from "../pages/Invite"
 import Rating from "../pages/Rating"
 import Profile from "../pages/Profile"
 import Settings from "../pages/Settings"
-import { FlagRusIcon } from "./Icons"
-import afghanistan from '../img/afghanistan.png'
-import albania from '../img/albania.png'
-import createUserInWordpress from "../utils/createUserInWordpress"
-import axios from "axios"
-const adminUsername = process.env.REACT_APP_WP_ADMIN_USERNAME
-const adminPassword = process.env.REACT_APP_WP_ADMIN_PASSWORD
+import setWpUser from "../utils/setWpUser"
+import setWpFields from "../utils/setWpFields"
+import { countries } from "../utils/constants"
 
 export default function App() {
-	const countries = [
-		{
-			value: 'Россия',
-			icon: <FlagRusIcon />
-		},
-		{
-			value: 'Afghanistan',
-			icon: <img src={afghanistan} alt="Afghanistan" />
-		},
-		{
-			value: 'Albania',
-			icon: <img src={albania} alt="Albania" />
-		},
-		{
-			value: 'Algeria',
-			icon: <FlagRusIcon />
-		},
-	]
-
 	const [profileData, setProfileData] = useState({
 		nickname: '',
 		fullName: '',
 		username: '',
 		mail: '',
 		gender: '',
-		age: '',
+		age: 0,
 		country: countries[0],
 		login: '',
 		password: '',
@@ -54,20 +31,19 @@ export default function App() {
 	const [wpId, setWpId] = useState()
 
 	useEffect(() => {
-		function initTg() {
+		async function initTg() {
 			if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
 				console.log('Telegram WebApp is set')
 				const tgData = window.Telegram.WebApp
 				setTg(tgData)
-
 				tgData.setHeaderColor('#111')
 				tgData.setBackgroundColor('#111')
 				tgData.disableVerticalSwipes()
 				tgData.expand()
-
 				if (tgData && tgData.initDataUnsafe && tgData.initDataUnsafe.user) {
 					const user = tgData.initDataUnsafe.user
-					createUserInWordpress(user, setProfileData, setWpId)
+					const isWpSet = await setWpUser(user, setProfileData, setWpId)
+					if (!isWpSet) console.log('Ошибка входа в WordPress!')
 				} else {
 					console.log('Телеграм не запущен!')
 				}
@@ -82,42 +58,22 @@ export default function App() {
 	async function setData(data) {
 		setProfileData(previous => ({ ...previous, ...data }))
 		if (!wpId) return
-		try {
-			const tokenResponse = await axios.post('https://k2-bot.com/wp-json/jwt-auth/v1/token', {
-				username: adminUsername,
-				password: adminPassword
-			})
-			const token = tokenResponse.data.token
-			//обновление мета полей
-			await axios.post(`https://k2-bot.com/wp-json/wp/v2/users/${wpId}`,
-				{
-					meta: {
-						t_nickname: data.nickname || profileData.nickname,
-						t_full_name: data.fullName || profileData.fullName,
-						t_username: data.username || profileData.username,
-						t_gender: data.gender?.value || profileData.gender?.value,
-						t_age: +data.age || +profileData.age,
-						t_country: data.country?.value || profileData.country?.value,
-						t_login: data.login || profileData.login,
-						t_password: data.password || profileData.password,
-						t_password_changed: data.passwordChanged || profileData.passwordChanged,
-						t_pin: data.pin || profileData.pin,
-						t_wallet: data.wallet || profileData.wallet,
-					}
-				},
-				{ headers: { Authorization: `Bearer ${token}` } }
-			)
-			//изменение email
-			await axios.post(`https://k2-bot.com/wp-json/wp/v2/users/${wpId}`,
-				{
-					email: data.mail || profileData.mail,
-					password: data.password || profileData.password
-				},
-				{ headers: { Authorization: `Bearer ${token}` } }
-			)
-		} catch (error) {
-			console.error('Error creating user:', error.response?.data || error.message)
-		}
+		setWpFields(wpId, {
+			t_nickname: data.nickname || profileData.nickname,
+			t_full_name: data.fullName || profileData.fullName,
+			t_username: data.username || profileData.username,
+			t_gender: data.gender?.value || profileData.gender?.value,
+			t_age: +data.age || +profileData.age,
+			t_country: data.country?.value || profileData.country?.value,
+			t_login: data.login || profileData.login,
+			t_password: data.password || profileData.password,
+			t_password_changed: data.passwordChanged || profileData.passwordChanged,
+			t_pin: data.pin || profileData.pin,
+			t_wallet: data.wallet || profileData.wallet
+		},
+			data.mail || profileData.mail,
+			data.password || profileData.password
+		)
 	}
 
 	return (
@@ -130,7 +86,7 @@ export default function App() {
 					<Route path="/invite" element={<Invite />} />
 					<Route path="/rating" element={<Rating />} />
 					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} />} />
-					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} countries={countries} tg={tg} />} />
+					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} tg={tg} />} />
 				</Routes>
 			</div>
 			<Menu />

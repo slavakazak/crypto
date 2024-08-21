@@ -1,23 +1,13 @@
 import Back from "../components/Back"
 import { useState } from "react"
-import { EyeCrossedIcon, MenIcon, SettingsIcon, WomenIcon } from "../components/Icons"
+import { EyeCrossedIcon, SettingsIcon } from "../components/Icons"
 import showMessage from "../utils/showMessage"
 import SaveRow from "../components/SaveRow"
 import PopUp from "../components/PopUp"
 import Option from "../components/Option"
+import { genders, countries } from "../utils/constants"
 
-export default function Settings({ profileData, setData, countries, tg }) {
-	const genders = [
-		{
-			value: 'Мужчина',
-			icon: <MenIcon />
-		},
-		{
-			value: 'Женщина',
-			icon: <WomenIcon />
-		}
-	]
-
+export default function Settings({ profileData, setData, tg }) {
 	const [formChanged, setFormChanged] = useState(false)
 	const [nickname, setNickname] = useState(profileData.nickname)
 	const [fullName, setFullName] = useState(profileData.fullName)
@@ -213,7 +203,7 @@ export default function Settings({ profileData, setData, countries, tg }) {
 	function saveClickHandler(e) {
 		if (!formChanged) return
 		if (!nickname.trim()) {
-			showMessage(tg, 'Поле "nickname" не должно быть пустым!')
+			showMessage(tg, 'Поле "Nickname" не должно быть пустым!')
 			return
 		}
 		const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu
@@ -221,7 +211,7 @@ export default function Settings({ profileData, setData, countries, tg }) {
 			showMessage(tg, 'Неверный email!')
 			return
 		}
-		if (age !== '' && (age < 10 || age > 99)) {
+		if (age && (age < 10 || age > 99)) {
 			showMessage(tg, 'Возраст должен содержать две цифры!')
 			return
 		}
@@ -287,7 +277,7 @@ export default function Settings({ profileData, setData, countries, tg }) {
 					<input placeholder="Ваша почта" type='email' className="input" value={mail} onChange={handler(setMail)} />
 					<div className='profile-data'>
 						<div className={'item' + (profileData.gender ? ' active' : '')} onClick={genderClickHandler}>{profileData.gender.value || 'Пол'}</div>
-						<input className='item' placeholder="Возраст" value={age} onChange={ageChangeHandler} />
+						<input className='item' placeholder="Возраст" value={age || ''} onChange={ageChangeHandler} />
 						<div className='item item-center active' onClick={countryClickHandler}>
 							{profileData.country.icon}
 							{/* <span>{profileData.country.value}</span> */}
