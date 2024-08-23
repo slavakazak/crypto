@@ -1,15 +1,12 @@
-import axios from 'axios'
-import showMessage from '../utils/showMessage'
-const url = process.env.REACT_APP_SITE_URL
-const consumerKey = process.env.REACT_APP_CONSUMER_KEY
-const consumerSecret = process.env.REACT_APP_CONSUMER_SECRET
+import createOrder from '../utils/createOrder'
+import createInvoice from '../utils/createInvoice'
 
-export default function Workshop({ profileData, wpId, tg }) {
+export default function Workshop({ profileData, wpId }) {
 	// Данные заказа
 	const orderData = {
 		customer_id: wpId,
-		payment_method: "bacs",
-		payment_method_title: "Direct Bank Transfer",
+		payment_method: "nowpayments_gateway",
+		payment_method_title: "NOWPayments",
 		set_paid: true,
 		billing: {
 			first_name: profileData.fullName,
@@ -23,47 +20,24 @@ export default function Workshop({ profileData, wpId, tg }) {
 		]
 	}
 
-	// Функция для создания заказа
-	async function createOrder(orderData) {
-		try {
-			const response = await axios.post(`${url}/wp-json/wc/v3/orders`, orderData, {
-				auth: { username: consumerKey, password: consumerSecret },
-				headers: { 'Content-Type': 'application/json' }
-			})
-			console.log('Order created:', response.data)
-			return response.data
-		} catch (error) {
-			console.error('Error creating order:', error.response ? error.response.data : error.message)
-		}
-	}
-
-	// Данные для обновления статуса заказа
-	const updateData = { status: 'completed' }
-
-	// Функция для обновления статуса заказа
-	async function updateOrderStatus(orderId, updateData) {
-		try {
-			const response = await axios.put(`${url}/wp-json/wc/v3/orders/${orderId}`, updateData, {
-				auth: { username: consumerKey, password: consumerSecret },
-				headers: { 'Content-Type': 'application/json' }
-			})
-			console.log('Order updated:', response.data)
-			return response.data
-		} catch (error) {
-			console.error('Error updating order status:', error.response ? error.response.data : error.message)
-		}
-	}
-
 	async function buyClickHandler() {
 		const order = await createOrder(orderData)
-		await updateOrderStatus(order.id, updateData)
-		showMessage(tg, 'Заказ создан!')
+		const invoice = await createInvoice({
+			price_amount: order.total,
+			price_currency: order.currency,
+			order_id: order.id,
+			order_description: order.line_items.map(item => item.name).join(', '),
+			ipn_callback_url: 'https://k2-bot.com/ipn-handler.php',
+			success_url: 'https://k2-bot.store/thank-you/',
+			cancel_url: 'https://k2-bot.store/thank-you/',
+		})
+		window.location.assign(invoice.invoice_url)
 	}
 
 	return (
 		<div id="workshop">
 			<div>Workshop</div>
-			<div className='buy' onClick={buyClickHandler}>Создать заказ</div>
+			<div className='buy' onClick={buyClickHandler}>Купить</div>
 		</div>
 	)
 }

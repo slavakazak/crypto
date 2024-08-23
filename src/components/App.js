@@ -11,6 +11,7 @@ import Settings from "../pages/Settings"
 import setWpUser from "../utils/setWpUser"
 import setWpFields from "../utils/setWpFields"
 import { countries } from "../utils/constants"
+import ThankYou from "../pages/ThankYou"
 
 export default function App() {
 	const [profileData, setProfileData] = useState({
@@ -80,13 +81,14 @@ export default function App() {
 		<div className="App">
 			<div className="content" style={{ backgroundImage: 'url(/img/background.png)' }}>
 				<Routes>
-					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} tg={tg} />} />
+					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} />} />
 					<Route path="/task" element={<Task />} />
 					<Route path="/" element={<Home profileData={profileData} />} />
 					<Route path="/invite" element={<Invite />} />
 					<Route path="/rating" element={<Rating />} />
 					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} />} />
 					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} tg={tg} wpId={wpId} />} />
+					<Route path="/thank-you" element={<ThankYou wpId={wpId} />} />
 				</Routes>
 			</div>
 			<Menu />

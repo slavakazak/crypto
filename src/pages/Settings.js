@@ -11,7 +11,7 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 	const [formChanged, setFormChanged] = useState(false)
 	const [nickname, setNickname] = useState(profileData.nickname)
 	const [fullName, setFullName] = useState(profileData.fullName)
-	const [email, setEmail] = useState(profileData.email)
+	const [email, setEmail] = useState(profileData.email.includes('@noemail.com') ? '' : profileData.email)
 
 	const [gender, setGender] = useState(profileData.gender)
 	const [popUpGender, setPopUpGender] = useState(false)
@@ -44,7 +44,7 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 	useEffect(() => {
 		setNickname(profileData.nickname)
 		setFullName(profileData.fullName)
-		setEmail(profileData.email)
+		setEmail(profileData.email.includes('@noemail.com') ? '' : profileData.email)
 		setGender(profileData.gender)
 		setAge(profileData.age)
 		setCountry(profileData.country)
