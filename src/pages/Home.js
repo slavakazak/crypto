@@ -1,12 +1,12 @@
 
 import logo from '../img/logo.png'
-import avatar from '../img/robot.png'
 import { CoinCryptoIcon, CoinDollarIcon, FlagRusIcon, MessagesIcon, QuestionIcon, RightArrowIcon, RotateArrowsIcon, ShareIcon, WalletIcon } from '../components/Icons'
 import Slider from "react-slick"
 import { Link } from 'react-router-dom'
+import { avatars } from '../utils/constants'
 
 export default function Home({ profileData }) {
-	const settingsCharacterSlider = {
+	const settingsAvatarsSlider = {
 		dots: false,
 		infinite: true,
 		speed: 200,
@@ -71,10 +71,13 @@ export default function Home({ profileData }) {
 						<div className='count'>1</div>
 						<MessagesIcon />
 					</div>
-					<div className='character'>
-						<Slider {...settingsCharacterSlider}>
-							<img src={avatar} alt={profileData.username} />
-							<img src={avatar} alt={profileData.username} />
+					<div className='avatar'>
+						<Slider {...settingsAvatarsSlider}>
+							<img src={profileData.avatar === 'my' ? profileData.myAvatar : avatars[profileData.avatar]} alt={profileData.avatar === 'my' ? profileData.username : profileData.avatar} />
+							{profileData.avatars.filter(item => item !== profileData.avatar).map((item, i) => (
+								<img key={i} src={avatars[item]} alt={item} />
+							))}
+							{profileData.avatar !== 'my' && profileData.myAvatar && <img src={profileData.myAvatar} alt={profileData.username} />}
 						</Slider>
 					</div>
 					<div className='share'>

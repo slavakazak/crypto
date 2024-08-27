@@ -16,7 +16,7 @@ export default function PopUp({ active, setActive, title, description, children,
 				<h2>{title}</h2>
 				<p className="description">{description}</p>
 				{setSearch && search !== undefined && <input placeholder="Поиск" className="search" value={search} onChange={e => setSearch(e.target.value)} />}
-				<div className="select">{children}</div>
+				{children}
 				<SaveRow onCancel={onCancel} onSave={onSave} active={saveActive} saveText={saveText} />
 			</div>
 		</div>

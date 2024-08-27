@@ -326,9 +326,11 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 				onSave={genderSaveClickHandler}
 				saveActive={gender !== profileData.gender}
 			>
-				{genders.map((item, i) => (
-					<Option key={i} item={item} selected={gender} setSelected={setGender} />
-				))}
+				<div className="select">
+					{genders.map((item, i) => (
+						<Option key={i} item={item} selected={gender} setSelected={setGender} />
+					))}
+				</div>
 			</PopUp>
 
 			<PopUp
@@ -343,9 +345,11 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 				search={countrySearch}
 				setSearch={setCountrySearch}
 			>
-				{countries.filter(item => item.value.toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
-					<Option key={i} item={item} selected={country} setSelected={setCountry} />
-				))}
+				<div className="select">
+					{countries.filter(item => item.value.toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
+						<Option key={i} item={item} selected={country} setSelected={setCountry} />
+					))}
+				</div>
 			</PopUp>
 
 			<PopUp
@@ -358,7 +362,9 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 				saveActive={pinToSeePassword}
 				saveText="подтвердить"
 			>
-				<input placeholder="PIN" type="password" value={pinToSeePassword} onChange={e => setPinToSeePassword(e.target.value)} />
+				<div className="select">
+					<input placeholder="PIN" type="password" value={pinToSeePassword} onChange={e => setPinToSeePassword(e.target.value)} />
+				</div>
 			</PopUp>
 
 			<PopUp
@@ -370,9 +376,11 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 				onSave={changePasswordSaveClickHandler}
 				saveActive={currentPassword && newPassword && pinToChangePassword}
 			>
-				<input placeholder="Текущий пароль" type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
-				<input placeholder="Новый пароль" type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
-				<input placeholder="PIN" type="password" value={pinToChangePassword} onChange={e => setPinToChangePassword(e.target.value)} />
+				<div className="select">
+					<input placeholder="Текущий пароль" type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
+					<input placeholder="Новый пароль" type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+					<input placeholder="PIN" type="password" value={pinToChangePassword} onChange={e => setPinToChangePassword(e.target.value)} />
+				</div>
 			</PopUp>
 
 			<PopUp
@@ -384,8 +392,10 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 				onSave={changePinSaveClickHandler}
 				saveActive={currentPin && newPin}
 			>
-				<input placeholder="Текущий PIN" type="password" value={currentPin} onChange={e => setCurrentPin(e.target.value)} />
-				<input placeholder="Новый PIN" type="password" value={newPin} onChange={e => setNewPin(e.target.value)} />
+				<div className="select">
+					<input placeholder="Текущий PIN" type="password" value={currentPin} onChange={e => setCurrentPin(e.target.value)} />
+					<input placeholder="Новый PIN" type="password" value={newPin} onChange={e => setNewPin(e.target.value)} />
+				</div>
 			</PopUp>
 
 		</>

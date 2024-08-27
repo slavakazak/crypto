@@ -26,10 +26,15 @@ export default function App() {
 		password: '',
 		passwordChanged: false,
 		pin: '',
-		wallet: ''
+		wallet: '',
+		avatars: ['robot', 'robot2'],
+		myAvatar: '',
+		avatar: 'robot'
 	})
 	const [tg, setTg] = useState()
 	const [wpId, setWpId] = useState()
+
+	const [err, setErr] = useState('')
 
 	useEffect(() => {
 		async function initTg() {
@@ -70,15 +75,19 @@ export default function App() {
 			t_password: data.password || profileData.password,
 			t_password_changed: data.passwordChanged || profileData.passwordChanged,
 			t_pin: data.pin || profileData.pin,
-			t_wallet: data.wallet || profileData.wallet
+			t_wallet: data.wallet || profileData.wallet,
+			t_avatars: data.avatars?.join(',') || profileData.avatars?.join(','),
+			t_my_avatar: data.myAvatar || profileData.myAvatar,
+			t_avatar: data.avatar || profileData.avatar
 		},
 			data.email || profileData.email,
-			data.password || profileData.password
+			data.password || profileData.password,
 		)
 	}
 
 	return (
 		<div className="App">
+			{err}
 			<div className="content" style={{ backgroundImage: 'url(/img/background.png)' }}>
 				<Routes>
 					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} />} />
@@ -86,7 +95,7 @@ export default function App() {
 					<Route path="/" element={<Home profileData={profileData} />} />
 					<Route path="/invite" element={<Invite />} />
 					<Route path="/rating" element={<Rating />} />
-					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} />} />
+					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} tg={tg} wpId={wpId} />} />
 					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} tg={tg} wpId={wpId} />} />
 					<Route path="/thank-you" element={<ThankYou wpId={wpId} />} />
 				</Routes>

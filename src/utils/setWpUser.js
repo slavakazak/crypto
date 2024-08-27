@@ -20,7 +20,10 @@ export default async function setWpUser(user, setProfileData, setWpId) {
 			password: meta.t_password || previous.password,
 			passwordChanged: meta.t_password_changed || previous.passwordChanged,
 			pin: meta.t_pin || previous.pin,
-			wallet: meta.t_wallet || previous.wallet
+			wallet: meta.t_wallet || previous.wallet,
+			avatars: meta.t_avatars ? meta.t_avatars.split(',') : previous.avatars,
+			myAvatar: meta.t_my_avatar || previous.myAvatar,
+			avatar: meta.t_avatar || previous.avatar
 		}))
 		setWpId(wpUser.id)
 		return true

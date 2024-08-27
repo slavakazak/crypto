@@ -179,7 +179,7 @@
 			}
 		}
 
-		.character {
+		.avatar {
 			cursor: pointer;
 			width: 186px;
 			height: 186px;
@@ -198,6 +198,11 @@
 
 			.slick-slider, .slick-list {
 				border-radius: 38px;
+			}
+
+			div {
+				width: 100%;
+				height: 100%;
 			}
 
 			img {
@@ -314,7 +319,7 @@
 						height: 3px;
 						background: $second-font;
 						border-radius: 2px;
-						transition-duration: 0.2s;
+						transition-duration: $duration;
 						left: 50%;
 						top: 50%;
 						margin-left: -2px;
