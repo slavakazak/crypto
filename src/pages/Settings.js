@@ -6,8 +6,10 @@ import SaveRow from "../components/SaveRow"
 import PopUp from "../components/PopUp"
 import Option from "../components/Option"
 import { genders, countries } from "../utils/constants"
+import { useTranslation } from 'react-i18next'
 
 export default function Settings({ profileData, setData, tg, wpId }) {
+	const { t } = useTranslation()
 	const [formChanged, setFormChanged] = useState(false)
 	const [nickname, setNickname] = useState(profileData.nickname)
 	const [fullName, setFullName] = useState(profileData.fullName)
@@ -77,7 +79,7 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 		setPopUpGender(false)
 	}
 	function genderSaveClickHandler() {
-		if (gender === profileData.gender) return
+		if (gender.tag === profileData.gender?.tag) return
 		setData({ gender })
 		setPopUpGender(false)
 	}
@@ -92,7 +94,7 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 		setPopUpCountry(false)
 	}
 	function countrySaveClickHandler() {
-		if (country.value === profileData.country.value) return
+		if (country.tag === profileData.country?.tag) return
 		setData({ country })
 		setPopUpCountry(false)
 	}
@@ -108,11 +110,11 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 			return
 		}
 		if (!password) {
-			showMessage(tg, 'Введите пароль!')
+			showMessage(tg, t('settings.messages.enterPassword'))
 			return
 		}
 		if (!profileData.pin) {
-			showMessage(tg, 'Установите PIN!')
+			showMessage(tg, t('settings.messages.setPIN'))
 			return
 		}
 		setPopUpSeePassword(true)
@@ -125,7 +127,7 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 		setPinToSeePassword('')
 		setPopUpSeePassword(false)
 		if (pinToSeePassword !== profileData.pin) {
-			showMessage(tg, 'Неверный PIN!')
+			showMessage(tg, t('settings.messages.invalidPIN'))
 			return
 		}
 		setSeePassword(true)
@@ -134,11 +136,11 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 	//всплывающее окно смены пароля
 	function changePasswordClickHandler() {
 		if (!profileData.password) {
-			showMessage(tg, 'Установите пароль!')
+			showMessage(tg, t('settings.messages.setPassword'))
 			return
 		}
 		if (!profileData.pin) {
-			showMessage(tg, 'Установите PIN!')
+			showMessage(tg, t('settings.messages.setPIN'))
 			return
 		}
 		setPopUpChangePassword(true)
@@ -155,15 +157,15 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 		setPinToChangePassword('')
 		setPopUpChangePassword(false)
 		if (profileData.password !== currentPassword) {
-			showMessage(tg, 'Неверный пароль!')
+			showMessage(tg, t('settings.messages.invalidPassword'))
 			return
 		}
 		if (newPassword.includes(' ')) {
-			showMessage(tg, 'Пароль не должен содержать пробелы!')
+			showMessage(tg, t('settings.messages.passwordSpaces'))
 			return
 		}
 		if (profileData.pin !== pinToChangePassword) {
-			showMessage(tg, 'Неверный PIN!')
+			showMessage(tg, t('settings.messages.invalidPIN'))
 			return
 		}
 		setPassword(newPassword)
@@ -173,7 +175,7 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 	//всплывающее окно смены PIN
 	function changePinClickHandler() {
 		if (!profileData.pin) {
-			showMessage(tg, 'Установите PIN!')
+			showMessage(tg, t('settings.messages.setPIN'))
 			return
 		}
 		setPopUpChangePin(true)
@@ -188,11 +190,11 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 		setNewPin('')
 		setPopUpChangePin(false)
 		if (profileData.pin !== currentPin) {
-			showMessage(tg, 'Неверный PIN!')
+			showMessage(tg, t('settings.messages.invalidPIN'))
 			return
 		}
 		if (newPin.includes(' ')) {
-			showMessage(tg, 'Pin не должен содержать пробелы!')
+			showMessage(tg, t('settings.messages.PINSpaces'))
 			return
 		}
 		setPin(newPin)
@@ -216,40 +218,40 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 	function saveClickHandler(e) {
 		if (!formChanged) return
 		if (!nickname.trim()) {
-			showMessage(tg, 'Поле "Nickname" не должно быть пустым!')
+			showMessage(tg, t('settings.messages.emptyNickname'))
 			return
 		}
 		const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu
 		if (email.trim() && !EMAIL_REGEXP.test(email.trim())) {
-			showMessage(tg, 'Неверный email!')
+			showMessage(tg, t('settings.messages.invalidEmail'))
 			return
 		}
 		if (age && (age < 10 || age > 99)) {
-			showMessage(tg, 'Возраст должен содержать две цифры!')
+			showMessage(tg, t('settings.messages.youngAge'))
 			return
 		}
 		if (!login.trim()) {
-			showMessage(tg, 'Поле "Логин" не должно быть пустым!')
+			showMessage(tg, t('settings.messages.emptyLogin'))
 			return
 		}
 		if (login.trim() === 'admin') {
-			showMessage(tg, 'Логин занят!')
+			showMessage(tg, t('settings.messages.busyLogin'))
 			return
 		}
 		if (password.trim() === '') {
-			showMessage(tg, 'Пароль не должен быть пустым!')
+			showMessage(tg, t('settings.messages.emptyPassword'))
 			return
 		}
 		if (password.includes(' ')) {
-			showMessage(tg, 'Пароль не должен содержать пробелы!')
+			showMessage(tg, t('settings.messages.passwordSpaces'))
 			return
 		}
 		if (pin.includes(' ')) {
-			showMessage(tg, 'Pin не должен содержать пробелы!')
+			showMessage(tg, t('settings.messages.PINSpaces'))
 			return
 		}
 		if (wallet && (wallet.slice(0, 2) !== '0x' || wallet.includes(' '))) {
-			showMessage(tg, 'Неверный адрес кошелька!')
+			showMessage(tg, t('settings.messages.invalidWallet'))
 			return
 		}
 
@@ -281,16 +283,16 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 			<div id="settings">
 				<div className="top-menu">
 					<Back />
-					<h1>Редактировать профиль</h1>
+					<h1>{t('settings.editProfile')}</h1>
 				</div>
 				<div className="form-section">
-					<div className="label">Личные данные</div>
-					<input placeholder="Nickname" className="input" value={nickname} onChange={handler(setNickname)} />
-					<input placeholder="Иванов Иван Иванович" className="input" value={fullName} onChange={handler(setFullName)} />
-					<input placeholder="Ваша почта" type='email' className="input" value={email} onChange={handler(setEmail)} />
+					<div className="label">{t('settings.personalData')}</div>
+					<input placeholder={t('settings.placeholder.nickname')} className="input" value={nickname} onChange={handler(setNickname)} />
+					<input placeholder={t('settings.placeholder.fullName')} className="input" value={fullName} onChange={handler(setFullName)} />
+					<input placeholder={t('settings.placeholder.email')} type='email' className="input" value={email} onChange={handler(setEmail)} />
 					<div className='profile-data'>
-						<div className={'item' + (profileData.gender ? ' active' : '')} onClick={genderClickHandler}>{profileData.gender.value || 'Пол'}</div>
-						<input className='item' placeholder="Возраст" value={age || ''} onChange={ageChangeHandler} />
+						<div className={'item' + (profileData.gender ? ' active' : '')} onClick={genderClickHandler}>{t([`constants.genders.${profileData.gender?.tag}`, 'constants.genders.default'])}</div>
+						<input className='item' placeholder={t('settings.placeholder.age')} value={age || ''} onChange={ageChangeHandler} />
 						<div className='item item-center active' onClick={countryClickHandler}>
 							{profileData.country.icon}
 							{/* <span>{profileData.country.value}</span> */}
@@ -298,21 +300,21 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 					</div>
 				</div>
 				<div className="form-section">
-					<div className="label">Данные входа</div>
-					<input placeholder="Логин" className="input" value={login} onChange={handler(setLogin)} />
+					<div className="label">{t('settings.loginData')}</div>
+					<input placeholder={t('settings.placeholder.login')} className="input" value={login} onChange={handler(setLogin)} />
 					<div className={'input-container' + (profileData.passwordChanged ? ' two-icon' : ' one-icon')}>
-						<input placeholder="Пароль" className='input' readOnly={profileData.passwordChanged} type={seePassword ? 'text' : 'password'} value={password} onChange={handler(setPassword)} />
+						<input placeholder={t('settings.placeholder.password')} className='input' readOnly={profileData.passwordChanged} type={seePassword ? 'text' : 'password'} value={password} onChange={handler(setPassword)} />
 						<div className={'eye' + (seePassword ? ' active' : '')} onClick={seePasswordClickHandler}><EyeCrossedIcon /></div>
 						{profileData.passwordChanged && <div className="settings" onClick={changePasswordClickHandler}><SettingsIcon /></div>}
 					</div>
 					<div className={'input-container' + (profileData.pin ? ' one-icon' : '')}>
-						<input placeholder="Pin (требуется для проверки операций)" className='input' readOnly={profileData.pin !== ''} type="password" value={pin} onChange={handler(setPin)} />
+						<input placeholder={t('settings.placeholder.pin')} className='input' readOnly={profileData.pin !== ''} type="password" value={pin} onChange={handler(setPin)} />
 						{profileData.pin && <div className="settings" onClick={changePinClickHandler}><SettingsIcon /></div>}
 					</div>
 				</div>
 				<div className="form-section">
-					<div className="label">Финансовые данные</div>
-					<input placeholder="Адрес кошелька USDT в сети BEP20" className="input" value={wallet} onChange={handler(setWallet)} />
+					<div className="label">{t('settings.financialData')}</div>
+					<input placeholder={t('settings.placeholder.wallet')} className="input" value={wallet} onChange={handler(setWallet)} />
 				</div>
 				<SaveRow onCancel={cancelClickHandler} onSave={saveClickHandler} active={formChanged} />
 			</div>
@@ -320,15 +322,15 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 			<PopUp
 				active={popUpGender}
 				setActive={setPopUpGender}
-				title='Редактировать пол'
-				description='Выберите свой пол'
+				title={t('settings.popUpGender.title')}
+				description={t('settings.popUpGender.description')}
 				onCancel={genderCancelClickHandler}
 				onSave={genderSaveClickHandler}
-				saveActive={gender !== profileData.gender}
+				saveActive={gender.tag !== profileData.gender?.tag}
 			>
 				<div className="select">
 					{genders.map((item, i) => (
-						<Option key={i} item={item} selected={gender} setSelected={setGender} />
+						<Option key={i} item={item} selected={gender} langPath={'constants.genders'} setSelected={setGender} />
 					))}
 				</div>
 			</PopUp>
@@ -336,18 +338,18 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 			<PopUp
 				active={popUpCountry}
 				setActive={setPopUpCountry}
-				title='Выберите страну'
-				description='Выберите свою страну'
+				title={t('settings.popUpCountry.title')}
+				description={t('settings.popUpCountry.description')}
 				onCancel={countryCancelClickHandler}
 				onSave={countrySaveClickHandler}
-				saveActive={country.value !== profileData.country.value}
+				saveActive={country.tag !== profileData.country?.tag}
 				full={true}
 				search={countrySearch}
 				setSearch={setCountrySearch}
 			>
 				<div className="select">
-					{countries.filter(item => item.value.toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
-						<Option key={i} item={item} selected={country} setSelected={setCountry} />
+					{countries.filter(item => t([`constants.countries.${item.tag}`]).toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
+						<Option key={i} item={item} selected={country} langPath={'constants.countries'} setSelected={setCountry} />
 					))}
 				</div>
 			</PopUp>
@@ -355,46 +357,46 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 			<PopUp
 				active={popUpSeePassword}
 				setActive={setPopUpSeePassword}
-				title='Введите PIN'
-				description='Введите свой PIN для просмотра пароля'
+				title={t('settings.popUpSeePassword.title')}
+				description={t('settings.popUpSeePassword.description')}
 				onCancel={seePasswordCancelClickHandler}
 				onSave={seePasswordSaveClickHandler}
 				saveActive={pinToSeePassword}
-				saveText="подтвердить"
+				saveText={t('settings.popUpSeePassword.save')}
 			>
 				<div className="select">
-					<input placeholder="PIN" type="password" value={pinToSeePassword} onChange={e => setPinToSeePassword(e.target.value)} />
+					<input placeholder={t('settings.popUpSeePassword.placeholder.pin')} type="password" value={pinToSeePassword} onChange={e => setPinToSeePassword(e.target.value)} />
 				</div>
 			</PopUp>
 
 			<PopUp
 				active={popUpChangePassword}
 				setActive={setPopUpChangePassword}
-				title='Смена пароля'
-				description='Введите данные ниже для смены'
+				title={t('settings.popUpChangePassword.title')}
+				description={t('settings.popUpChangePassword.description')}
 				onCancel={changePasswordCancelClickHandler}
 				onSave={changePasswordSaveClickHandler}
 				saveActive={currentPassword && newPassword && pinToChangePassword}
 			>
 				<div className="select">
-					<input placeholder="Текущий пароль" type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
-					<input placeholder="Новый пароль" type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
-					<input placeholder="PIN" type="password" value={pinToChangePassword} onChange={e => setPinToChangePassword(e.target.value)} />
+					<input placeholder={t('settings.popUpChangePassword.placeholder.password')} type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
+					<input placeholder={t('settings.popUpChangePassword.placeholder.newPassword')} type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+					<input placeholder={t('settings.popUpChangePassword.placeholder.pin')} type="password" value={pinToChangePassword} onChange={e => setPinToChangePassword(e.target.value)} />
 				</div>
 			</PopUp>
 
 			<PopUp
 				active={popUpChangePin}
 				setActive={setPopUpChangePin}
-				title='Смена PIN'
-				description='Введите данные ниже для смены'
+				title={t('settings.popUpChangePin.title')}
+				description={t('settings.popUpChangePin.description')}
 				onCancel={changePinCancelClickHandler}
 				onSave={changePinSaveClickHandler}
 				saveActive={currentPin && newPin}
 			>
 				<div className="select">
-					<input placeholder="Текущий PIN" type="password" value={currentPin} onChange={e => setCurrentPin(e.target.value)} />
-					<input placeholder="Новый PIN" type="password" value={newPin} onChange={e => setNewPin(e.target.value)} />
+					<input placeholder={t('settings.popUpChangePin.placeholder.pin')} type="password" value={currentPin} onChange={e => setCurrentPin(e.target.value)} />
+					<input placeholder={t('settings.popUpChangePin.placeholder.newPin')} type="password" value={newPin} onChange={e => setNewPin(e.target.value)} />
 				</div>
 			</PopUp>
 

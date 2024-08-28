@@ -2,11 +2,13 @@ import { useState } from "react"
 import axios from "axios"
 import { PlusIcon } from './Icons'
 import showMessage from '../utils/showMessage'
+import { useTranslation } from 'react-i18next'
 const adminUsername = process.env.REACT_APP_WP_ADMIN_USERNAME
 const adminPassword = process.env.REACT_APP_WP_ADMIN_PASSWORD
 const url = process.env.REACT_APP_SITE_URL
 
 export default function AddAvatar({ tg, setData }) {
+	const { t } = useTranslation()
 	const [load, setLoad] = useState(false)
 	const MAX_FILE_SIZE = 4 * 1024 * 1024
 	const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml', 'image/x-icon', 'image/bmp', 'image/tiff']
@@ -15,11 +17,11 @@ export default function AddAvatar({ tg, setData }) {
 		const file = event.target.files[0]
 		if (file) {
 			if (file.size > MAX_FILE_SIZE) {
-				showMessage(tg, 'Превышен максимальный размер файла!')
+				showMessage(tg, t('addAvatar.messages.size'))
 				return
 			}
 			if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-				showMessage(tg, 'Недопустимый формат изображения!')
+				showMessage(tg, t('addAvatar.messages.format'))
 				return
 			}
 			setLoad(true)
@@ -50,11 +52,11 @@ export default function AddAvatar({ tg, setData }) {
 	return (
 		<>
 			{load ?
-				<div className='add-avatar'>Загрузка...</div>
+				<div className='add-avatar'>{t('addAvatar.loading')}</div>
 				:
 				<div className='add-avatar' onClick={() => document.getElementById('file-input').click()}>
 					<PlusIcon />
-					<div className="comment">*До 4 мб</div>
+					<div className="comment">{t('addAvatar.size')}</div>
 					<input type="file" id="file-input" style={{ display: 'none' }} onChange={fileChangeHandler} />
 				</div>
 			}

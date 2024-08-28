@@ -1,0 +1,156 @@
+{
+	"home": {
+		"balance": "Баланс",
+		"level": "Уровень",
+		"career": "Карьера",
+		"incomeAllTime": "Доход за всё время",
+		"incomeMonth": "Доход за месяц",
+		"slide1": {
+			"title": "Мы запустилиcь на Telegram mini app!",
+			"text": "Спасибо за вашу поддержку, это очень ценно. С каждым днём мы растём и улучшаемся для вашего комфорта на платформе K-2!"
+		},
+		"slide2": {
+			"title": "Мы запустилиcь!",
+			"text": "Спасибо за вашу поддержку, это очень ценно."
+		},
+		"read": "Читать..",
+		"popUpLanguage": {
+			"title": "Выберите язык",
+			"description": "Выберите свой язык"
+		}
+	},
+	"profile": {
+		"age": "Возраст",
+		"history": "История транзакций",
+		"start": "Как начать?",
+		"faq": "FAQ",
+		"support": "Поддержка",
+		"delete": "Удалить аккаунт",
+		"logOut": "Выйти",
+		"popUpAvatar": {
+			"title": "Смена аватара",
+			"description": "Выберите аватар, отражающий ваш внутренний мир"
+		}
+	},
+	"settings": {
+		"messages": {
+			"enterPassword": "Введите пароль!",
+			"setPIN": "Установите PIN!",
+			"invalidPIN": "Неверный PIN!",
+			"setPassword": "Установите пароль!",
+			"invalidPassword": "Неверный пароль!",
+			"passwordSpaces": "Пароль не должен содержать пробелы!",
+			"PINSpaces": "PIN не должен содержать пробелы!",
+			"emptyNickname": "\"Nickname\" не должно быть пустым!",
+			"invalidEmail": "Неверный email!",
+			"youngAge": "Возраст должен содержать две цифры!",
+			"emptyLogin": "Поле \"Логин\" не должно быть пустым!",
+			"busyLogin": "Логин занят!",
+			"emptyPassword": "Пароль не должен быть пустым!",
+			"invalidWallet": "Неверный адрес кошелька!"
+		},
+		"editProfile": "Редактировать профиль",
+		"personalData": "Личные данные",
+		"loginData": "Данные входа",
+		"financialData": "Финансовые данные",
+		"placeholder": {
+			"nickname": "Nickname",
+			"fullName": "Иванов Иван Иванович",
+			"email": "Ваша почта",
+			"age": "Возраст",
+			"login": "Логин",
+			"password": "Пароль",
+			"pin": "PIN (требуется для проверки операций)",
+			"wallet": "Адрес кошелька USDT в сети BEP20"
+		},
+		"popUpGender": {
+			"title": "Редактировать пол",
+			"description": "Выберите свой пол"
+		},
+		"popUpCountry": {
+			"title": "Выберите страну",
+			"description": "Выберите свою страну"
+		},
+		"popUpSeePassword": {
+			"title": "Введите PIN",
+			"description": "Введите свой PIN для просмотра пароля",
+			"save": "подтвердить",
+			"placeholder": {
+				"pin": "PIN"
+			}
+		},
+		"popUpChangePassword": {
+			"title": "Смена пароля",
+			"description": "Введите данные ниже для смены",
+			"placeholder": {
+				"password": "Текущий пароль",
+				"newPassword": "Новый пароль",
+				"pin": "PIN"
+			}
+		},
+		"popUpChangePin": {
+			"title": "Смена PIN",
+			"description": "Введите данные ниже для смены",
+			"placeholder": {
+				"pin": "Текущий PIN",
+				"newPin": "Новый PIN"
+			}
+		}
+	},
+	"thankYou": {
+		"error": "Ошибка при оплате заказа",
+		"thankYou": "Спасибо за покупку",
+		"product": "Продукт",
+		"number": "Номер заказа",
+		"price": "Стоимость",
+		"pay": "Оплачено",
+		"outcome": "Получено",
+		"created": "Заказ создан",
+		"updated": "Заказ оплачен",
+		"type": "Тип перевода"
+	},
+	"workshop": {
+		"buy": "Купить"
+	},
+	"addAvatar": {
+		"messages": {
+			"size": "Превышен максимальный размер файла!",
+			"format": "Недопустимый формат изображения!"
+		},
+		"loading": "Загрузка...",
+		"size": "*До 4 мб"
+	},
+	"menu": {
+		"workshop": "Мастерская",
+		"task": "Задания",
+		"home": "Дом",
+		"invite": "Пригласить",
+		"rating": "Рейтинг"
+	},
+	"popUp": {
+		"search": "Поиск"
+	},
+	"saveRow": {
+		"cancel": "Отменить",
+		"save": "Сохранить"
+	},
+	"constants": {
+		"genders": {
+			"man": "Мужчина",
+			"woman": "Женщина",
+			"default": "Пол"
+		},
+		"countries": {
+			"Россия": "Россия",
+			"Afghanistan": "Afghanistan",
+			"Albania": "Albania",
+			"Algeria": "Algeria",
+			"default": "Страна"
+		},
+		"languages": {
+			"ru": "Русский",
+			"en": "English",
+			"default": "Язык"
+		}
+	}
+}

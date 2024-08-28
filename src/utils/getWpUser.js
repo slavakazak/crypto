@@ -18,6 +18,6 @@ export default async function getWpUser(username) {
 			return null
 		}
 	} catch (error) {
-		console.error('Ошибка при получении пользователя:', error)
+		console.error('Error getting user:', error)
 	}
 }

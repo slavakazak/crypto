@@ -1,0 +1,156 @@
+{
+	"home": {
+		"balance": "Balance",
+		"level": "Level",
+		"career": "Career",
+		"incomeAllTime": "Income for all time",
+		"incomeMonth": "Income per month",
+		"slide1": {
+			"title": "We launched on Telegram mini app!",
+			"text": "Thank you for your support, it is greatly appreciated. Every day we are growing and improving for your comfort on the K-2 platform!"
+		},
+		"slide2": {
+			"title": "We've launched!",
+			"text": "Thank you for your support, it is greatly appreciated."
+		},
+		"read": "Read..",
+		"popUpLanguage": {
+			"title": "Select language",
+			"description": "Choose your language"
+		}
+	},
+	"profile": {
+		"age": "Age",
+		"history": "Transaction history",
+		"start": "How to start?",
+		"faq": "FAQ",
+		"support": "Support",
+		"delete": "Delete account",
+		"logOut": "Log out",
+		"popUpAvatar": {
+			"title": "Changing your avatar",
+			"description": "Choose an avatar that reflects your inner world"
+		}
+	},
+	"settings": {
+		"messages": {
+			"enterPassword": "Enter your password!",
+			"setPIN": "Set your PIN!",
+			"invalidPIN": "Invalid PIN!",
+			"setPassword": "Set a password!",
+			"invalidPassword": "Invalid password!",
+			"passwordSpaces": "The password must not contain spaces!",
+			"PINSpaces": "PIN must not contain spaces!",
+			"emptyNickname": "The \"Nickname\" field must not be empty!",
+			"invalidEmail": "Invalid email!",
+			"youngAge": "Age must contain two digits!",
+			"emptyLogin": "The \"Login\" field should not be empty!",
+			"busyLogin": "Login is busy!",
+			"emptyPassword": "The password must not be empty!",
+			"invalidWallet": "Invalid wallet address!"
+		},
+		"editProfile": "Edit profile",
+		"personalData": "Personal information",
+		"loginData": "Login details",
+		"financialData": "Financial data",
+		"placeholder": {
+			"nickname": "Nickname",
+			"fullName": "Ivanov Ivan Ivanovich",
+			"email": "Your Email",
+			"age": "Age",
+			"login": "Login",
+			"password": "Password",
+			"pin": "PIN (required to verify transactions)",
+			"wallet": "USDT wallet address on the BEP20 network"
+		},
+		"popUpGender": {
+			"title": "Edit gender",
+			"description": "Choose your gender"
+		},
+		"popUpCountry": {
+			"title": "Select country",
+			"description": "Select your country"
+		},
+		"popUpSeePassword": {
+			"title": "Enter PIN",
+			"description": "Enter your PIN to view your password",
+			"save": "confirm",
+			"placeholder": {
+				"pin": "PIN"
+			}
+		},
+		"popUpChangePassword": {
+			"title": "Change password",
+			"description": "Enter the information below to change",
+			"placeholder": {
+				"password": "Current Password",
+				"newPassword": "New Password",
+				"pin": "PIN"
+			}
+		},
+		"popUpChangePin": {
+			"title": "Change PIN",
+			"description": "Enter the information below to change",
+			"placeholder": {
+				"pin": "Current PIN",
+				"newPin": "New PIN"
+			}
+		}
+	},
+	"thankYou": {
+		"error": "Error when paying for the order",
+		"thankYou": "Thanks for your purchase",
+		"product": "Product",
+		"number": "Order number",
+		"price": "Price",
+		"pay": "Paid",
+		"outcome": "Received",
+		"created": "Order created",
+		"updated": "Order paid",
+		"type": "Transfer type"
+	},
+	"workshop": {
+		"buy": "Buy"
+	},
+	"addAvatar": {
+		"messages": {
+			"size": "Maximum file size exceeded!",
+			"format": "Invalid image format!"
+		},
+		"loading": "Loading...",
+		"size": "*Up to 4 MB"
+	},
+	"menu": {
+		"workshop": "Workshop",
+		"task": "Task",
+		"home": "Home",
+		"invite": "Invite",
+		"rating": "Rating"
+	},
+	"popUp": {
+		"search": "Search"
+	},
+	"saveRow": {
+		"cancel": "Cancel",
+		"save": "Save"
+	},
+	"constants": {
+		"genders": {
+			"man": "Man",
+			"woman": "Woman",
+			"default": "Gender"
+		},
+		"countries": {
+			"Россия": "Россия",
+			"Afghanistan": "Afghanistan",
+			"Albania": "Albania",
+			"Algeria": "Algeria",
+			"default": "Country"
+		},
+		"languages": {
+			"ru": "Русский",
+			"en": "English",
+			"default": "Language"
+		}
+	}
+}

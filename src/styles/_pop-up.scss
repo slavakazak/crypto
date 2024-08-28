@@ -151,14 +151,18 @@
 			align-items: center;
 			cursor: pointer;
 
-			svg:not(.ok) {
-				fill: $font;
+			.icon-wrap {
+				width: 24px;
+				height: 24px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-left: 6px;
 				margin-right: 6px;
 			}
 
-			img {
-				margin-right: 8px;
-				margin-left: 2px;
+			svg:not(.ok) {
+				fill: $font;
 			}
 
 			.ok {

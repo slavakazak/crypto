@@ -10,10 +10,12 @@ import Profile from "../pages/Profile"
 import Settings from "../pages/Settings"
 import setWpUser from "../utils/setWpUser"
 import setWpFields from "../utils/setWpFields"
-import { countries } from "../utils/constants"
+import { countries, languages } from "../utils/constants"
 import ThankYou from "../pages/ThankYou"
+import { useTranslation } from 'react-i18next'
 
 export default function App() {
+	const { i18n } = useTranslation()
 	const [profileData, setProfileData] = useState({
 		nickname: '',
 		fullName: '',
@@ -29,7 +31,8 @@ export default function App() {
 		wallet: '',
 		avatars: ['robot', 'robot2'],
 		myAvatar: '',
-		avatar: 'robot'
+		avatar: 'robot',
+		language: languages[0]
 	})
 	const [tg, setTg] = useState()
 	const [wpId, setWpId] = useState()
@@ -49,9 +52,9 @@ export default function App() {
 				if (tgData && tgData.initDataUnsafe && tgData.initDataUnsafe.user) {
 					const user = tgData.initDataUnsafe.user
 					const isWpSet = await setWpUser(user, setProfileData, setWpId)
-					if (!isWpSet) console.log('Ошибка входа в WordPress!')
+					if (!isWpSet) console.log('WordPress login error!')
 				} else {
-					console.log('Телеграм не запущен!')
+					console.log('Telegram is not running!')
 				}
 			} else {
 				console.log('Telegram WebApp is undefined, retrying…')
@@ -61,6 +64,10 @@ export default function App() {
 		initTg()
 	}, [])
 
+	useEffect(() => {
+		i18n.changeLanguage(profileData.language.tag)
+	}, [profileData.language.tag])
+
 	async function setData(data) {
 		setProfileData(previous => ({ ...previous, ...data }))
 		if (!wpId) return
@@ -68,9 +75,9 @@ export default function App() {
 			t_nickname: data.nickname || profileData.nickname,
 			t_full_name: data.fullName || profileData.fullName,
 			t_username: data.username || profileData.username,
-			t_gender: data.gender?.value || profileData.gender?.value,
+			t_gender: data.gender?.tag || profileData.gender?.tag,
 			t_age: +data.age || +profileData.age,
-			t_country: data.country?.value || profileData.country?.value,
+			t_country: data.country?.tag || profileData.country?.tag,
 			t_login: data.login || profileData.login,
 			t_password: data.password || profileData.password,
 			t_password_changed: data.passwordChanged || profileData.passwordChanged,
@@ -78,7 +85,8 @@ export default function App() {
 			t_wallet: data.wallet || profileData.wallet,
 			t_avatars: data.avatars?.join(',') || profileData.avatars?.join(','),
 			t_my_avatar: data.myAvatar || profileData.myAvatar,
-			t_avatar: data.avatar || profileData.avatar
+			t_avatar: data.avatar || profileData.avatar,
+			t_language: data.language?.tag || profileData.language?.tag
 		},
 			data.email || profileData.email,
 			data.password || profileData.password,
@@ -92,7 +100,7 @@ export default function App() {
 				<Routes>
 					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} />} />
 					<Route path="/task" element={<Task />} />
-					<Route path="/" element={<Home profileData={profileData} />} />
+					<Route path="/" element={<Home profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/invite" element={<Invite />} />
 					<Route path="/rating" element={<Rating />} />
 					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} tg={tg} wpId={wpId} />} />

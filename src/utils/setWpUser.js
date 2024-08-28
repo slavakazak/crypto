@@ -1,7 +1,7 @@
 import generatePassword from './generatePassword'
 import getWpUser from './getWpUser'
 import regWpUser from "./regWpUser"
-import { genders, countries } from './constants'
+import { genders, countries, languages } from './constants'
 
 export default async function setWpUser(user, setProfileData, setWpId) {
 	const username = 'user' + user.id
@@ -13,9 +13,9 @@ export default async function setWpUser(user, setProfileData, setWpId) {
 			fullName: meta.t_full_name || previous.fullName,
 			username: meta.t_username || previous.username,
 			email: wpUser.email || previous.email,
-			gender: genders.find(gender => gender.value === meta.t_gender) || previous.gender,
+			gender: genders.find(gender => gender.tag === meta.t_gender) || previous.gender,
 			age: meta.t_age || previous.age,
-			country: countries.find(country => country.value === meta.t_country) || previous.country,
+			country: countries.find(country => country.tag === meta.t_country) || previous.country,
 			login: meta.t_login || previous.login,
 			password: meta.t_password || previous.password,
 			passwordChanged: meta.t_password_changed || previous.passwordChanged,
@@ -23,7 +23,8 @@ export default async function setWpUser(user, setProfileData, setWpId) {
 			wallet: meta.t_wallet || previous.wallet,
 			avatars: meta.t_avatars ? meta.t_avatars.split(',') : previous.avatars,
 			myAvatar: meta.t_my_avatar || previous.myAvatar,
-			avatar: meta.t_avatar || previous.avatar
+			avatar: meta.t_avatar || previous.avatar,
+			language: languages.find(language => language.tag === meta.t_language) || languages.find(language => language.tag === user.language_code) || previous.language,
 		}))
 		setWpId(wpUser.id)
 		return true

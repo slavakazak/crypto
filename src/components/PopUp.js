@@ -1,8 +1,10 @@
 import SaveRow from "./SaveRow"
 import { useEffect, useState } from "react"
 import { CrossIcon } from "./Icons"
+import { useTranslation } from 'react-i18next'
 
 export default function PopUp({ active, setActive, title, description, children, onCancel, onSave, saveActive, full = false, saveText, search, setSearch }) {
+	const { t } = useTranslation()
 	const [animation, setAnimation] = useState(false)
 
 	useEffect(() => {
@@ -15,7 +17,7 @@ export default function PopUp({ active, setActive, title, description, children,
 				{full && <div className="cross" onClick={() => setActive(false)}><CrossIcon /></div>}
 				<h2>{title}</h2>
 				<p className="description">{description}</p>
-				{setSearch && search !== undefined && <input placeholder="Поиск" className="search" value={search} onChange={e => setSearch(e.target.value)} />}
+				{setSearch && search !== undefined && <input placeholder={t('popUp.search')} className="search" value={search} onChange={e => setSearch(e.target.value)} />}
 				{children}
 				<SaveRow onCancel={onCancel} onSave={onSave} active={saveActive} saveText={saveText} />
 			</div>

@@ -5,8 +5,10 @@ import PopUp from '../components/PopUp'
 import { useState, useEffect } from 'react'
 import { avatars } from '../utils/constants'
 import AddAvatar from '../components/AddAvatar'
+import { useTranslation } from 'react-i18next'
 
 export default function Profile({ profileData, setData, tg, wpId }) {
+	const { t } = useTranslation()
 	const [popUpAvatar, setPopUpAvatar] = useState(false)
 	const [avatar, setAvatar] = useState(profileData.avatar)
 
@@ -28,6 +30,7 @@ export default function Profile({ profileData, setData, tg, wpId }) {
 	}
 
 	function changeAvatarSaveClickHandler() {
+		if (avatar === profileData.avatar) return
 		setData({ avatar })
 		setPopUpAvatar(false)
 	}
@@ -68,8 +71,8 @@ export default function Profile({ profileData, setData, tg, wpId }) {
 					</div>
 				</div>
 				<Link to='/settings' className='profile-data'>
-					<div className={'item' + (profileData.gender ? ' active' : '')}>{profileData.gender.value || 'Пол'}</div>
-					<div className={'item' + (profileData.age ? ' active' : '')}>{profileData.age || 'Возраст'}</div>
+					<div className={'item' + (profileData.gender ? ' active' : '')}>{t([`constants.genders.${profileData.gender?.tag}`, 'constants.genders.default'])}</div>
+					<div className={'item' + (profileData.age ? ' active' : '')}>{profileData.age || t('profile.age')}</div>
 					<div className='item item-center active'>
 						{profileData.country.icon}
 						{/* <span>{profileData.country.value}</span> */}
@@ -78,36 +81,36 @@ export default function Profile({ profileData, setData, tg, wpId }) {
 				<div className='info'>
 					<div className='item'>
 						<HistoryIcon />
-						<span>История транзакций</span>
+						<span>{t('profile.history')}</span>
 						<RightArrowIcon />
 					</div>
 					<div className='item'>
 						<BookIcon />
-						<span>История транзакций</span>
+						<span>{t('profile.start')}</span>
 						<RightArrowIcon />
 					</div>
 					<div className='item'>
 						<QuestionIcon size={23} />
-						<span>История транзакций</span>
+						<span>{t('profile.faq')}</span>
 						<RightArrowIcon />
 					</div>
 					<div className='item'>
 						<SupportIcon />
-						<span>История транзакций</span>
+						<span>{t('profile.support')}</span>
 						<RightArrowIcon />
 					</div>
 				</div>
 				<div className='exit-row'>
-					<div className='remove'>Удалить аккаунт</div>
-					<div className='exit'>Выйти</div>
+					<div className='remove'>{t('profile.delete')}</div>
+					<div className='exit'>{t('profile.logOut')}</div>
 				</div>
 			</div>
 
 			<PopUp
 				active={popUpAvatar}
 				setActive={setPopUpAvatar}
-				title='Смена аватара'
-				description='Выберите аватар, отражающий ваш внутренний мир'
+				title={t('profile.popUpAvatar.title')}
+				description={t('profile.popUpAvatar.description')}
 				onCancel={changeAvatarCancelClickHandler}
 				onSave={changeAvatarSaveClickHandler}
 				saveActive={profileData.avatar !== avatar}

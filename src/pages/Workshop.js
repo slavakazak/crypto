@@ -1,7 +1,9 @@
 import createOrder from '../utils/createOrder'
 import createInvoice from '../utils/createInvoice'
+import { useTranslation } from 'react-i18next'
 
 export default function Workshop({ profileData, wpId }) {
+	const { t } = useTranslation()
 	// Данные заказа
 	const orderData = {
 		customer_id: wpId,
@@ -37,7 +39,7 @@ export default function Workshop({ profileData, wpId }) {
 	return (
 		<div id="workshop">
 			<div>Workshop</div>
-			<div className='buy' onClick={buyClickHandler}>Купить</div>
+			<div className='buy' onClick={buyClickHandler}>{t('workshop.buy')}</div>
 		</div>
 	)
 }
