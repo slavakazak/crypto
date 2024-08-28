@@ -1,23 +1,23 @@
 @keyframes open-pop-up-wrapper {
 	from {
-		top: 0;
+		display: flex;
 		background: rgba(0, 0, 0, 0);
 	}
 
 	to {
-		top: 0;
+		display: flex;
 		background: rgba(0, 0, 0, 0.5);
 	}
 }
 
 @keyframes close-pop-up-wrapper {
 	from {
-		top: 0;
+		display: flex;
 		background: rgba(0, 0, 0, 0.5);
 	}
 
 	to {
-		top: 0;
+		display: flex;
 		background: rgba(0, 0, 0, 0);
 	}
 }
@@ -45,15 +45,15 @@
 .pop-up-wrapper {
 	position: fixed;
 	width: 100%;
-	left: 0;
 	height: var(--tg-viewport-stable-height);
-	top: var(--tg-viewport-stable-height);
+	left: 0;
+	top: 0;
 	background: rgba(0, 0, 0, 0.5);
 	z-index: 100;
-	display: flex;
 	align-items: flex-end;
 	justify-content: center;
 	animation-name: close-pop-up-wrapper;
+	display: none;
 
 	.pop-up {
 		background: $pop-up;
@@ -75,7 +75,7 @@
 	}
 
 	&.active {
-		top: 0;
+		display: flex;
 		animation-name: open-pop-up-wrapper;
 
 		.pop-up {
@@ -102,6 +102,10 @@
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
+
+		svg {
+			fill: $second-font;
+		}
 	}
 
 	h2 {

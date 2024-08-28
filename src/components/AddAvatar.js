@@ -1,27 +1,35 @@
 import { useState } from "react"
 import axios from "axios"
 import { PlusIcon } from './Icons'
-import showMessage from '../utils/showMessage'
 import { useTranslation } from 'react-i18next'
+import Modal from "./Modal"
 const adminUsername = process.env.REACT_APP_WP_ADMIN_USERNAME
 const adminPassword = process.env.REACT_APP_WP_ADMIN_PASSWORD
 const url = process.env.REACT_APP_SITE_URL
 
-export default function AddAvatar({ tg, setData }) {
+export default function AddAvatar({ setData }) {
 	const { t } = useTranslation()
 	const [load, setLoad] = useState(false)
 	const MAX_FILE_SIZE = 4 * 1024 * 1024
 	const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml', 'image/x-icon', 'image/bmp', 'image/tiff']
 
+	const [modal, setModal] = useState(false)
+	const [modalText, setModalText] = useState('')
+
+	function openModal(text) {
+		setModalText(text)
+		setModal(true)
+	}
+
 	async function fileChangeHandler(event) {
 		const file = event.target.files[0]
 		if (file) {
 			if (file.size > MAX_FILE_SIZE) {
-				showMessage(tg, t('addAvatar.messages.size'))
+				openModal(t('addAvatar.messages.size'))
 				return
 			}
 			if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-				showMessage(tg, t('addAvatar.messages.format'))
+				openModal(t('addAvatar.messages.format'))
 				return
 			}
 			setLoad(true)
@@ -60,6 +68,7 @@ export default function AddAvatar({ tg, setData }) {
 					<input type="file" id="file-input" style={{ display: 'none' }} onChange={fileChangeHandler} />
 				</div>
 			}
+			<Modal active={modal} onClose={() => setModal(false)} title={t('error')} text={modalText} type='error' />
 		</>
 	)
 }

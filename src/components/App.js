@@ -13,6 +13,7 @@ import setWpFields from "../utils/setWpFields"
 import { countries, languages } from "../utils/constants"
 import ThankYou from "../pages/ThankYou"
 import { useTranslation } from 'react-i18next'
+import Balance from "../pages/Balance"
 
 export default function App() {
 	const { i18n } = useTranslation()
@@ -103,9 +104,10 @@ export default function App() {
 					<Route path="/" element={<Home profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/invite" element={<Invite />} />
 					<Route path="/rating" element={<Rating />} />
-					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} tg={tg} wpId={wpId} />} />
-					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} tg={tg} wpId={wpId} />} />
+					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} wpId={wpId} />} />
+					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/thank-you" element={<ThankYou wpId={wpId} />} />
+					<Route path="/balance" element={<Balance />} />
 				</Routes>
 			</div>
 			<Menu />

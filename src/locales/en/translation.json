@@ -1,4 +1,6 @@
 {
+	"error": "Error!",
+	"success": "Success!",
 	"home": {
 		"balance": "Balance",
 		"level": "Level",
@@ -34,20 +36,20 @@
 	},
 	"settings": {
 		"messages": {
-			"enterPassword": "Enter your password!",
-			"setPIN": "Set your PIN!",
-			"invalidPIN": "Invalid PIN!",
-			"setPassword": "Set a password!",
-			"invalidPassword": "Invalid password!",
-			"passwordSpaces": "The password must not contain spaces!",
-			"PINSpaces": "PIN must not contain spaces!",
-			"emptyNickname": "The \"Nickname\" field must not be empty!",
-			"invalidEmail": "Invalid email!",
-			"youngAge": "Age must contain two digits!",
-			"emptyLogin": "The \"Login\" field should not be empty!",
-			"busyLogin": "Login is busy!",
-			"emptyPassword": "The password must not be empty!",
-			"invalidWallet": "Invalid wallet address!"
+			"enterPassword": "Enter your password",
+			"setPIN": "Set your PIN",
+			"invalidPIN": "Invalid PIN",
+			"setPassword": "Set a password",
+			"invalidPassword": "Invalid password",
+			"passwordSpaces": "The password must not contain spaces",
+			"PINSpaces": "PIN must not contain spaces",
+			"emptyNickname": "The \"Nickname\" field must not be empty",
+			"invalidEmail": "Invalid email",
+			"youngAge": "Age must contain two digits",
+			"emptyLogin": "The \"Login\" field should not be empty",
+			"busyLogin": "Login is busy",
+			"emptyPassword": "The password must not be empty",
+			"invalidWallet": "Invalid wallet address"
 		},
 		"editProfile": "Edit profile",
 		"personalData": "Personal information",
@@ -114,8 +116,8 @@
 	},
 	"addAvatar": {
 		"messages": {
-			"size": "Maximum file size exceeded!",
-			"format": "Invalid image format!"
+			"size": "Maximum file size exceeded",
+			"format": "Invalid image format"
 		},
 		"loading": "Loading...",
 		"size": "*Up to 4 MB"

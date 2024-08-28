@@ -7,7 +7,7 @@ import { avatars } from '../utils/constants'
 import AddAvatar from '../components/AddAvatar'
 import { useTranslation } from 'react-i18next'
 
-export default function Profile({ profileData, setData, tg, wpId }) {
+export default function Profile({ profileData, setData, wpId }) {
 	const { t } = useTranslation()
 	const [popUpAvatar, setPopUpAvatar] = useState(false)
 	const [avatar, setAvatar] = useState(profileData.avatar)
@@ -79,11 +79,11 @@ export default function Profile({ profileData, setData, tg, wpId }) {
 					</div>
 				</Link>
 				<div className='info'>
-					<div className='item'>
+					<Link to='/balance' className='item'>
 						<HistoryIcon />
 						<span>{t('profile.history')}</span>
 						<RightArrowIcon />
-					</div>
+					</Link>
 					<div className='item'>
 						<BookIcon />
 						<span>{t('profile.start')}</span>
@@ -128,7 +128,7 @@ export default function Profile({ profileData, setData, tg, wpId }) {
 							<img src={profileData.myAvatar} alt={profileData.username} />
 						</div>
 						:
-						<AddAvatar tg={tg} setData={setData} />
+						<AddAvatar setData={setData} />
 					}
 				</div>
 			</PopUp>

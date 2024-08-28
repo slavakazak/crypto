@@ -58,9 +58,9 @@ export default function Home({ profileData, setData, wpId }) {
 						<span>{profileData.username}</span>
 						<RightArrowIcon />
 					</Link>
-					<div className="button">
+					<Link to='/balance' className="button">
 						<WalletIcon />
-					</div>
+					</Link>
 					<div className="button">
 						<QuestionIcon size={18} />
 					</div>

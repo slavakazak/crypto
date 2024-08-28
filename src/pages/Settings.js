@@ -7,9 +7,19 @@ import PopUp from "../components/PopUp"
 import Option from "../components/Option"
 import { genders, countries } from "../utils/constants"
 import { useTranslation } from 'react-i18next'
+import Modal from "../components/Modal"
 
-export default function Settings({ profileData, setData, tg, wpId }) {
+export default function Settings({ profileData, setData, wpId }) {
 	const { t } = useTranslation()
+
+	const [modal, setModal] = useState(false)
+	const [modalText, setModalText] = useState('')
+
+	function openModal(text) {
+		setModalText(text)
+		setModal(true)
+	}
+
 	const [formChanged, setFormChanged] = useState(false)
 	const [nickname, setNickname] = useState(profileData.nickname)
 	const [fullName, setFullName] = useState(profileData.fullName)
@@ -110,11 +120,11 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 			return
 		}
 		if (!password) {
-			showMessage(tg, t('settings.messages.enterPassword'))
+			openModal(t('settings.messages.enterPassword'))
 			return
 		}
 		if (!profileData.pin) {
-			showMessage(tg, t('settings.messages.setPIN'))
+			openModal(t('settings.messages.setPIN'))
 			return
 		}
 		setPopUpSeePassword(true)
@@ -127,7 +137,7 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 		setPinToSeePassword('')
 		setPopUpSeePassword(false)
 		if (pinToSeePassword !== profileData.pin) {
-			showMessage(tg, t('settings.messages.invalidPIN'))
+			openModal(t('settings.messages.invalidPIN'))
 			return
 		}
 		setSeePassword(true)
@@ -136,11 +146,11 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 	//всплывающее окно смены пароля
 	function changePasswordClickHandler() {
 		if (!profileData.password) {
-			showMessage(tg, t('settings.messages.setPassword'))
+			openModal(t('settings.messages.setPassword'))
 			return
 		}
 		if (!profileData.pin) {
-			showMessage(tg, t('settings.messages.setPIN'))
+			openModal(t('settings.messages.setPIN'))
 			return
 		}
 		setPopUpChangePassword(true)
@@ -157,15 +167,15 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 		setPinToChangePassword('')
 		setPopUpChangePassword(false)
 		if (profileData.password !== currentPassword) {
-			showMessage(tg, t('settings.messages.invalidPassword'))
+			openModal(t('settings.messages.invalidPassword'))
 			return
 		}
 		if (newPassword.includes(' ')) {
-			showMessage(tg, t('settings.messages.passwordSpaces'))
+			openModal(t('settings.messages.passwordSpaces'))
 			return
 		}
 		if (profileData.pin !== pinToChangePassword) {
-			showMessage(tg, t('settings.messages.invalidPIN'))
+			openModal(t('settings.messages.invalidPIN'))
 			return
 		}
 		setPassword(newPassword)
@@ -175,7 +185,7 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 	//всплывающее окно смены PIN
 	function changePinClickHandler() {
 		if (!profileData.pin) {
-			showMessage(tg, t('settings.messages.setPIN'))
+			openModal(t('settings.messages.setPIN'))
 			return
 		}
 		setPopUpChangePin(true)
@@ -190,11 +200,11 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 		setNewPin('')
 		setPopUpChangePin(false)
 		if (profileData.pin !== currentPin) {
-			showMessage(tg, t('settings.messages.invalidPIN'))
+			openModal(t('settings.messages.invalidPIN'))
 			return
 		}
 		if (newPin.includes(' ')) {
-			showMessage(tg, t('settings.messages.PINSpaces'))
+			openModal(t('settings.messages.PINSpaces'))
 			return
 		}
 		setPin(newPin)
@@ -218,40 +228,40 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 	function saveClickHandler(e) {
 		if (!formChanged) return
 		if (!nickname.trim()) {
-			showMessage(tg, t('settings.messages.emptyNickname'))
+			openModal(t('settings.messages.emptyNickname'))
 			return
 		}
 		const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu
 		if (email.trim() && !EMAIL_REGEXP.test(email.trim())) {
-			showMessage(tg, t('settings.messages.invalidEmail'))
+			openModal(t('settings.messages.invalidEmail'))
 			return
 		}
 		if (age && (age < 10 || age > 99)) {
-			showMessage(tg, t('settings.messages.youngAge'))
+			openModal(t('settings.messages.youngAge'))
 			return
 		}
 		if (!login.trim()) {
-			showMessage(tg, t('settings.messages.emptyLogin'))
+			openModal(t('settings.messages.emptyLogin'))
 			return
 		}
 		if (login.trim() === 'admin') {
-			showMessage(tg, t('settings.messages.busyLogin'))
+			openModal(t('settings.messages.busyLogin'))
 			return
 		}
 		if (password.trim() === '') {
-			showMessage(tg, t('settings.messages.emptyPassword'))
+			openModal(t('settings.messages.emptyPassword'))
 			return
 		}
 		if (password.includes(' ')) {
-			showMessage(tg, t('settings.messages.passwordSpaces'))
+			openModal(t('settings.messages.passwordSpaces'))
 			return
 		}
 		if (pin.includes(' ')) {
-			showMessage(tg, t('settings.messages.PINSpaces'))
+			openModal(t('settings.messages.PINSpaces'))
 			return
 		}
 		if (wallet && (wallet.slice(0, 2) !== '0x' || wallet.includes(' '))) {
-			showMessage(tg, t('settings.messages.invalidWallet'))
+			openModal(t('settings.messages.invalidWallet'))
 			return
 		}
 
@@ -400,6 +410,7 @@ export default function Settings({ profileData, setData, tg, wpId }) {
 				</div>
 			</PopUp>
 
+			<Modal active={modal} onClose={() => setModal(false)} title={t('error')} text={modalText} type='error' />
 		</>
 	)
 }

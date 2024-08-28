@@ -17,6 +17,10 @@ $radius: 17px;
 $block-height: 46px;
 $duration: 0.2s;
 
+:root {
+	--safe-area-inset-bottom: calc(100vh - var(--tg-viewport-stable-height, 100vh));
+}
+
 /* Reset and base styles  */
 * {
 	padding: 0px;
@@ -151,6 +155,7 @@ body {
 
 	h1 {
 		margin: 0 auto;
+		font-size: 16px;
 	}
 }
 
@@ -221,11 +226,6 @@ body {
 			justify-content: center;
 		}
 
-		// svg {
-		// 	margin-left: -6px;
-		// 	margin-right: 6px;
-		// }
-
 		&.active {
 			color: $font;
 			font-weight: 500;
@@ -281,3 +281,5 @@ body {
 @import 'settings';
 @import 'pop-up';
 @import 'thank-you';
+@import 'balance';
+@import 'modal';

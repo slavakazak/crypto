@@ -1,0 +1,134 @@
+@keyframes open-modal-wrapper {
+	from {
+		display: flex;
+		opacity: 0;
+	}
+
+	to {
+		display: flex;
+		opacity: 1;
+	}
+}
+
+@keyframes close-modal-wrapper {
+	from {
+		display: flex;
+		opacity: 1;
+	}
+
+	to {
+		display: flex;
+		opacity: 0;
+	}
+}
+
+@keyframes open-modal {
+	from {
+		transform: scale(0);
+	}
+
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes close-modal {
+	from {
+		transform: scale(1);
+	}
+
+	to {
+		transform: scale(0);
+	}
+}
+
+.modal-wrapper {
+	position: fixed;
+	width: 100%;
+	height: var(--tg-viewport-stable-height);
+	left: 0;
+	top: 0;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 150;
+	align-items: center;
+	justify-content: center;
+	animation-name: close-modal-wrapper;
+	display: none;
+
+	.modal {
+		background: $gradient;
+		border-radius: $radius;
+		width: calc(100% - 30px);
+		max-width: 570px;
+		padding: 15px 17px 34px 17px;
+		animation-name: close-modal;
+		box-sizing: border-box;
+		position: relative;
+		max-height: calc(var(--tg-viewport-stable-height) - 30px);
+		overflow-y: auto;
+	}
+
+	&.active {
+		display: flex;
+		animation-name: open-modal-wrapper;
+
+		.pop-up {
+			animation-name: open-modal;
+		}
+	}
+
+	&.animate {
+		animation-duration: $duration;
+
+		.pop-up {
+			animation-duration: $duration;
+		}
+	}
+
+	.cross {
+		z-index: 151;
+		position: absolute;
+		top: 22px;
+		right: 22px;
+		width: 20px;
+		width: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+
+		svg {
+			fill: $font;
+		}
+	}
+
+	.title {
+		height: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 13px;
+	}
+
+	h2 {
+		color: $font;
+		font-size: 16px;
+		font-weight: 500;
+		letter-spacing: -0.32px;
+	}
+
+	.icon {
+		width: 24px;
+		height: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	p {
+		color: $font;
+		font-size: 14px;
+		font-weight: 400;
+		letter-spacing: -0.28px;
+	}
+}

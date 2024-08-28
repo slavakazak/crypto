@@ -1,4 +1,6 @@
 {
+	"error": "Ошибка!",
+	"success": "Успех!",
 	"home": {
 		"balance": "Баланс",
 		"level": "Уровень",
@@ -34,20 +36,20 @@
 	},
 	"settings": {
 		"messages": {
-			"enterPassword": "Введите пароль!",
-			"setPIN": "Установите PIN!",
-			"invalidPIN": "Неверный PIN!",
-			"setPassword": "Установите пароль!",
-			"invalidPassword": "Неверный пароль!",
-			"passwordSpaces": "Пароль не должен содержать пробелы!",
-			"PINSpaces": "PIN не должен содержать пробелы!",
-			"emptyNickname": "\"Nickname\" не должно быть пустым!",
-			"invalidEmail": "Неверный email!",
-			"youngAge": "Возраст должен содержать две цифры!",
-			"emptyLogin": "Поле \"Логин\" не должно быть пустым!",
-			"busyLogin": "Логин занят!",
-			"emptyPassword": "Пароль не должен быть пустым!",
-			"invalidWallet": "Неверный адрес кошелька!"
+			"enterPassword": "Введите пароль",
+			"setPIN": "Установите PIN",
+			"invalidPIN": "Неверный PIN",
+			"setPassword": "Установите пароль",
+			"invalidPassword": "Неверный пароль",
+			"passwordSpaces": "Пароль не должен содержать пробелы",
+			"PINSpaces": "PIN не должен содержать пробелы",
+			"emptyNickname": "Поле \"Nickname\" не должно быть пустым",
+			"invalidEmail": "Неверный email",
+			"youngAge": "Возраст должен содержать две цифры",
+			"emptyLogin": "Поле \"Логин\" не должно быть пустым",
+			"busyLogin": "Логин занят",
+			"emptyPassword": "Пароль не должен быть пустым",
+			"invalidWallet": "Неверный адрес кошелька"
 		},
 		"editProfile": "Редактировать профиль",
 		"personalData": "Личные данные",
@@ -114,8 +116,8 @@
 	},
 	"addAvatar": {
 		"messages": {
-			"size": "Превышен максимальный размер файла!",
-			"format": "Недопустимый формат изображения!"
+			"size": "Превышен максимальный размер файла",
+			"format": "Недопустимый формат изображения"
 		},
 		"loading": "Загрузка...",
 		"size": "*До 4 мб"
