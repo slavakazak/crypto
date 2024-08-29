@@ -1,6 +1,6 @@
 
 import logo from '../img/logo.png'
-import { CoinCryptoIcon, CoinDollarIcon, MessagesIcon, QuestionIcon, RightArrowIcon, RotateArrowsIcon, ShareIcon, WalletIcon } from '../components/Icons'
+import { CoinIcon, DollarIcon, MessagesIcon, QuestionIcon, RightArrowIcon, RotateArrowsIcon, ShareIcon, WalletIcon } from '../components/Icons'
 import Slider from "react-slick"
 import { Link } from 'react-router-dom'
 import { avatars, languages } from '../utils/constants'
@@ -78,7 +78,7 @@ export default function Home({ profileData, setData, wpId }) {
 								</div>
 								<div className='value'>
 									<span>542</span>
-									<CoinCryptoIcon />
+									<CoinIcon />
 								</div>
 							</div>
 							<div className='level'>
@@ -114,14 +114,14 @@ export default function Home({ profileData, setData, wpId }) {
 							<div className='title'>{t('home.incomeAllTime')}</div>
 							<div className='value'>
 								<span>1245</span>
-								<CoinDollarIcon />
+								<DollarIcon />
 							</div>
 						</div>
 						<div className='income month'>
 							<div className='title'>{t('home.incomeMonth')}</div>
 							<div className='value'>
 								<span>355</span>
-								<CoinDollarIcon />
+								<DollarIcon />
 							</div>
 						</div>
 					</div>

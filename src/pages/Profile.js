@@ -108,7 +108,7 @@ export default function Profile({ profileData, setData, wpId }) {
 
 			<PopUp
 				active={popUpAvatar}
-				setActive={setPopUpAvatar}
+				onClose={() => setPopUpAvatar(false)}
 				title={t('profile.popUpAvatar.title')}
 				description={t('profile.popUpAvatar.description')}
 				onCancel={changeAvatarCancelClickHandler}

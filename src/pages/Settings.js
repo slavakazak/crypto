@@ -331,7 +331,7 @@ export default function Settings({ profileData, setData, wpId }) {
 
 			<PopUp
 				active={popUpGender}
-				setActive={setPopUpGender}
+				onClose={() => setPopUpGender(false)}
 				title={t('settings.popUpGender.title')}
 				description={t('settings.popUpGender.description')}
 				onCancel={genderCancelClickHandler}
@@ -347,7 +347,7 @@ export default function Settings({ profileData, setData, wpId }) {
 
 			<PopUp
 				active={popUpCountry}
-				setActive={setPopUpCountry}
+				onClose={() => setPopUpCountry(false)}
 				title={t('settings.popUpCountry.title')}
 				description={t('settings.popUpCountry.description')}
 				onCancel={countryCancelClickHandler}
@@ -366,7 +366,7 @@ export default function Settings({ profileData, setData, wpId }) {
 
 			<PopUp
 				active={popUpSeePassword}
-				setActive={setPopUpSeePassword}
+				onClose={() => setPopUpSeePassword(false)}
 				title={t('settings.popUpSeePassword.title')}
 				description={t('settings.popUpSeePassword.description')}
 				onCancel={seePasswordCancelClickHandler}
@@ -381,7 +381,7 @@ export default function Settings({ profileData, setData, wpId }) {
 
 			<PopUp
 				active={popUpChangePassword}
-				setActive={setPopUpChangePassword}
+				onClose={() => setPopUpChangePassword(false)}
 				title={t('settings.popUpChangePassword.title')}
 				description={t('settings.popUpChangePassword.description')}
 				onCancel={changePasswordCancelClickHandler}
@@ -397,7 +397,7 @@ export default function Settings({ profileData, setData, wpId }) {
 
 			<PopUp
 				active={popUpChangePin}
-				setActive={setPopUpChangePin}
+				onClose={() => setPopUpChangePin(false)}
 				title={t('settings.popUpChangePin.title')}
 				description={t('settings.popUpChangePin.description')}
 				onCancel={changePinCancelClickHandler}

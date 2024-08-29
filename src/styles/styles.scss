@@ -123,22 +123,24 @@ body {
 	font-weight: 400;
 	width: 100dvw;
 	min-width: 360px;
-	height: var(--tg-viewport-stable-height);
+	//height: var(--tg-viewport-stable-height);
 }
 
 .App {
 	width: 100%;
-	height: var(--tg-viewport-stable-height);
+	//height: var(--tg-viewport-stable-height);
 	position: relative;
-	display: flex;
-	flex-direction: column;
+	//display: flex;
+	//flex-direction: column;
 	max-width: 600px;
 	margin: 0 auto;
 	padding: 0;
+	//overflow-y: auto;
+	overflow: hidden;
 }
 
 .content {
-	flex-grow: 1;
+	//flex-grow: 1;
 	overflow-y: auto;
 	box-sizing: border-box;
 	background-repeat: no-repeat;

@@ -35,9 +35,8 @@ export default function App() {
 		avatar: 'robot',
 		language: languages[0]
 	})
-	const [tg, setTg] = useState()
 	const [wpId, setWpId] = useState()
-
+	const [tg, setTg] = useState()
 	const [err, setErr] = useState('')
 
 	useEffect(() => {
@@ -63,6 +62,21 @@ export default function App() {
 			}
 		}
 		initTg()
+	}, [])
+
+	const [viewportHeight, setViewportHeight] = useState(window.innerHeight)
+	const [windowHeight, setWindowHeight] = useState(window.innerHeight)
+	const updateViewportHeight = () => {
+		setViewportHeight(window.innerHeight)
+	}
+	useEffect(() => {
+		setWindowHeight(window.innerHeight)
+		updateViewportHeight()
+		window.addEventListener('resize', updateViewportHeight)
+
+		return () => {
+			window.removeEventListener('resize', updateViewportHeight)
+		}
 	}, [])
 
 	useEffect(() => {
@@ -95,9 +109,9 @@ export default function App() {
 	}
 
 	return (
-		<div className="App">
+		<div className="App" style={{ height: `${viewportHeight}px` }}>
 			{err}
-			<div className="content" style={{ backgroundImage: 'url(/img/background.png)' }}>
+			<div className="content" style={{ backgroundImage: 'url(/img/background.png)', height: `${viewportHeight < windowHeight ? viewportHeight : viewportHeight - 80}px` }}>
 				<Routes>
 					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} />} />
 					<Route path="/task" element={<Task />} />

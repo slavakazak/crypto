@@ -3,11 +3,25 @@
 	height: 100%;
 	padding: 27px 15px 15px 15px;
 
+	.info {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+	}
+
 	.head {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		margin: 0 auto 23px auto;
+
+		.info {
+			width: 14px;
+			height: 21px;
+			padding-top: 6px;
+			padding-bottom: 3px;
+		}
 	}
 
 	h1 {
@@ -15,14 +29,187 @@
 		line-height: 21px;
 	}
 
-	.info {
-		width: 14px;
-		height: 21px;
-		padding-top: 6px;
-		padding-bottom: 3px;
+	.sub-title {
+		height: 18px;
+		display: flex;
+		align-items: center;
+		color: $second-font;
+		font-size: 14px;
+		font-weight: 400;
+		letter-spacing: -0.28px;
+		padding-left: 16px;
+		margin-bottom: 15px;
+
+		.info {
+			width: 13px;
+			height: 18px;
+			padding-top: 5px;
+			padding-bottom: 3px;
+		}
+	}
+
+	.wallets {
+		margin-bottom: 15px;
+		background: $gradient;
+		border-radius: $radius;
+
+		.wallet {
+			height: $block-height;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-bottom: 1px solid $border;
+			padding: 0 15px;
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			.currency {
+				display: flex;
+				align-items: center;
+				gap: 4px;
+				color: $font;
+				font-size: 12px;
+				font-weight: 400;
+				letter-spacing: -0.24px;
+			}
+
+			.icon {
+				width: 20px;
+				height: 20px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.value {
+				color: $font;
+				font-size: 14px;
+				font-weight: 500;
+				letter-spacing: -0.28px;
+			}
+		}
+	}
+
+	.withdrawal {
+		background: $accent;
+		height: $block-height;
+		border-radius: $radius;
+		text-align: center;
+		font-size: 12px;
+		font-weight: 700;
+		line-height: $block-height;
+		cursor: pointer;
+		margin-bottom: 12px;
+	}
+
+	.search-row {
+		height: $block-height;
+		margin-bottom: 15px;
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		cursor: pointer;
+
+		h2 {
+			font-size: 16px;
+			font-weight: 500;
+			letter-spacing: -0.32px;
+			transition-duration: $duration;
+
+			&.hidden {
+				opacity: 0;
+			}
+		}
+
+		.filter-button {
+			position: absolute;
+			top: 0;
+			right: -4px;
+			width: 26px;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+
+		.search-wrapper {
+			position: absolute;
+			height: 100%;
+			width: 26px;
+			top: 0;
+			right: 22px;
+			overflow: hidden;
+			transition-duration: $duration;
+			box-sizing: border-box;
+			background: $bg;
+
+			.search-button {
+				width: 26px;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition-duration: $duration;
+			}
+
+			.search {
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				border-radius: $radius;
+				border: 1px solid $accent;
+				padding: 0 40px;
+				line-height: $block-height;
+				font-size: 12px;
+				font-weight: 400;
+				box-sizing: border-box;
+				opacity: 0;
+				transition-duration: $duration;
+			}
+
+			.cross-button {
+				width: 26px;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				position: absolute;
+				top: 0;
+				right: -26px;
+				transition-duration: $duration;
+
+				svg {
+					fill: $font;
+				}
+			}
+
+			&.active {
+				width: calc(100% - 22px);
+
+				.search-button {
+					left: 10px;
+					cursor: default;
+				}
+
+				.search {
+					opacity: 1;
+				}
+
+				.cross-button {
+					right: 10px;
+				}
+			}
+		}
 	}
+
 }

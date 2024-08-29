@@ -19,7 +19,7 @@ export default function Modal({ active, onClose, title, text, type }) {
 						{type === 'error' && <ErrorIcon />}
 					</div>}
 				</div>
-				<p>{text}</p>
+				<div className="text"><p>{text}</p></div>
 			</div>
 		</div>
 	)
