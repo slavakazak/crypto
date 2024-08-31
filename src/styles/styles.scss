@@ -7,19 +7,17 @@ $font: #FCFCFC;
 $second-font: #A4A4A6;
 $accent: #5A35EE;
 $gold: #FED32C;
+$blue: #29186D;
+$success: #179F3D;
+$error: #DD1E10;
+$processing: #F8D205;
+$inactive: #5D5F6A;
 $border: #2D2D2D;
 $pop-up: #131313;
 $gradient: linear-gradient(225deg, $second 51%, #202024 100%);
-$border-gradient: linear-gradient(231.27deg, $second 26.8%, #343232 100%);
-$main-gradient: linear-gradient(231.27deg, $second 26.8%, #24242A 100.25%);
-$radial-gradient: radial-gradient(50% 50% at 50% 50%, #1C1633 0%, #171719 100%);
 $radius: 17px;
 $block-height: 46px;
 $duration: 0.2s;
-
-:root {
-	--safe-area-inset-bottom: calc(100vh - var(--tg-viewport-stable-height, 100vh));
-}
 
 /* Reset and base styles  */
 * {
@@ -118,159 +116,33 @@ legend {
 body {
 	background-color: $bg;
 	color: $font;
-	overflow: hidden;
+	overflow-x: hidden;
 	font-family: "Roboto Mono", system-ui;
 	font-weight: 400;
 	width: 100dvw;
 	min-width: 360px;
-	//height: var(--tg-viewport-stable-height);
+	height: var(--tg-viewport-stable-height);
 }
 
 .App {
 	width: 100%;
-	//height: var(--tg-viewport-stable-height);
+	height: var(--tg-viewport-stable-height);
 	position: relative;
-	//display: flex;
-	//flex-direction: column;
+	display: flex;
+	flex-direction: column;
 	max-width: 600px;
 	margin: 0 auto;
 	padding: 0;
-	//overflow-y: auto;
 	overflow: hidden;
 }
 
 .content {
-	//flex-grow: 1;
+	flex-grow: 1;
 	overflow-y: auto;
 	box-sizing: border-box;
 	background-repeat: no-repeat;
-	background-position: bottom center;
+	background-position: center;
 	background-size: cover;
-}
-
-.top-menu {
-	height: $block-height;
-	display: flex;
-	flex-shrink: 0;
-	gap: 8px;
-	align-items: center;
-
-	h1 {
-		margin: 0 auto;
-		font-size: 16px;
-	}
-}
-
-.button {
-	background: $gradient;
-	height: 100%;
-	width: $block-height;
-	border-radius: $radius;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-shrink: 0;
-}
-
-.back {
-	width: $block-height;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-
-	svg {
-		fill: #AEAEB0;
-		width: 14px;
-		height: 14px;
-		transform: rotate(180deg);
-	}
-}
-
-.profile-data {
-	display: flex;
-	align-items: center;
-	height: 48px;
-	gap: 12px;
-	margin-bottom: 12px;
-
-	input.item {
-		color: $font;
-		font-weight: 500;
-		cursor: text;
-
-		&::placeholder {
-			color: $second-font;
-			font-size: 12px;
-			font-weight: 400;
-			letter-spacing: -0.24px;
-		}
-	}
-
-	.item {
-		border-radius: $radius;
-		background: $gradient;
-		display: flex;
-		align-items: center;
-		padding: 0 16px;
-		color: $second-font;
-		font-size: 12px;
-		font-weight: 400;
-		letter-spacing: -0.24px;
-		height: 100%;
-		width: 33%;
-		cursor: pointer;
-		margin: 0;
-
-		&.item-center {
-			justify-content: center;
-		}
-
-		&.active {
-			color: $font;
-			font-weight: 500;
-		}
-	}
-}
-
-.save-row {
-	flex-shrink: 0;
-	display: flex;
-	gap: 12px;
-	height: $block-height;
-
-	.cancel, .save {
-		height: 100%;
-		width: 50%;
-		border-radius: $radius;
-		box-sizing: border-box;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		text-transform: uppercase;
-		color: $font;
-		font-size: 12px;
-		font-weight: 700;
-		letter-spacing: -0.24px;
-	}
-
-	.cancel {
-		border: 1px solid $border;
-		cursor: pointer;
-	}
-
-	.save {
-		background: $accent;
-		cursor: not-allowed;
-		opacity: 0.5;
-
-		&.active {
-			cursor: pointer;
-			opacity: 1;
-		}
-	}
 }
 
 @import 'menu';
@@ -285,3 +157,4 @@ body {
 @import 'thank-you';
 @import 'balance';
 @import 'modal';
+@import 'components';

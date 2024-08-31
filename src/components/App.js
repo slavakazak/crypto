@@ -17,6 +17,8 @@ import Balance from "../pages/Balance"
 
 export default function App() {
 	const { i18n } = useTranslation()
+
+	//Default Profile Data
 	const [profileData, setProfileData] = useState({
 		nickname: '',
 		fullName: '',
@@ -35,16 +37,13 @@ export default function App() {
 		avatar: 'robot',
 		language: languages[0]
 	})
-	const [wpId, setWpId] = useState()
-	const [tg, setTg] = useState()
-	const [err, setErr] = useState('')
 
+	//Init Telegram & Wordpress
+	const [wpId, setWpId] = useState()
 	useEffect(() => {
-		async function initTg() {
-			if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
-				console.log('Telegram WebApp is set')
+		async function init() {
+			if (window && window.Telegram && window.Telegram.WebApp) {
 				const tgData = window.Telegram.WebApp
-				setTg(tgData)
 				tgData.setHeaderColor('#111')
 				tgData.setBackgroundColor('#111')
 				tgData.disableVerticalSwipes()
@@ -58,31 +57,17 @@ export default function App() {
 				}
 			} else {
 				console.log('Telegram WebApp is undefined, retrying…')
-				setTimeout(initTg, 500)
+				setTimeout(init, 500)
 			}
 		}
-		initTg()
-	}, [])
-
-	const [viewportHeight, setViewportHeight] = useState(window.innerHeight)
-	const [windowHeight, setWindowHeight] = useState(window.innerHeight)
-	const updateViewportHeight = () => {
-		setViewportHeight(window.innerHeight)
-	}
-	useEffect(() => {
-		setWindowHeight(window.innerHeight)
-		updateViewportHeight()
-		window.addEventListener('resize', updateViewportHeight)
-
-		return () => {
-			window.removeEventListener('resize', updateViewportHeight)
-		}
+		init()
 	}, [])
 
 	useEffect(() => {
 		i18n.changeLanguage(profileData.language.tag)
 	}, [profileData.language.tag])
 
+	//Set Data and Send Data to server
 	async function setData(data) {
 		setProfileData(previous => ({ ...previous, ...data }))
 		if (!wpId) return
@@ -109,11 +94,10 @@ export default function App() {
 	}
 
 	return (
-		<div className="App" style={{ height: `${viewportHeight}px` }}>
-			{err}
-			<div className="content" style={{ backgroundImage: 'url(/img/background.png)', height: `${viewportHeight < windowHeight ? viewportHeight : viewportHeight - 80}px` }}>
+		<div className="App">
+			<div className="content" style={{ backgroundImage: 'url(/img/bg.png)' }}>
 				<Routes>
-					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} />} />
+					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} setData={setData} />} />
 					<Route path="/task" element={<Task />} />
 					<Route path="/" element={<Home profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/invite" element={<Invite />} />
@@ -121,7 +105,7 @@ export default function App() {
 					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/thank-you" element={<ThankYou wpId={wpId} />} />
-					<Route path="/balance" element={<Balance />} />
+					<Route path="/balance" element={<Balance profileData={profileData} />} />
 				</Routes>
 			</div>
 			<Menu />

@@ -410,7 +410,7 @@ export default function Settings({ profileData, setData, wpId }) {
 				</div>
 			</PopUp>
 
-			<Modal active={modal} onClose={() => setModal(false)} title={t('error')} text={modalText} type='error' />
+			<Modal active={modal} onClose={() => setModal(false)} title={t('modal.error')} text={modalText} type='error' />
 		</>
 	)
 }

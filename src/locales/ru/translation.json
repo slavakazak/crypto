@@ -1,6 +1,8 @@
 {
-	"error": "Ошибка!",
-	"success": "Успех!",
+	"modal": {
+		"error": "Ошибка!",
+		"success": "Успех!"
+	},
 	"home": {
 		"balance": "Баланс",
 		"level": "Уровень",
@@ -154,5 +156,27 @@
 			"en": "English",
 			"default": "Язык"
 		}
+	},
+	"balance": {
+		"type": {
+			"accrual": "Начисление",
+			"swap": "Своп",
+			"withdrawal": "Вывод",
+			"purchase": "Покупка"
+		},
+		"status": {
+			"text": "Статус",
+			"success": "Успешно",
+			"error": "Ошибка",
+			"processing": "В процессе"
+		},
+		"balance": "Баланс",
+		"wallets": "Кошельки",
+		"token": "Token",
+		"coin": "Coin",
+		"usdt": "USDT",
+		"withdrawal": "ВЫВОД",
+		"transactions": "Транзакции",
+		"search": "Введите тип, дату или сумму"
 	}
 }

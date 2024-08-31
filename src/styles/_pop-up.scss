@@ -45,8 +45,7 @@
 .pop-up-wrapper {
 	position: fixed;
 	width: 100%;
-	//height: var(--tg-viewport-stable-height);
-	height: 100%;
+	height: var(--tg-viewport-stable-height);
 	left: 0;
 	top: 0;
 	background: rgba(0, 0, 0, 0.5);
@@ -60,17 +59,20 @@
 		background: $pop-up;
 		width: 100%;
 		max-width: 600px;
-		padding: 15px 15px 42px 15px;
+		padding: 15px 0 42px 0;
 		border-radius: $radius $radius 0 0;
 		animation-name: close-pop-up;
 		display: flex;
 		flex-direction: column;
 		box-sizing: border-box;
 		position: relative;
+		background-repeat: none;
+		background-position: center;
+		background-size: cover;
 		max-height: var(--tg-viewport-stable-height);
 
 		&.pop-up-full {
-			padding: 27px 15px 42px 15px;
+			padding: 27px 0 42px 0;
 			height: var(--tg-viewport-stable-height);
 		}
 	}
@@ -110,11 +112,17 @@
 	}
 
 	h2 {
-		font-size: 16px;
+		font-size: 22px;
 		font-weight: 500;
-		letter-spacing: -0.32px;
-		margin-bottom: 4px;
+		letter-spacing: -0.44px;
+		margin-bottom: 2px;
 		text-align: center;
+		text-transform: uppercase;
+		padding: 0 15px;
+
+		@media (max-width: 389px) {
+			font-size: 18px;
+		}
 	}
 
 	.description {
@@ -122,15 +130,19 @@
 		font-size: 14px;
 		font-weight: 400;
 		letter-spacing: -0.28px;
-		margin-bottom: 15px;
 		text-align: center;
+		padding: 0 15px;
+	}
+
+	.save-row {
+		padding: 0 15px;
 	}
 
 	.search {
 		height: $block-height;
 		border-radius: $radius;
 		border: 1px solid $border;
-		margin-bottom: 32px;
+		margin: 15px 15px 17px 15px;
 		line-height: $block-height;
 		padding: 0 15px;
 		font-size: 12px;
@@ -143,8 +155,8 @@
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
-		margin-bottom: 15px;
 		overflow-y: auto;
+		padding: 15px;
 
 		.option {
 			border: 1px solid $border;
@@ -205,10 +217,11 @@
 		display: flex;
 		align-items: center;
 		gap: 15px;
-		margin: 0 auto 35px auto;
-		width: 321px;
+		margin: 0 auto 20px auto;
+		width: 351px;
 		flex-wrap: wrap;
 		overflow-y: auto;
+		padding: 15px;
 
 		.avatar-card {
 			display: block;
@@ -223,6 +236,7 @@
 
 			&.active {
 				opacity: 1;
+				box-shadow: 0px 0px 8.9px 0px $accent;
 			}
 
 			img {

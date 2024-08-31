@@ -24,7 +24,7 @@ export default async function setWpUser(user, setProfileData, setWpId) {
 			avatars: meta.t_avatars ? meta.t_avatars.split(',') : previous.avatars,
 			myAvatar: meta.t_my_avatar || previous.myAvatar,
 			avatar: meta.t_avatar || previous.avatar,
-			language: languages.find(language => language.tag === meta.t_language) || languages.find(language => language.tag === user.language_code) || previous.language,
+			language: languages.find(language => language.tag === meta.t_language) || languages.find(language => language.tag === user.language_code) || previous.language
 		}))
 		setWpId(wpUser.id)
 		return true

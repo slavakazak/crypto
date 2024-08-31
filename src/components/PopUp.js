@@ -13,7 +13,7 @@ export default function PopUp({ active, onClose, title, description, children, o
 
 	return (
 		<div className={"pop-up-wrapper" + (active ? ' active' : '') + (animation || active ? ' animate' : '')} onClick={onClose}>
-			<div className={'pop-up' + (full ? ' pop-up-full' : '')} onClick={e => e.stopPropagation()}>
+			<div className={'pop-up' + (full ? ' pop-up-full' : '')} onClick={e => e.stopPropagation()} style={{ backgroundImage: 'url(/img/pop-up-bg.png)' }}>
 				{full && <div className="cross" onClick={onClose}><CrossIcon /></div>}
 				<h2>{title}</h2>
 				<p className="description">{description}</p>

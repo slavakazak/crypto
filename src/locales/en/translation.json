@@ -1,6 +1,8 @@
 {
-	"error": "Error!",
-	"success": "Success!",
+	"modal": {
+		"error": "Error!",
+		"success": "Success!"
+	},
 	"home": {
 		"balance": "Balance",
 		"level": "Level",
@@ -154,5 +156,27 @@
 			"en": "English",
 			"default": "Language"
 		}
+	},
+	"balance": {
+		"type": {
+			"accrual": "Accrual",
+			"swap": "Swap",
+			"withdrawal": "Withdrawal",
+			"purchase": "Purchase"
+		},
+		"status": {
+			"text": "Status",
+			"success": "Success",
+			"error": "Error",
+			"processing": "In progress"
+		},
+		"balance": "Balance",
+		"wallets": "Wallets",
+		"token": "Token",
+		"coin": "Coin",
+		"usdt": "USDT",
+		"withdrawal": "WITHDRAWAL",
+		"transactions": "Transactions",
+		"search": "Enter type, date or amount"
 	}
 }

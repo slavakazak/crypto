@@ -45,8 +45,8 @@
 .modal-wrapper {
 	position: fixed;
 	width: 100%;
-	//height: var(--tg-viewport-stable-height);
-	height: 100%;
+	height: var(--tg-viewport-stable-height);
+	//height: 100%;
 	left: 0;
 	top: 0;
 	background: rgba(0, 0, 0, 0.5);
