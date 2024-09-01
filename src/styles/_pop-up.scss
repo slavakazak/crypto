@@ -47,7 +47,7 @@
 	width: 100%;
 	height: var(--tg-viewport-stable-height);
 	left: 0;
-	top: 0;
+	bottom: 0;
 	background: rgba(0, 0, 0, 0.5);
 	z-index: 100;
 	align-items: flex-end;
@@ -59,6 +59,7 @@
 		background: $pop-up;
 		width: 100%;
 		max-width: 600px;
+		min-width: 360px;
 		padding: 15px 0 42px 0;
 		border-radius: $radius $radius 0 0;
 		animation-name: close-pop-up;
@@ -69,11 +70,11 @@
 		background-repeat: none;
 		background-position: center;
 		background-size: cover;
-		max-height: var(--tg-viewport-stable-height);
+		max-height: 100%;
 
 		&.pop-up-full {
 			padding: 27px 0 42px 0;
-			height: var(--tg-viewport-stable-height);
+			height: 100%;
 		}
 	}
 
@@ -183,6 +184,7 @@
 			}
 
 			.ok {
+				fill: $accent;
 				margin-left: auto;
 				opacity: 0;
 				transition-duration: $duration;

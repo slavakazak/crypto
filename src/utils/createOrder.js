@@ -9,7 +9,6 @@ export default async function createOrder(orderData) {
 			auth: { username: consumerKey, password: consumerSecret },
 			headers: { 'Content-Type': 'application/json' }
 		})
-		console.log('Order created:', response.data)
 		return response.data
 	} catch (error) {
 		console.error('Error creating order:', error.response ? error.response.data : error.message)

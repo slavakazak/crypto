@@ -138,5 +138,10 @@
 			font-weight: 400;
 			letter-spacing: -0.28px;
 		}
+
+		.link {
+			color: $accent;
+			cursor: pointer;
+		}
 	}
 }

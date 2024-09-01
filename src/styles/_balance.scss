@@ -7,6 +7,10 @@
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
+
+		svg {
+			fill: $inactive;
+		}
 	}
 
 	.head {
@@ -18,10 +22,15 @@
 		.info {
 			width: 20px;
 			height: 29px;
+
+			svg {
+				fill: $inactive;
+			}
 		}
 	}
 
 	h1 {
+		margin-left: 20px;
 		font-size: 22px;
 		line-height: 29px;
 		font-weight: 500;
@@ -48,6 +57,10 @@
 			height: 18px;
 			padding-top: 5px;
 			padding-bottom: 3px;
+
+			svg {
+				fill: $inactive;
+			}
 		}
 	}
 

@@ -105,7 +105,7 @@ export default function App() {
 					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/thank-you" element={<ThankYou wpId={wpId} />} />
-					<Route path="/balance" element={<Balance profileData={profileData} />} />
+					<Route path="/balance" element={<Balance profileData={profileData} wpId={wpId} />} />
 				</Routes>
 			</div>
 			<Menu />

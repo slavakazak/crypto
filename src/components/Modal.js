@@ -1,7 +1,7 @@
 import { ErrorIcon, SuccessIcon, CrossIcon } from "./Icons"
 import { useEffect, useState } from "react"
 
-export default function Modal({ active, onClose, title, text, type }) {
+export default function Modal({ active, onClose, title, text, content, type }) {
 	const [animation, setAnimation] = useState(false)
 
 	useEffect(() => {
@@ -19,7 +19,8 @@ export default function Modal({ active, onClose, title, text, type }) {
 						{type === 'error' && <ErrorIcon />}
 					</div>}
 				</div>
-				<div className="text"><p>{text}</p></div>
+				{text && <div className="text"><p>{text}</p></div>}
+				{content && <div className="text"><div>{content}</div></div>}
 			</div>
 		</div>
 	)

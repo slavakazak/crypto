@@ -6,7 +6,7 @@ import addTransaction from "../utils/addTransaction"
 import getUTCTime from "../utils/getUTCTime"
 import getTransactions from "../utils/getTransactions"
 
-export default function Balance({ profileData }) {
+export default function Balance({ profileData, wpId }) {
 	const { t } = useTranslation()
 	const [modal, setModal] = useState(false)
 	const [modalTitle, setModalTitle] = useState('')
@@ -33,7 +33,7 @@ export default function Balance({ profileData }) {
 		// 	transaction_time: getUTCTime() //YYYY-MM-DD HH:MM:SS по UTS+0
 		// }
 		async function init() {
-			const transactions = await getTransactions(44)
+			const transactions = await getTransactions(wpId)
 			const groupedTransactions = {}
 			await transactions.forEach(async transaction => {
 				const date = transaction.transaction_time.split(' ')[0]
@@ -146,14 +146,14 @@ export default function Balance({ profileData }) {
 				<div className="transactions">
 					{!transactionsDates ? t('addAvatar.loading') :
 						Object.keys(transactionsDates).map((item, i) => {
-							const date = new Date(item)
+							const date = new Date(item + 'T00:00:00Z')
 							const dateFormat = new Intl.DateTimeFormat(profileData.language.tag, { month: "long", day: "numeric" })
 							return (
 								<div key={i}>
 									<div className="date">{dateFormat.format(date)}</div>
 									<div className="transactions-block">
 										{transactionsDates[item].map((transaction, i) => {
-											const dateTime = new Date(transaction.transaction_time.replace(' ', 'T'))
+											const dateTime = new Date(transaction.transaction_time.replace(' ', 'T') + 'Z')
 											const dateTimeFormat = new Intl.DateTimeFormat(profileData.language.tag, { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric" })
 											return (
 												<div key={i} className="transaction">
