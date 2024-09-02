@@ -26,12 +26,13 @@ export default function Balance({ profileData, wpId }) {
 		// 	transaction_status: 'success', //success, processing, error
 		// 	price: 99.99,
 		// 	currency: 'USDT', //USDT, coin, token
-		// 	order_id: 12345, //для purchase
+		// 	product_id: 12345, //для purchase
 		// 	original_price: 999.9, //для swap
 		// 	original_currency: 'coin', //для swap
 		// 	comment: 'Первый заказ пользователя',
 		// 	transaction_time: getUTCTime() //YYYY-MM-DD HH:MM:SS по UTS+0
 		// }
+		setTransactionsDates(null)
 		async function init() {
 			const transactions = await getTransactions(wpId)
 			const groupedTransactions = {}
@@ -43,10 +44,9 @@ export default function Balance({ profileData, wpId }) {
 				groupedTransactions[date].push(transaction)
 			})
 			setTransactionsDates(groupedTransactions)
-			console.log(groupedTransactions)
 		}
 		init()
-	}, [])
+	}, [wpId])
 
 	function openModal(title, text, type = '') {
 		setModalTitle(title)

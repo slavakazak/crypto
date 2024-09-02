@@ -1,7 +1,8 @@
 {
 	"modal": {
 		"error": "Error!",
-		"success": "Success!"
+		"success": "Success!",
+		"reference": "Reference"
 	},
 	"home": {
 		"balance": "Balance",
@@ -113,9 +114,6 @@
 		"updated": "Order paid",
 		"type": "Transfer type"
 	},
-	"workshop": {
-		"buy": "Buy"
-	},
 	"addAvatar": {
 		"messages": {
 			"size": "Maximum file size exceeded",
@@ -178,5 +176,59 @@
 		"withdrawal": "WITHDRAWAL",
 		"transactions": "Transactions",
 		"search": "Enter type, date or amount"
+	},
+	"workshop": {
+		"workshop": "Workshop",
+		"inventory": "Inventory",
+		"successModal": {
+			"text1": "You have successfully confirmed the order, after checking the transaction, your order will appear in your",
+			"inventory": "inventory",
+			"text2": "You can monitor the status of your order in the section",
+			"history": "transaction history"
+		},
+		"products": {
+			"terms": {
+				"unlimited": "Unlimited"
+			},
+			"k2": {
+				"text": "Secret development of brilliant scientists. With the help of embedded algorithms, it makes a profit!",
+				"description": "Description of the algorithm: K2 is a trend algorithm, which consists of 77 trading strategies working on 14 trading pairs: ETH, SOL, TRX, ADA, ALGO, DOT, EOS, ETC, FIL, FTM, GRT, LINK, LTC, MATIC. Each trading pair contains from 2 to 7 trading strategies. One of K2's goals is to minimize variance by increasing the number of trading strategies within. With this, K2 using a margin of up to 1% of the deposit gives a positive result with 52 percent or more of profitable transactions.",
+				"indicator1": "Profitability 01.01.2024-31.07.2024: -------",
+				"indicator2": "Average monthly profitability: -------------",
+				"indicator3": "Profitable months: -------------------------",
+				"indicator4": "Profitable transactions: -------------------",
+				"indicator5": "Maximum drawdown: --------------------------",
+				"indicator6": "Maximum monthly loss: ----------------------",
+				"indicator7": "Maximum amount of deposit used in transactions at the moment: ----------------",
+				"indicator8": "Stop-loss for each trade: ------------------",
+				"reference": {
+					"title": "To connect to the robot you need to do:"
+				}
+			}
+		},
+		"robots": "Robots",
+		"development": "In development",
+		"improvements": "Improvements",
+		"stroke": "Avatar outline in leaderboards",
+		"get": "GET",
+		"price": "Price",
+		"term": "Term",
+		"profitability": "Avg. month profit",
+		"description": "Description",
+		"indicators": "Indicators",
+		"notice": "*Past performance does not guarantee future results.",
+		"buy": "PURCHASE",
+		"placingTitle": "Placing an order",
+		"placingDescription": "To pay for your order, you must strictly follow the instructions",
+		"apply": "APPLY",
+		"coupon": "Coupon code",
+		"noCoupon": "Coupon not found!",
+		"result": "Total",
+		"agree": "I have read and agree with",
+		"privacyPolicy": "Privacy policy",
+		"disclaimer": "Disclaimer",
+		"confirmTitle": "Order confirmation",
+		"confirmDescription": "To confirm your order, you need to send the asset you have chosen to the address below",
+		"confirm": "PLACE AN ORDER"
 	}
 }

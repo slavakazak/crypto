@@ -86,7 +86,7 @@ export default function App() {
 			t_avatars: data.avatars?.join(',') || profileData.avatars?.join(','),
 			t_my_avatar: data.myAvatar || profileData.myAvatar,
 			t_avatar: data.avatar || profileData.avatar,
-			t_language: data.language?.tag || profileData.language?.tag
+			t_language: data.language?.tag || profileData.language?.tag,
 		},
 			data.email || profileData.email,
 			data.password || profileData.password,
