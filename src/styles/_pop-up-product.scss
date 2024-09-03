@@ -1,494 +1,489 @@
 .pop-up-wrapper.pop-up-product {
-	height: calc(var(--tg-viewport-stable-height) - 71px);
+  height: calc(var(--tg-viewport-stable-height) - 71px);
 }
 
 .pop-up-wrapper.pop-up-product .pop-up.pop-up-full {
-	padding: 30px 24px 30px 30px;
-	overflow-y: auto;
-
-	.row {
-		display: flex;
-		gap: 15px;
-		margin-bottom: 15px;
-
-		@media (max-width: 375px) {
-			gap: 10px;
-		}
-	}
-
-	.image {
-		border-radius: 33px;
-		border: 1px solid $accent;
-		box-shadow: 0px 0px 10px 0px $accent;
-		background: radial-gradient(50% 50% at 50% 50%, $accent 36%, #331E88 100%);
-		width: 124px;
-		height: 124px;
-		flex-shrink: 0;
-
-		img {
-			width: 100%;
-			height: 100%;
-			border-radius: 33px;
-			object-fit: cover;
-			object-position: center;
-		}
-	}
-
-	.col {
-		flex-grow: 1;
-	}
-
-	h3 {
-		text-align: center;
-		font-size: 22px;
-		font-weight: 700;
-		margin-bottom: 9px;
-	}
-
-	.price {
-		width: 100%;
-		height: 40px;
-		border-radius: $radius;
-		background: linear-gradient(231deg, $accent 9.12%, #2E2E77 100.25%);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 13px;
-		font-weight: 400;
-		letter-spacing: 0.26px;
-		margin-bottom: 9px;
-
-		b {
-			margin-left: 7px;
-			font-size: 16px;
-			font-weight: 700;
-			letter-spacing: 0.32px;
-		}
-	}
-
-	.product-info {
-		color: $second-font;
-		font-size: 10px;
-		font-weight: 400;
-		line-height: 13px;
-		letter-spacing: 0.2px;
-
-		@media (max-width: 375px) {
-			font-size: 9px;
-		}
-
-		b {
-			color: $font;
-			font-size: 12px;
-			font-weight: 700;
-			letter-spacing: 0.24px;
-
-			@media (max-width: 375px) {
-				font-size: 10px;
-			}
-		}
-	}
-
-	h4 {
-		margin-bottom: 10px;
-		color: $second-font;
-		font-size: 12px;
-		font-weight: 400;
-		letter-spacing: -0.24px;
-	}
-
-	.text {
-		margin-bottom: 15px;
-		text-align: justify;
-		font-size: 10px;
-		font-weight: 400;
-		line-height: 13.198px;
-		letter-spacing: 0.2px;
-	}
-
-	ul {
-		margin-bottom: 30px;
-	}
-
-	li {
-		color: $second-font;
-		font-size: 10px;
-		font-weight: 400;
-		line-height: 13.198px;
-		letter-spacing: 0.2px;
-
-		@media (max-width: 385px) {
-			font-size: 9px;
-		}
-
-		span {
-			width: 279px;
-			display: inline-block;
-			margin-right: 7px;
-
-			@media (max-width: 385px) {
-				width: 250px;
-			}
-		}
-
-		b {
-			color: $font;
-			font-size: 12px;
-			font-weight: 700;
-			line-height: 15.838px;
-			letter-spacing: 0.24px;
-		}
-	}
-
-	.notice {
-		margin-bottom: 24px;
-		color: $second-font;
-		font-size: 8px;
-		font-weight: 400;
-		line-height: 10.559px;
-		letter-spacing: 0.16px;
-	}
-
-	.buy {
-		cursor: not-allowed;
-		height: $block-height;
-		border-radius: $radius;
-		background: $accent;
-		text-align: center;
-		line-height: $block-height;
-		font-size: 12px;
-		font-weight: 700;
-		opacity: 0.5;
-		transition-duration: $duration;
-
-		&.active {
-			cursor: pointer;
-			opacity: 1;
-		}
-	}
-
-	h2 {
-		text-transform: none;
-		font-size: 16px;
-		font-weight: 500;
-		letter-spacing: -0.32px;
-	}
-
-	.description {
-		color: $second-font;
-		font-size: 12px;
-		font-weight: 400;
-		letter-spacing: -0.36px;
-		margin-bottom: 15px;
-	}
-
-	.currency {
-		height: $block-height;
-		box-sizing: border-box;
-		position: relative;
-		border: 1px solid $border;
-		border-radius: $radius;
-		overflow: hidden;
-		transition-duration: $duration;
-		cursor: pointer;
-		margin-bottom: 12px;
-
-		svg {
-			width: 7px;
-			height: 7px;
-			fill: $second-font;
-			position: absolute;
-			top: 20px;
-			right: 17px;
-			transform: rotate(90deg);
-			transition-duration: $duration;
-		}
-
-		&.active {
-			height: calc($block-height * 2);
-
-			svg {
-				transform: rotate(-90deg);
-			}
-		}
-
-		.option {
-			height: $block-height;
-			display: flex;
-			align-items: center;
-			padding: 0 17px;
-		}
-
-		img {
-			width: 15px;
-			height: 15px;
-			object-fit: cover;
-			object-position: center;
-			margin-right: 12px;
-		}
-
-		p {
-			font-size: 12px;
-			font-weight: 400;
-			letter-spacing: -0.24px;
-		}
-
-		span {
-			font-size: 8px;
-			font-weight: 400;
-			letter-spacing: -0.16px;
-		}
-	}
-
-	.coupon-row {
-		display: flex;
-		height: $block-height;
-		gap: 12px;
-		margin-bottom: 12px;
-
-		.coupon {
-			flex-grow: 1;
-			height: 100%;
-			border: 1px solid $border;
-			border-radius: $radius;
-			padding: 0 15px;
-			font-size: 12px;
-			font-weight: 400;
-			line-height: $block-height;
-			letter-spacing: -0.24px;
-		}
-
-		.apply {
-			width: 159px;
-			height: 100%;
-			border: 1px solid $accent;
-			border-radius: $radius;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-			font-size: 12px;
-			font-weight: 700;
-			letter-spacing: -0.24px;
-		}
-	}
-
-	.basket {
-		height: 56px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		box-sizing: border-box;
-		border-radius: $radius;
-		background: radial-gradient(50% 50% at 50% 50%, #1C1633 0%, #171719 100%);
-		padding: 0 15px;
-		margin-bottom: 10px;
-
-		&.active {
-			border: 1px solid $accent;
-		}
-
-		.left-side, .right-side {
-			display: flex;
-			align-items: center;
-		}
-
-		.product-icon {
-			width: 34px;
-			height: 34px;
-			object-fit: cover;
-			object-position: center;
-			margin-right: 15px;
-		}
-
-		.name {
-			color: $font;
-			font-size: 12px;
-			font-weight: 700;
-			letter-spacing: -0.24px;
-			margin-right: 2px;
-		}
-
-		.info {
-			width: 18px;
-			height: 18px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-
-			svg {
-				fill: $inactive;
-			}
-		}
-
-		.result {
-			color: $accent;
-			font-size: 13px;
-			font-weight: 400;
-			letter-spacing: 0.26px;
-			margin-right: 7px;
-		}
-
-		.sum {
-			font-size: 16px;
-			font-weight: 700;
-			letter-spacing: 0.32px;
-			margin-right: 7px;
-
-			@media (max-width: 375px) {
-				font-size: 15px;
-			}
-		}
-
-		.currency-icon {
-			width: 15px;
-			height: 15px;
-			object-position: center;
-			object-fit: cover;
-		}
-	}
-
-	.agreement {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-		cursor: pointer;
-		margin-bottom: 5px;
-
-		&.disclaimer {
-			margin-bottom: 24px;
-		}
-
-		input {
-			display: none;
-		}
-
-		.checkbox {
-			width: 11px;
-			height: 11px;
-			border-radius: 3px;
-			border: 1px solid $border;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			transition-duration: $duration;
-
-			svg {
-				fill: $accent;
-				opacity: 0;
-				transition-duration: $duration;
-			}
-
-			&.active {
-				border: 1px solid $accent;
-
-				svg {
-					opacity: 1;
-				}
-			}
-		}
-
-		p {
-			color: $second-font;
-			font-size: 9px;
-			font-weight: 400;
-			letter-spacing: -0.18px;
-		}
-
-		span {
-			color: $accent;
-		}
-	}
-
-	.block {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 17px;
-		border: 1px solid $border;
-		height: $block-height;
-		border-radius: $radius;
-		margin-bottom: 10px;
-
-		&.copy {
-			cursor: pointer;
-		}
-
-		.left-side, .right-side {
-			display: flex;
-			align-items: center;
-		}
-
-		img {
-			width: 15px;
-			height: 15px;
-			object-position: center;
-			object-fit: cover;
-			margin-right: 15px;
-		}
-
-		p {
-			font-size: 12px;
-			font-weight: 400;
-			letter-spacing: -0.24px;
-			overflow: hidden;
-			flex-grow: 1;
-
-			@media (max-width: 415px) {
-				font-size: 11px;
-			}
-
-			@media (max-width: 385px) {
-				font-size: 10px;
-			}
-		}
-
-		span {
-			font-size: 8px;
-			font-weight: 400;
-			letter-spacing: -0.16px;
-		}
-
-		.time {
-			color: $second-font;
-			font-size: 10px;
-			font-weight: 400;
-			letter-spacing: -0.3px;
-		}
-
-		.icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 23px;
-			height: 23px;
-			flex-shrink: 0;
-
-			.ok {
-				fill: $success;
-			}
-		}
-	}
-
-	.qr {
-		margin: 16px auto 27px auto;
-		width: 152px;
-		height: 152px;
-
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: contain;
-			object-position: center;
-		}
-	}
-
-	.confirm-notice {
-		color: $second-font;
-		font-size: 10px;
-		font-weight: 400;
-		letter-spacing: -0.3px;
-		margin-bottom: 12px;
-	}
+  padding: 30px 24px 30px 30px;
+  overflow-y: auto;
+
+  .row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+
+    @media (max-width: 375px) {
+      gap: 10px;
+    }
+  }
+
+  .image {
+    border-radius: 33px;
+    border: 1px solid $accent;
+    box-shadow: 0px 0px 10px 0px $accent;
+    background: radial-gradient(50% 50% at 50% 50%, $accent 36%, #331E88 100%);
+    width: 124px;
+    height: 124px;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 33px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .col {
+    flex-grow: 1;
+  }
+
+  h3 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 9px;
+  }
+
+  .price {
+    width: 100%;
+    height: 40px;
+    border-radius: $radius;
+    background: linear-gradient(231deg, $accent 9.12%, #2E2E77 100.25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.26px;
+    margin-bottom: 9px;
+
+    b {
+      margin-left: 7px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.32px;
+    }
+  }
+
+  .product-info {
+    color: $second-font;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 13px;
+    letter-spacing: 0.2px;
+
+    @media (max-width: 375px) {
+      font-size: 9px;
+    }
+
+    b {
+      color: $font;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.24px;
+
+      @media (max-width: 375px) {
+        font-size: 10px;
+      }
+    }
+  }
+
+  h4 {
+    margin-bottom: 10px;
+    color: $second-font;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -0.24px;
+  }
+
+  .text {
+    margin-bottom: 15px;
+    text-align: justify;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 13.198px;
+    letter-spacing: 0.2px;
+  }
+
+  ul {
+    margin-bottom: 30px;
+  }
+
+  li {
+    color: $second-font;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 13.198px;
+    letter-spacing: 0.2px;
+
+    @media (max-width: 385px) {
+      font-size: 9px;
+    }
+
+    span {
+      width: 279px;
+      display: inline-block;
+      margin-right: 7px;
+
+      @media (max-width: 385px) {
+        width: 250px;
+      }
+    }
+
+    b {
+      color: $font;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 15.838px;
+      letter-spacing: 0.24px;
+    }
+  }
+
+  .notice {
+    margin-bottom: 24px;
+    color: $second-font;
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 10.559px;
+    letter-spacing: 0.16px;
+  }
+
+  .buy {
+    cursor: not-allowed;
+    height: $block-height;
+    border-radius: $radius;
+    background: $accent;
+    text-align: center;
+    line-height: $block-height;
+    font-size: 12px;
+    font-weight: 700;
+    opacity: 0.5;
+    transition-duration: $duration;
+
+    &.active {
+      cursor: pointer;
+      opacity: 1;
+    }
+  }
+
+  h2 {
+    text-transform: none;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.32px;
+  }
+
+  .description {
+    color: $second-font;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -0.36px;
+    margin-bottom: 15px;
+  }
+
+  .currency {
+    height: $block-height;
+    box-sizing: border-box;
+    position: relative;
+    border: 1px solid $border;
+    border-radius: $radius;
+    overflow: hidden;
+    transition-duration: $duration;
+    cursor: pointer;
+    margin-bottom: 12px;
+
+    svg {
+      width: 7px;
+      height: 7px;
+      fill: $second-font;
+      position: absolute;
+      top: 20px;
+      right: 17px;
+      transform: rotate(90deg);
+      transition-duration: $duration;
+    }
+
+    &.active {
+      height: calc($block-height * 2);
+
+      svg {
+        transform: rotate(-90deg);
+      }
+    }
+
+    .option {
+      height: $block-height;
+      display: flex;
+      align-items: center;
+      padding: 0 17px;
+    }
+
+    img {
+      width: 15px;
+      height: 15px;
+      object-fit: cover;
+      object-position: center;
+      margin-right: 12px;
+    }
+
+    p {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: -0.24px;
+    }
+
+    span {
+      font-size: 8px;
+      font-weight: 400;
+      letter-spacing: -0.16px;
+    }
+  }
+
+  .coupon-row {
+    display: flex;
+    height: $block-height;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    .coupon {
+      flex-grow: 1;
+      height: 100%;
+      border: 1px solid $border;
+      border-radius: $radius;
+      padding: 0 15px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: $block-height;
+      letter-spacing: -0.24px;
+    }
+
+    .apply {
+      width: 159px;
+      height: 100%;
+      border: 1px solid $accent;
+      border-radius: $radius;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: -0.24px;
+    }
+  }
+
+  .basket {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-radius: $radius;
+    background: radial-gradient(50% 50% at 50% 50%, #1C1633 0%, #171719 100%);
+    padding: 0 15px;
+    margin-bottom: 10px;
+
+    &.active {
+      border: 1px solid $accent;
+    }
+
+    .left-side,
+    .right-side {
+      display: flex;
+      align-items: center;
+    }
+
+    .product-icon {
+      width: 34px;
+      height: 34px;
+      object-fit: cover;
+      object-position: center;
+      margin-right: 15px;
+    }
+
+    .name {
+      color: $font;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: -0.24px;
+      margin-right: 2px;
+    }
+
+    .info {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      svg {
+        fill: $inactive;
+      }
+    }
+
+    .result {
+      color: $accent;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.26px;
+      margin-right: 7px;
+    }
+
+    .sum {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.32px;
+      margin-right: 7px;
+
+      @media (max-width: 375px) {
+        font-size: 15px;
+      }
+    }
+
+    .currency-icon {
+      width: 15px;
+      height: 15px;
+      object-position: center;
+      object-fit: cover;
+    }
+  }
+
+  .agreement {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    margin-bottom: 5px;
+
+    &.disclaimer {
+      margin-bottom: 24px;
+    }
+
+    input {
+      display: none;
+    }
+
+    .checkbox {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      border: 1px solid $border;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition-duration: $duration;
+
+      svg {
+        fill: $accent;
+        opacity: 0;
+        transition-duration: $duration;
+      }
+
+      &.active {
+        border: 1px solid $accent;
+
+        svg {
+          opacity: 1;
+        }
+      }
+    }
+
+    p {
+      color: $second-font;
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: -0.18px;
+    }
+
+    span {
+      color: $accent;
+    }
+  }
+
+  .block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 17px;
+    border: 1px solid $border;
+    height: $block-height;
+    border-radius: $radius;
+    margin-bottom: 10px;
+
+    &.copy {
+      cursor: pointer;
+    }
+
+    .left-side,
+    .right-side {
+      display: flex;
+      align-items: center;
+    }
+
+    img {
+      width: 15px;
+      height: 15px;
+      object-position: center;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+
+    p {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: -0.24px;
+      overflow: hidden;
+      flex-grow: 1;
+
+      @media (max-width: 415px) {
+        font-size: 11px;
+      }
+
+      @media (max-width: 385px) {
+        font-size: 10px;
+      }
+    }
+
+    span {
+      font-size: 8px;
+      font-weight: 400;
+      letter-spacing: -0.16px;
+    }
+
+    .time {
+      color: $second-font;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: -0.3px;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 23px;
+      height: 23px;
+      flex-shrink: 0;
+
+      .ok {
+        fill: $success;
+      }
+    }
+  }
+
+  .qr {
+    margin: 16px auto 27px auto;
+    width: 152px;
+    height: 152px;
+  }
+
+  .confirm-notice {
+    color: $second-font;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+  }
 }
