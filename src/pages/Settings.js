@@ -1,7 +1,6 @@
 import Back from "../components/Back"
 import { useEffect, useState } from "react"
 import { EyeCrossedIcon, SettingsIcon } from "../components/Icons"
-import showMessage from "../utils/showMessage"
 import SaveRow from "../components/SaveRow"
 import PopUp from "../components/PopUp"
 import Option from "../components/Option"

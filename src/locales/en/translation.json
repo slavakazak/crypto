@@ -102,18 +102,6 @@
 			}
 		}
 	},
-	"thankYou": {
-		"error": "Error when paying for the order",
-		"thankYou": "Thanks for your purchase",
-		"product": "Product",
-		"number": "Order number",
-		"price": "Price",
-		"pay": "Paid",
-		"outcome": "Received",
-		"created": "Order created",
-		"updated": "Order paid",
-		"type": "Transfer type"
-	},
 	"addAvatar": {
 		"messages": {
 			"size": "Maximum file size exceeded",
