@@ -94,24 +94,21 @@ export default function App() {
   }
 
   return (
-    <>
-      {window && window.Telegram && window.Telegram.WebApp ? <div className="App">
-        <div className="content" style={{ backgroundImage: 'url(/img/bg.png)' }}>
-          <Routes>
-            <Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} setData={setData} />} />
-            <Route path="/task" element={<Task />} />
-            <Route path="/" element={<Home profileData={profileData} setData={setData} wpId={wpId} />} />
-            <Route path="/invite" element={<Invite />} />
-            <Route path="/rating" element={<Rating />} />
-            <Route path="/profile" element={<Profile profileData={profileData} setData={setData} wpId={wpId} />} />
-            <Route path="/settings" element={<Settings profileData={profileData} setData={setData} wpId={wpId} />} />
-            <Route path="/thank-you" element={<ThankYou wpId={wpId} />} />
-            <Route path="/balance" element={<Balance profileData={profileData} wpId={wpId} />} />
-          </Routes>
-        </div>
-        <Menu />
-      </div> : 'Telegram WebApp is undefined, retrying…'}
-    </>
-
+    <div className="App">
+      <div className="content" style={{ backgroundImage: 'url(/img/bg.png)' }}>
+        <Routes>
+          <Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} setData={setData} />} />
+          <Route path="/task" element={<Task />} />
+          <Route path="/" element={<Home profileData={profileData} setData={setData} wpId={wpId} />} />
+          <Route path="/invite" element={<Invite />} />
+          <Route path="/rating" element={<Rating />} />
+          <Route path="/profile" element={<Profile profileData={profileData} setData={setData} wpId={wpId} />} />
+          <Route path="/settings" element={<Settings profileData={profileData} setData={setData} wpId={wpId} />} />
+          <Route path="/thank-you" element={<ThankYou wpId={wpId} />} />
+          <Route path="/balance" element={<Balance profileData={profileData} wpId={wpId} />} />
+        </Routes>
+      </div>
+      <Menu />
+    </div>
   )
 }
