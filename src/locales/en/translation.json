@@ -174,26 +174,6 @@
 			"text2": "You can monitor the status of your order in the section",
 			"history": "transaction history"
 		},
-		"products": {
-			"terms": {
-				"unlimited": "Unlimited"
-			},
-			"k2": {
-				"text": "Secret development of brilliant scientists. With the help of embedded algorithms, it makes a profit!",
-				"description": "Description of the algorithm: K2 is a trend algorithm, which consists of 77 trading strategies working on 14 trading pairs: ETH, SOL, TRX, ADA, ALGO, DOT, EOS, ETC, FIL, FTM, GRT, LINK, LTC, MATIC. Each trading pair contains from 2 to 7 trading strategies. One of K2's goals is to minimize variance by increasing the number of trading strategies within. With this, K2 using a margin of up to 1% of the deposit gives a positive result with 52 percent or more of profitable transactions.",
-				"indicator1": "Profitability 01.01.2024-31.07.2024: -------",
-				"indicator2": "Average monthly profitability: -------------",
-				"indicator3": "Profitable months: -------------------------",
-				"indicator4": "Profitable transactions: -------------------",
-				"indicator5": "Maximum drawdown: --------------------------",
-				"indicator6": "Maximum monthly loss: ----------------------",
-				"indicator7": "Maximum amount of deposit used in transactions at the moment: ----------------",
-				"indicator8": "Stop-loss for each trade: ------------------",
-				"reference": {
-					"title": "To connect to the robot you need to do:"
-				}
-			}
-		},
 		"robots": "Robots",
 		"development": "In development",
 		"improvements": "Improvements",
@@ -218,5 +198,25 @@
 		"confirmTitle": "Order confirmation",
 		"confirmDescription": "To confirm your order, you need to send the asset you have chosen to the address below",
 		"confirm": "PLACE AN ORDER"
+	},
+	"products": {
+		"16": {
+			"text": "Secret development of brilliant scientists. With the help of embedded algorithms, it makes a profit!",
+			"term": "Unlimited",
+			"description": "Description of the algorithm: K2 is a trend algorithm, which consists of 77 trading strategies working on 14 trading pairs: ETH, SOL, TRX, ADA, ALGO, DOT, EOS, ETC, FIL, FTM, GRT, LINK, LTC, MATIC. Each trading pair contains from 2 to 7 trading strategies. One of K2's goals is to minimize variance by increasing the number of trading strategies within. With this, K2 using a margin of up to 1% of the deposit gives a positive result with 52 percent or more of profitable transactions.",
+			"indicators": {
+				"0": "Profitability 01.01.2024-31.07.2024: -------",
+				"1": "Average monthly profitability: -------------",
+				"2": "Profitable months: -------------------------",
+				"3": "Profitable transactions: -------------------",
+				"4": "Maximum drawdown: --------------------------",
+				"5": "Maximum monthly loss: ----------------------",
+				"6": "Maximum amount of deposit used in transactions at the moment: ----------------",
+				"7": "Stop-loss for each trade: ------------------"
+			},
+			"reference": {
+				"title": "To connect to the robot you need to do:"
+			}
+		}
 	}
 }

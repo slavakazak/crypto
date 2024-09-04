@@ -124,7 +124,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 				price: 0,
 				currency: 'USDT',
 				product_id: currentProduct.id,
-				comment: currentProduct.name + (currentCoupon ? ' Coupon: ' + currentCoupon.code : ''),
+				comment: currentCoupon ? 'Coupon: ' + currentCoupon.code : '',
 				transaction_time: getUTCTime()
 			})
 			openSuccessModal()
@@ -138,7 +138,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 			price: getPrice(),
 			currency: 'USDT',
 			product_id: currentProduct.id,
-			comment: currentProduct.name + (currentCoupon ? ' Coupon: ' + currentCoupon.code : ''),
+			comment: currentCoupon ? 'Coupon: ' + currentCoupon.code : '',
 			transaction_time: getUTCTime()
 		})
 		const payment = await createPayment({
@@ -169,9 +169,9 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 	function copyClickHandler(string, setCopied) {
 		return () => {
 			if (navigator.clipboard) {
-				navigator.clipboard.writeText(string).then(function () {
+				navigator.clipboard.writeText(string).then(() => {
 					setCopied(true)
-				}, function (err) {
+				}, err => {
 					console.error('An error occurred while copying text: ', err)
 				})
 			} else {
@@ -194,14 +194,18 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 						<div className='col'>
 							<h3>{currentProduct.name}</h3>
 							<div className='price'>{t('workshop.price')}:<b>{currentProduct.price}$</b></div>
-							<p className='product-info'>{t('workshop.term')}: <b>{currentProduct.term}</b></p>
+							<p className='product-info'>{t('workshop.term')}: <b>{t(`products.${currentProduct.id}.term`)}</b></p>
 							<p className='product-info'>{t('workshop.profitability')}: <b>{currentProduct.profit}</b></p>
 						</div>
 					</div>
 					<h4>{t('workshop.description')}:</h4>
-					<p className='text'>{currentProduct.description}</p>
+					<p className='text'>{t(`products.${currentProduct.id}.description`)}</p>
 					<h4>{t('workshop.indicators')}:</h4>
-					{currentProduct.indicators}
+					<ul>
+						{currentProduct.indicators?.map((indicator, i) => (
+							<li key={i}><span>{t(`products.${currentProduct.id}.indicators.${i}`)}</span><b>{indicator}</b></li>
+						))}
+					</ul>
 					<p className='notice'>{t('workshop.notice')}</p>
 					<div className='buy active' onClick={buyClickHandler}>{t('workshop.buy')}</div>
 				</>}

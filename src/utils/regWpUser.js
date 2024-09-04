@@ -15,12 +15,11 @@ export default async function regWpUser(username, email, password, nickname) {
 		const wpId = response.data.id
 		//обновление мета полей
 		await axios.post(`${url}/wp-json/wp/v2/users/${wpId}`,
-			{ meta: { t_nickname: nickname, t_username: nickname, t_password: password } },
+			{ meta: { t_nickname: nickname, t_username: nickname, t_password: password, t_ref: wpId + '' } },
 			{ headers: { Authorization: `Bearer ${token}` } }
 		)
 		return wpId
 	} catch (error) {
 		console.error('Error creating user:', error.response?.data || error.message)
 	}
-
 }

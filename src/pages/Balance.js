@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import addTransaction from "../utils/addTransaction"
 import getUTCTime from "../utils/getUTCTime"
 import getTransactions from "../utils/getTransactions"
+import { products } from '../utils/constants'
 
 export default function Balance({ profileData, wpId }) {
 	const { t } = useTranslation()
@@ -77,11 +78,14 @@ export default function Balance({ profileData, wpId }) {
 		return ''
 	}
 
-	function getType(type, product) {
+	function getType(type, productId) {
 		if (type === 'accrual') return t('balance.type.accrual')
 		if (type === 'swap') return t('balance.type.swap')
 		if (type === 'withdrawal') return t('balance.type.withdrawal')
-		if (type === 'purchase') return `${t('balance.type.purchase')} ${product}`
+		if (type === 'purchase') {
+			const product = products.find(item => item?.id === +productId)
+			return `${t('balance.type.purchase')} ${product?.name}`
+		}
 		return ''
 	}
 
@@ -113,24 +117,24 @@ export default function Balance({ profileData, wpId }) {
 				<div className="wallets">
 					<div className="wallet">
 						<div className="currency">
-							<div className="icon"><TokenIcon /></div>
+							<div className="icon token"><TokenIcon /></div>
 							<span>{t('balance.token')}:</span>
 						</div>
-						<div className="value">{token}</div>
+						<div className="value">{profileData.token}</div>
 					</div>
 					<div className="wallet">
 						<div className="currency">
 							<div className="icon"><CoinIcon /></div>
 							<span>{t('balance.coin')}:</span>
 						</div>
-						<div className="value">{coin}</div>
+						<div className="value">{profileData.coin}</div>
 					</div>
 					<div className="wallet">
 						<div className="currency">
 							<div className="icon"><DollarIcon /></div>
 							<span>{t('balance.usdt')}:</span>
 						</div>
-						<div className="value">{usdt}</div>
+						<div className="value">{profileData.usdt}</div>
 					</div>
 				</div>
 				<div className={'withdrawal' + (usdt > 0 ? ' active' : '')}>{t('balance.withdrawal')}</div>
@@ -160,7 +164,7 @@ export default function Balance({ profileData, wpId }) {
 													<div className="right-side">
 														<div className="icon">{getTypeIcon(transaction.transaction_type)}</div>
 														<div className="info-block">
-															<div className="type">{getType(transaction.transaction_type, transaction.comment)}</div>
+															<div className="type">{getType(transaction.transaction_type, transaction.product_id)}</div>
 															<div className="time">{dateTimeFormat.format(dateTime)}</div>
 															<div className="status">{t('balance.status.text')}: {getStatus(transaction.transaction_status)}</div>
 														</div>

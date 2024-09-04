@@ -24,7 +24,13 @@ export default async function setWpUser(user, setProfileData, setWpId) {
 			avatars: meta.t_avatars ? meta.t_avatars.split(',') : previous.avatars,
 			myAvatar: meta.t_my_avatar || previous.myAvatar,
 			avatar: meta.t_avatar || previous.avatar,
-			language: languages.find(language => language.tag === meta.t_language) || languages.find(language => language.tag === user.language_code) || previous.language
+			language: languages.find(language => language.tag === meta.t_language) || languages.find(language => language.tag === user.language_code) || previous.language,
+			level: meta.t_level || previous.level,
+			token: meta.t_token || previous.token,
+			coin: meta.t_coin || previous.coin,
+			usdt: meta.t_usdt || previous.usdt,
+			ref: meta.t_ref || wpUser.id || previous.ref,
+			link: meta.t_link || previous.link
 		}))
 		setWpId(wpUser.id)
 		return true
@@ -34,7 +40,7 @@ export default async function setWpUser(user, setProfileData, setWpId) {
 	const password = generatePassword(12)
 	const wpId = await regWpUser(username, email, password, nickname)
 	if (wpId) {
-		setProfileData(previous => ({ ...previous, nickname, password, username: nickname }))
+		setProfileData(previous => ({ ...previous, nickname, password, username: nickname, ref: wpId }))
 		setWpId(wpId)
 		return true
 	}

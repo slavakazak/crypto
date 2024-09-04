@@ -13,6 +13,7 @@ import setWpFields from "../utils/setWpFields"
 import { countries, languages } from "../utils/constants"
 import { useTranslation } from 'react-i18next'
 import Balance from "../pages/Balance"
+import getIdFromRef from "../utils/getIdFromRef"
 
 export default function App() {
 	const { i18n } = useTranslation()
@@ -34,15 +35,25 @@ export default function App() {
 		avatars: ['robot', 'robot2'],
 		myAvatar: '',
 		avatar: 'robot',
-		language: languages[0]
+		language: languages[0],
+		level: 1,
+		token: 0,
+		coin: 0,
+		usdt: 0,
+		ref: '',
+		link: ''
 	})
 
 	//Init Telegram & Wordpress
 	const [wpId, setWpId] = useState()
+	const [tg, setTg] = useState()
+	const [err, setErr] = useState()
+	const [startParam, setStartParam] = useState()
 	useEffect(() => {
 		async function init() {
 			if (window && window.Telegram && window.Telegram.WebApp) {
 				const tgData = window.Telegram.WebApp
+				setTg(tgData)
 				tgData.setHeaderColor('#111')
 				tgData.setBackgroundColor('#111')
 				tgData.disableVerticalSwipes()
@@ -50,6 +61,7 @@ export default function App() {
 				if (tgData && tgData.initDataUnsafe && tgData.initDataUnsafe.user) {
 					const user = tgData.initDataUnsafe.user
 					const isWpSet = await setWpUser(user, setProfileData, setWpId)
+					setStartParam(tgData.initDataUnsafe.start_param)
 					if (!isWpSet) console.log('WordPress login error!')
 				} else {
 					console.log('Telegram is not running!')
@@ -62,6 +74,7 @@ export default function App() {
 		init()
 	}, [])
 
+	//Set language
 	useEffect(() => {
 		i18n.changeLanguage(profileData.language.tag)
 	}, [profileData.language.tag])
@@ -86,20 +99,38 @@ export default function App() {
 			t_my_avatar: data.myAvatar || profileData.myAvatar,
 			t_avatar: data.avatar || profileData.avatar,
 			t_language: data.language?.tag || profileData.language?.tag,
+			t_level: +data.level || +profileData.level,
+			t_token: +data.token || +profileData.token,
+			t_coin: +data.coin || +profileData.coin,
+			t_usdt: +data.usdt || +profileData.usdt,
+			t_ref: data.ref || profileData.ref,
+			t_link: data.link || profileData.link,
 		},
 			data.email || profileData.email,
 			data.password || profileData.password,
 		)
 	}
 
+	useEffect(() => {
+		async function init() {
+			if (startParam && startParam.slice(0, 2) === 'r_') {
+				const link = await getIdFromRef(startParam.slice(2))
+				await setData({ link })
+				//setErr(JSON.stringify(profileData, null, ' '))
+			}
+		}
+		init()
+	}, [startParam])
+
 	return (
 		<div className="App">
+			{err}
 			<div className="content" style={{ backgroundImage: 'url(/img/bg.png)' }}>
 				<Routes>
 					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} setData={setData} />} />
 					<Route path="/task" element={<Task />} />
 					<Route path="/" element={<Home profileData={profileData} setData={setData} wpId={wpId} />} />
-					<Route path="/invite" element={<Invite />} />
+					<Route path="/invite" element={<Invite profileData={profileData} wpId={wpId} tg={tg} />} />
 					<Route path="/rating" element={<Rating />} />
 					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} wpId={wpId} />} />

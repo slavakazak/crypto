@@ -1,12 +1,23 @@
 
-import { CoinIcon, DollarIcon, MessagesIcon, RightArrowIcon, RotateArrowsIcon, ShareIcon } from '../components/Icons'
+import { CoinIcon, DollarIcon, TokenIcon, MessagesIcon, RightArrowIcon, RotateArrowsIcon, ShareIcon } from '../components/Icons'
 import Slider from "react-slick"
 import { avatars } from '../utils/constants'
 import { useTranslation } from 'react-i18next'
 import TopMenu from '../components/TopMenu'
+import { useState } from 'react'
 
-export default function Home({ profileData, setData, wpId, openPopUpLanguage }) {
+export default function Home({ profileData, setData, wpId }) {
 	const { t } = useTranslation()
+
+	const [balance, setBalance] = useState('coin')
+
+	function changeBalance() {
+		setBalance(previous => {
+			if (previous === 'coin') return 'usdt'
+			if (previous === 'usdt') return 'token'
+			if (previous === 'token') return 'coin'
+		})
+	}
 
 	const settingsAvatarsSlider = {
 		dots: false,
@@ -34,19 +45,27 @@ export default function Home({ profileData, setData, wpId, openPopUpLanguage }) 
 			<TopMenu profileData={profileData} setData={setData} wpId={wpId} />
 			<div className='card'>
 				<div className='card-header'>
-					<div className='balance'>
+					<div className='balance' onClick={changeBalance}>
 						<div className='title'>
 							<span>{t('home.balance')}</span>
 							<RotateArrowsIcon />
 						</div>
 						<div className='value'>
-							<span>542</span>
-							<CoinIcon />
+							{balance === 'coin' ? <>
+								<span className='coin'>{profileData.coin}</span>
+								<div className='icon'><CoinIcon /></div>
+							</> : balance === 'usdt' ? <>
+								<span>{profileData.usdt}</span>
+								<div className='icon'><DollarIcon /></div>
+							</> : balance === 'token' ? <>
+								<span>{profileData.token}</span>
+								<div className='icon token'><TokenIcon /></div>
+							</> : ''}
 						</div>
 					</div>
 					<div className='level'>
 						<div className='title'>{t('home.level')}</div>
-						<div className='value'>K-2</div>
+						<div className='value'>K-{profileData.level}</div>
 					</div>
 					<div className='career'>
 						<span>{t('home.career')}</span>
