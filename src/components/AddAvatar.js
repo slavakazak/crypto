@@ -60,7 +60,7 @@ export default function AddAvatar({ setData }) {
 	return (
 		<>
 			{load ?
-				<div className='add-avatar'>{t('addAvatar.loading')}</div>
+				<div className='add-avatar'>{t('loading')}</div>
 				:
 				<div className='add-avatar' onClick={() => document.getElementById('file-input').click()}>
 					<PlusIcon />

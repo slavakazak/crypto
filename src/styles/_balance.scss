@@ -43,14 +43,20 @@
 
 	.sub-title {
 		height: 18px;
-		display: flex;
-		align-items: center;
 		color: $second-font;
 		font-size: 14px;
 		font-weight: 400;
 		letter-spacing: -0.28px;
 		padding-left: 16px;
 		margin-bottom: 15px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.col {
+			display: flex;
+			align-items: center;
+		}
 
 		.info {
 			width: 13px;
@@ -61,6 +67,10 @@
 			svg {
 				fill: $inactive;
 			}
+		}
+
+		.icon {
+			cursor: pointer;
 		}
 	}
 

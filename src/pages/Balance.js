@@ -1,4 +1,4 @@
-import { AccrualIcon, CoinIcon, CrossIcon, DollarIcon, FilterIcon, InfoIcon, PurchaseIcon, RightArrowIcon, SearchIcon, SwaplIcon, TokenIcon, WithdrawalIcon } from "../components/Icons"
+import { AccrualIcon, CoinIcon, CrossIcon, DollarIcon, FilterIcon, InfoIcon, PurchaseIcon, RightArrowIcon, SearchIcon, SwaplIcon, TokenIcon, WithdrawalIcon, RefreshIcon } from "../components/Icons"
 import Modal from "../components/Modal"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from 'react-i18next'
@@ -7,7 +7,7 @@ import getUTCTime from "../utils/getUTCTime"
 import getTransactions from "../utils/getTransactions"
 import { products } from '../utils/constants'
 
-export default function Balance({ profileData, wpId }) {
+export default function Balance({ profileData, wpId, setData }) {
 	const { t } = useTranslation()
 	const [modal, setModal] = useState(false)
 	const [modalTitle, setModalTitle] = useState('')
@@ -15,6 +15,20 @@ export default function Balance({ profileData, wpId }) {
 	const [modalType, setModalType] = useState('')
 
 	const [transactionsDates, setTransactionsDates] = useState(null)
+
+	async function updateTransactions() {
+		setTransactionsDates(null)
+		const transactions = await getTransactions(wpId)
+		const groupedTransactions = {}
+		await transactions.forEach(async transaction => {
+			const date = transaction.transaction_time.split(' ')[0]
+			if (!groupedTransactions[date]) {
+				groupedTransactions[date] = []
+			}
+			groupedTransactions[date].push(transaction)
+		})
+		setTransactionsDates(groupedTransactions)
+	}
 
 	useEffect(() => {
 		// const transactionData = {
@@ -29,20 +43,7 @@ export default function Balance({ profileData, wpId }) {
 		// 	comment: 'Первый заказ пользователя',
 		// 	transaction_time: getUTCTime() //YYYY-MM-DD HH:MM:SS по UTS+0
 		// }
-		setTransactionsDates(null)
-		async function init() {
-			const transactions = await getTransactions(wpId)
-			const groupedTransactions = {}
-			await transactions.forEach(async transaction => {
-				const date = transaction.transaction_time.split(' ')[0]
-				if (!groupedTransactions[date]) {
-					groupedTransactions[date] = []
-				}
-				groupedTransactions[date].push(transaction)
-			})
-			setTransactionsDates(groupedTransactions)
-		}
-		init()
+		updateTransactions()
 	}, [wpId])
 
 	function openModal(title, text, type = '') {
@@ -99,6 +100,11 @@ export default function Balance({ profileData, wpId }) {
 		return ''
 	}
 
+	function refresh() {
+		updateTransactions()
+		setData({})
+	}
+
 	return (
 		<>
 			<div id="balance">
@@ -107,8 +113,11 @@ export default function Balance({ profileData, wpId }) {
 					<div className="info"><InfoIcon size={18} /></div>
 				</div>
 				<div className="sub-title">
-					<span>{t('balance.wallets')}</span>
-					<div className="info"><InfoIcon size={10} /></div>
+					<div className="col">
+						<span>{t('balance.wallets')}</span>
+						<div className="info"><InfoIcon size={10} /></div>
+					</div>
+					<div className="icon" onClick={refresh}><RefreshIcon /></div>
 				</div>
 				<div className="wallets">
 					<div className="wallet">
@@ -144,7 +153,7 @@ export default function Balance({ profileData, wpId }) {
 					<div className="filter-button"><FilterIcon /></div>
 				</div>
 				<div className="transactions">
-					{!transactionsDates ? t('addAvatar.loading') :
+					{!transactionsDates ? t('loading') :
 						Object.keys(transactionsDates).map((item, i) => {
 							const date = new Date(item + 'T00:00:00Z')
 							const dateFormat = new Intl.DateTimeFormat(profileData.language.tag, { month: "long", day: "numeric" })

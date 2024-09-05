@@ -1,4 +1,5 @@
 {
+	"loading": "Loading...",
 	"modal": {
 		"error": "Error!",
 		"success": "Success!",
@@ -107,7 +108,6 @@
 			"size": "Maximum file size exceeded",
 			"format": "Invalid image format"
 		},
-		"loading": "Loading...",
 		"size": "*Up to 4 MB"
 	},
 	"menu": {
@@ -218,5 +218,21 @@
 				"title": "To connect to the robot you need to do:"
 			}
 		}
+	},
+	"invite": {
+		"text": "Start making money with me on trading robots🔥",
+		"title": "INVITE YOUR FRIENDS!",
+		"description": "You and your friend will receive bonuses!",
+		"bonuses": "Bonuses",
+		"metrics": "Metrics",
+		"faq": "FAQ",
+		"inviteTitle": "Invite a friend!",
+		"inviteText": "you and your friend will get!",
+		"invite": "INVITE A FRIEND",
+		"invited": "Personally invited",
+		"command": "Team",
+		"noUsers": "No users",
+		"lvl": "lvl",
+		"date": "Date"
 	}
 }

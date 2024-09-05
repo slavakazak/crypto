@@ -63,7 +63,7 @@ export default function Settings({ profileData, setData, wpId }) {
 		setPassword(profileData.password)
 		setPin(profileData.pin)
 		setWallet(profileData.wallet)
-	}, [wpId])
+	}, [profileData, wpId])
 
 	//обработчики ввода полей
 	function handler(setter) {
@@ -88,7 +88,7 @@ export default function Settings({ profileData, setData, wpId }) {
 		setPopUpGender(false)
 	}
 	function genderSaveClickHandler() {
-		if (gender.tag === profileData.gender?.tag) return
+		if (gender?.tag === profileData.gender?.tag) return
 		setData({ gender })
 		setPopUpGender(false)
 	}
@@ -103,7 +103,7 @@ export default function Settings({ profileData, setData, wpId }) {
 		setPopUpCountry(false)
 	}
 	function countrySaveClickHandler() {
-		if (country.tag === profileData.country?.tag) return
+		if (country?.tag === profileData.country?.tag) return
 		setData({ country })
 		setPopUpCountry(false)
 	}
@@ -335,7 +335,7 @@ export default function Settings({ profileData, setData, wpId }) {
 				description={t('settings.popUpGender.description')}
 				onCancel={genderCancelClickHandler}
 				onSave={genderSaveClickHandler}
-				saveActive={gender.tag !== profileData.gender?.tag}
+				saveActive={gender?.tag !== profileData.gender?.tag}
 			>
 				<div className="select">
 					{genders.map((item, i) => (
@@ -351,13 +351,13 @@ export default function Settings({ profileData, setData, wpId }) {
 				description={t('settings.popUpCountry.description')}
 				onCancel={countryCancelClickHandler}
 				onSave={countrySaveClickHandler}
-				saveActive={country.tag !== profileData.country?.tag}
+				saveActive={country?.tag !== profileData.country?.tag}
 				full={true}
 				search={countrySearch}
 				setSearch={setCountrySearch}
 			>
 				<div className="select">
-					{countries.filter(item => t([`constants.countries.${item.tag}`]).toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
+					{countries.filter(item => t([`constants.countries.${item?.tag}`]).toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
 						<Option key={i} item={item} selected={country} langPath={'constants.countries'} setSelected={setCountry} />
 					))}
 				</div>

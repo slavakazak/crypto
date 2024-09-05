@@ -14,10 +14,11 @@ import { countries, languages } from "../utils/constants"
 import { useTranslation } from 'react-i18next'
 import Balance from "../pages/Balance"
 import getIdFromRef from "../utils/getIdFromRef"
-import updateWpFields from "../utils/updateWpFields"
+import updateWpFields from "../utils/getWpFields"
 import addTransaction from "../utils/addTransaction"
 import getUTCTime from "../utils/getUTCTime"
 import addWpBalance from "../utils/addWpBalance"
+import getWpFields from "../utils/getWpFields"
 
 export default function App() {
 	const { i18n } = useTranslation()
@@ -54,14 +55,14 @@ export default function App() {
 	const [startParam, setStartParam] = useState()
 	useEffect(() => {
 		async function init() {
-			if (window && window.Telegram && window.Telegram.WebApp) {
+			if (window?.Telegram?.WebApp) {
 				const tgData = window.Telegram.WebApp
 				setTg(tgData)
 				tgData.setHeaderColor('#111')
 				tgData.setBackgroundColor('#111')
 				tgData.disableVerticalSwipes()
 				tgData.expand()
-				if (tgData && tgData.initDataUnsafe && tgData.initDataUnsafe.user) {
+				if (tgData.initDataUnsafe?.user) {
 					const user = tgData.initDataUnsafe.user
 					const isWpSet = await setWpUser(user, setProfileData, setWpId)
 					setStartParam(tgData.initDataUnsafe.start_param)
@@ -84,70 +85,45 @@ export default function App() {
 
 	//Set Data and Send Data to server
 	async function setData(data) {
-		if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-			await updateWpFields(tg.initDataUnsafe.user, setProfileData, setWpId)
-		}
-		setProfileData(previous => ({ ...previous, ...data }))
 		if (!wpId) return
-		await setWpFields(wpId, {
-			t_nickname: data.nickname || profileData.nickname,
-			t_full_name: data.fullName || profileData.fullName,
-			t_username: data.username || profileData.username,
-			t_gender: data.gender?.tag || profileData.gender?.tag,
-			t_age: +data.age || +profileData.age,
-			t_country: data.country?.tag || profileData.country?.tag,
-			t_login: data.login || profileData.login,
-			t_password: data.password || profileData.password,
-			t_password_changed: data.passwordChanged || profileData.passwordChanged,
-			t_pin: data.pin || profileData.pin,
-			t_wallet: data.wallet || profileData.wallet,
-			t_avatars: data.avatars?.join(',') || profileData.avatars?.join(','),
-			t_my_avatar: data.myAvatar || profileData.myAvatar,
-			t_avatar: data.avatar || profileData.avatar,
-			t_language: data.language?.tag || profileData.language?.tag,
-			t_level: +data.level || +profileData.level,
-			t_token: +data.token || +profileData.token,
-			t_coin: +data.coin || +profileData.coin,
-			t_usdt: +data.usdt || +profileData.usdt,
-			t_ref: data.ref || profileData.ref,
-			t_link: data.link || profileData.link,
-		},
-			data.email || profileData.email,
-			data.password || profileData.password,
-		)
+		console.log(data)
+		const fields = await getWpFields(wpId)
+		console.log(fields)
+		console.log({ ...profileData, ...fields, ...data })
+		await setWpFields(wpId, { ...profileData, ...fields, ...data })
+		setProfileData(previous => ({ ...previous, ...fields, ...data }))
 	}
 
 	//Add ref link and bonus
 	useEffect(() => {
-		async function init() {
-			if (!profileData.link && startParam && startParam.slice(0, 2) === 'r_') {
-				const link = await getIdFromRef(startParam.slice(2))
+		async function handleReferral() {
+			if (wpId && startParam?.startsWith('r_') && !profileData.link) {
+				const refId = await getIdFromRef(startParam.slice(2))
 				const bonus = 1000
 				await addWpBalance(wpId, bonus)
-				await addWpBalance(+link, bonus)
-				await setData({ link })
-				await addTransaction({
-					user_id: wpId,
+				await addWpBalance(+refId, bonus)
+				await setData({ link: refId })
+				const transactionData = {
 					transaction_type: 'accrual',
 					transaction_status: 'success',
 					price: bonus,
 					currency: 'token',
-					comment: `Регистрация по реф ссылке пользователя ${link}`,
-					transaction_time: getUTCTime()
+					transaction_time: getUTCTime(),
+				}
+				await addTransaction({
+					...transactionData,
+					user_id: wpId,
+					comment: `Регистрация по реф ссылке пользователя ${refId}`
 				})
 				await addTransaction({
-					user_id: +link,
-					transaction_type: 'accrual',
-					transaction_status: 'success',
-					price: bonus,
-					currency: 'token',
-					comment: `Пользователь ${wpId} зарегистрировался по реф ссылке`,
-					transaction_time: getUTCTime()
+					...transactionData,
+					user_id: +refId,
+					comment: `Пользователь ${wpId} зарегистрировался по реф ссылке`
 				})
 			}
 		}
-		init()
-	}, [startParam && wpId])
+		handleReferral()
+	}, [startParam, wpId])
 
 	return (
 		<div className="App">
@@ -160,7 +136,7 @@ export default function App() {
 					<Route path="/rating" element={<Rating />} />
 					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} wpId={wpId} />} />
-					<Route path="/balance" element={<Balance profileData={profileData} wpId={wpId} />} />
+					<Route path="/balance" element={<Balance profileData={profileData} wpId={wpId} setData={setData} />} />
 				</Routes>
 			</div>
 			<Menu />
