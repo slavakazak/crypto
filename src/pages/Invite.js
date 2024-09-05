@@ -9,13 +9,15 @@ export default function Invite({ profileData, wpId, tg }) {
 	const [loading, setLoading] = useState(true)
 	const inviteText = "Начни со мной зарабатывать на торговых роботах🔥"
 
+	async function updatePartners() {
+		setLoading(true)
+		const newPartners = await getPartners(wpId)
+		setPartners(newPartners)
+		setLoading(false)
+	}
+
 	useEffect(() => {
-		async function init() {
-			const newPartners = await getPartners(wpId)
-			setPartners(newPartners)
-			setLoading(false)
-		}
-		init()
+		updatePartners()
 	}, [wpId])
 
 	function inviteClickHandler() {
@@ -66,7 +68,7 @@ export default function Invite({ profileData, wpId, tg }) {
 			<div className="tab-menu">
 				<div className={'link' + (page === 'invited' ? ' active' : '')} onClick={() => setPage('invited')}><span>Лично приглашённые</span></div>
 				<div className={'link' + (page === 'command' ? ' active' : '')} onClick={() => setPage('command')}><span>Команда</span></div>
-				<div className="icon"><RefreshIcon /></div>
+				<div className="icon" onClick={updatePartners}><RefreshIcon /></div>
 			</div>
 			{page === 'invited' && <div className="tab">
 				{loading ? 'Загрузка...' : partners.length === 0 ? 'Нет пользователей' : <div className="list">

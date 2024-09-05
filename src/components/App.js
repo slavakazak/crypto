@@ -14,6 +14,10 @@ import { countries, languages } from "../utils/constants"
 import { useTranslation } from 'react-i18next'
 import Balance from "../pages/Balance"
 import getIdFromRef from "../utils/getIdFromRef"
+import updateWpFields from "../utils/updateWpFields"
+import addTransaction from "../utils/addTransaction"
+import getUTCTime from "../utils/getUTCTime"
+import addWpBalance from "../utils/addWpBalance"
 
 export default function App() {
 	const { i18n } = useTranslation()
@@ -47,7 +51,6 @@ export default function App() {
 	//Init Telegram & Wordpress
 	const [wpId, setWpId] = useState()
 	const [tg, setTg] = useState()
-	const [err, setErr] = useState()
 	const [startParam, setStartParam] = useState()
 	useEffect(() => {
 		async function init() {
@@ -81,9 +84,12 @@ export default function App() {
 
 	//Set Data and Send Data to server
 	async function setData(data) {
+		if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+			await updateWpFields(tg.initDataUnsafe.user, setProfileData, setWpId)
+		}
 		setProfileData(previous => ({ ...previous, ...data }))
 		if (!wpId) return
-		setWpFields(wpId, {
+		await setWpFields(wpId, {
 			t_nickname: data.nickname || profileData.nickname,
 			t_full_name: data.fullName || profileData.fullName,
 			t_username: data.username || profileData.username,
@@ -111,20 +117,40 @@ export default function App() {
 		)
 	}
 
+	//Add ref link and bonus
 	useEffect(() => {
 		async function init() {
-			if (startParam && startParam.slice(0, 2) === 'r_') {
+			if (!profileData.link && startParam && startParam.slice(0, 2) === 'r_') {
 				const link = await getIdFromRef(startParam.slice(2))
+				const bonus = 1000
+				await addWpBalance(wpId, bonus)
+				await addWpBalance(+link, bonus)
 				await setData({ link })
-				//setErr(JSON.stringify(profileData, null, ' '))
+				await addTransaction({
+					user_id: wpId,
+					transaction_type: 'accrual',
+					transaction_status: 'success',
+					price: bonus,
+					currency: 'token',
+					comment: `Регистрация по реф ссылке пользователя ${link}`,
+					transaction_time: getUTCTime()
+				})
+				await addTransaction({
+					user_id: +link,
+					transaction_type: 'accrual',
+					transaction_status: 'success',
+					price: bonus,
+					currency: 'token',
+					comment: `Пользователь ${wpId} зарегистрировался по реф ссылке`,
+					transaction_time: getUTCTime()
+				})
 			}
 		}
 		init()
-	}, [startParam])
+	}, [startParam && wpId])
 
 	return (
 		<div className="App">
-			{err}
 			<div className="content" style={{ backgroundImage: 'url(/img/bg.png)' }}>
 				<Routes>
 					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} setData={setData} />} />

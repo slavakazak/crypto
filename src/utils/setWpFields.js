@@ -13,10 +13,12 @@ export default async function setWpFields(wpId, meta, email, password) {
 			{ headers: { Authorization: `Bearer ${token}` } }
 		)
 		//изменение email и password
-		await axios.post(`${url}/wp-json/wp/v2/users/${wpId}`,
-			{ email, password },
-			{ headers: { Authorization: `Bearer ${token}` } }
-		)
+		if (email && password) {
+			await axios.post(`${url}/wp-json/wp/v2/users/${wpId}`,
+				{ email, password },
+				{ headers: { Authorization: `Bearer ${token}` } }
+			)
+		}
 	} catch (error) {
 		console.error('Error creating user:', error.response?.data || error.message)
 	}

@@ -14,10 +14,6 @@ export default function Balance({ profileData, wpId }) {
 	const [modalText, setModalText] = useState('')
 	const [modalType, setModalType] = useState('')
 
-	const token = 0
-	const coin = 0
-	const usdt = 0
-
 	const [transactionsDates, setTransactionsDates] = useState(null)
 
 	useEffect(() => {
@@ -137,7 +133,7 @@ export default function Balance({ profileData, wpId }) {
 						<div className="value">{profileData.usdt}</div>
 					</div>
 				</div>
-				<div className={'withdrawal' + (usdt > 0 ? ' active' : '')}>{t('balance.withdrawal')}</div>
+				<div className={'withdrawal' + (profileData.usdt > 0 ? ' active' : '')}>{t('balance.withdrawal')}</div>
 				<div className="search-row">
 					<h2 className={searchActive ? 'hidden' : ''}>{t('balance.transactions')}</h2>
 					<div className={'search-wrapper' + (searchActive ? ' active' : '')}>
