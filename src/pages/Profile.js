@@ -7,7 +7,7 @@ import { avatars } from '../utils/constants'
 import AddAvatar from '../components/AddAvatar'
 import { useTranslation } from 'react-i18next'
 
-export default function Profile({ profileData, setData, wpId }) {
+export default function Profile({ profileData, setData, wpId, height }) {
 	const { t } = useTranslation()
 	const [popUpAvatar, setPopUpAvatar] = useState(false)
 	const [avatar, setAvatar] = useState(profileData.avatar)
@@ -115,6 +115,7 @@ export default function Profile({ profileData, setData, wpId }) {
 				onSave={changeAvatarSaveClickHandler}
 				saveActive={profileData.avatar !== avatar}
 				full={profileData.avatars.length > 3}
+				height={height}
 			>
 				<div className="avatar-select">
 					{profileData.avatars.map((item, i) => (

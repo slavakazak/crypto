@@ -2,6 +2,8 @@ import { FlagEnIcon, FlagRusIcon, MenIcon, WomenIcon } from "../components/Icons
 import afghanistan from '../img/afghanistan.png'
 import albania from '../img/albania.png'
 import robot from '../img/robot.png'
+import k1avatar from '../img/k1avatar.svg'
+import k2avatar from '../img/k2avatar.svg'
 import k2 from '../img/K2.png'
 
 export const genders = [
@@ -14,10 +16,7 @@ export const countries = [
 	{ tag: 'Albania', icon: <img src={albania} alt="Albania" /> },
 	{ tag: 'Algeria', icon: <FlagRusIcon /> },
 ]
-export const avatars = {
-	robot: robot,
-	robot2: robot,
-}
+export const avatars = { k1avatar, k2avatar }
 export const languages = [
 	{ tag: 'ru', icon: <FlagRusIcon /> },
 	{ tag: 'en', icon: <FlagEnIcon /> },
@@ -59,7 +58,7 @@ export const defaultProfileData = {
 	passwordChanged: false,
 	pin: '',
 	wallet: '',
-	avatars: ['robot', 'robot2'],
+	avatars: ['k1avatar'],
 	myAvatar: '',
 	avatar: 'robot',
 	language: languages[0],

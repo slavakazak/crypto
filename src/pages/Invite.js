@@ -108,7 +108,7 @@ export default function Invite({ profileData, wpId, tg }) {
 				<div className="tab-menu">
 					<div className={'link' + (page === 'invited' ? ' active' : '')} onClick={() => setPage('invited')}><span>{t('invite.invited')}</span></div>
 					<div className={'link' + (page === 'command' ? ' active' : '')} onClick={() => setPage('command')}><span>{t('invite.command')}</span></div>
-					<div className="text">{t('invite.amount')}: {partners?.length + command?.length}</div>
+					<div className="text">{t('invite.amount')}: {partners?.length + command?.length || 0}</div>
 					<div className="icon" onClick={updatePartners}><RefreshIcon /></div>
 				</div>
 				{page === 'invited' && <div className="tab">

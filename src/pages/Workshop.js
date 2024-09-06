@@ -10,7 +10,7 @@ import PopUpProduct from '../components/PopUpProduct'
 import getRobots from '../utils/getRobots'
 import { products } from '../utils/constants'
 
-export default function Workshop({ profileData, wpId, setData }) {
+export default function Workshop({ profileData, wpId, setData, height }) {
 	const { t } = useTranslation()
 
 	const [inventory, setInventory] = useState(false)
@@ -75,7 +75,7 @@ export default function Workshop({ profileData, wpId, setData }) {
 		<>
 
 			<div id="workshop">
-				<TopMenu profileData={profileData} setData={setData} wpId={wpId} />
+				<TopMenu profileData={profileData} setData={setData} wpId={wpId} height={height} />
 				<Switch second={inventory} setSecond={setInventory} firstText={t('workshop.workshop')} secondText={t('workshop.inventory')} />
 				{inventory ? <>
 					{availableRobots.length !== 0 && <>
@@ -140,6 +140,7 @@ export default function Workshop({ profileData, wpId, setData }) {
 				wpId={wpId}
 				openSuccessModal={openSuccessModal}
 				openModal={openModal}
+				height={height}
 			/>}
 
 			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} text={modalText} content={modalContent} type={modalType} />

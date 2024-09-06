@@ -8,7 +8,7 @@ import { genders, countries } from "../utils/constants"
 import { useTranslation } from 'react-i18next'
 import Modal from "../components/Modal"
 
-export default function Settings({ profileData, setData, wpId }) {
+export default function Settings({ profileData, setData, wpId, height }) {
 	const { t } = useTranslation()
 
 	const [modal, setModal] = useState(false)
@@ -323,7 +323,7 @@ export default function Settings({ profileData, setData, wpId }) {
 				</div>
 				<div className="form-section">
 					<div className="label">{t('settings.financialData')}</div>
-					<input placeholder={t('settings.placeholder.wallet')} className="input" value={wallet} onChange={handler(setWallet)} />
+					<input placeholder={t('settings.placeholder.wallet')} className="input wallet-input" value={wallet} onChange={handler(setWallet)} />
 				</div>
 				<SaveRow onCancel={cancelClickHandler} onSave={saveClickHandler} active={formChanged} />
 			</div>
@@ -336,6 +336,7 @@ export default function Settings({ profileData, setData, wpId }) {
 				onCancel={genderCancelClickHandler}
 				onSave={genderSaveClickHandler}
 				saveActive={gender?.tag !== profileData.gender?.tag}
+				height={height}
 			>
 				<div className="select">
 					{genders.map((item, i) => (
@@ -355,6 +356,7 @@ export default function Settings({ profileData, setData, wpId }) {
 				full={true}
 				search={countrySearch}
 				setSearch={setCountrySearch}
+				height={height}
 			>
 				<div className="select">
 					{countries.filter(item => t([`constants.countries.${item?.tag}`]).toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
@@ -372,6 +374,7 @@ export default function Settings({ profileData, setData, wpId }) {
 				onSave={seePasswordSaveClickHandler}
 				saveActive={pinToSeePassword}
 				saveText={t('settings.popUpSeePassword.save')}
+				height={height}
 			>
 				<div className="select">
 					<input placeholder={t('settings.popUpSeePassword.placeholder.pin')} type="password" value={pinToSeePassword} onChange={e => setPinToSeePassword(e.target.value)} />
@@ -386,6 +389,7 @@ export default function Settings({ profileData, setData, wpId }) {
 				onCancel={changePasswordCancelClickHandler}
 				onSave={changePasswordSaveClickHandler}
 				saveActive={currentPassword && newPassword && pinToChangePassword}
+				height={height}
 			>
 				<div className="select">
 					<input placeholder={t('settings.popUpChangePassword.placeholder.password')} type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
@@ -402,6 +406,7 @@ export default function Settings({ profileData, setData, wpId }) {
 				onCancel={changePinCancelClickHandler}
 				onSave={changePinSaveClickHandler}
 				saveActive={currentPin && newPin}
+				height={height}
 			>
 				<div className="select">
 					<input placeholder={t('settings.popUpChangePin.placeholder.pin')} type="password" value={currentPin} onChange={e => setCurrentPin(e.target.value)} />

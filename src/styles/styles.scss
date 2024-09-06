@@ -116,20 +116,16 @@ legend {
 body {
 	background-color: $bg;
 	color: $font;
-	overflow-x: hidden;
+	overflow: hidden;
 	font-family: "Roboto Mono", system-ui;
 	font-weight: 400;
 	width: 100dvw;
 	min-width: 360px;
-	height: var(--tg-viewport-stable-height);
 }
 
 .App {
 	width: 100%;
-	height: var(--tg-viewport-stable-height);
 	position: relative;
-	display: flex;
-	flex-direction: column;
 	max-width: 600px;
 	margin: 0 auto;
 	padding: 0;
@@ -137,7 +133,10 @@ body {
 }
 
 .content {
-	flex-grow: 1;
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
 	overflow-y: auto;
 	box-sizing: border-box;
 	background-repeat: no-repeat;

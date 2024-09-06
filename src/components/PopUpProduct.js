@@ -10,7 +10,7 @@ import getPaymentStatus from "../utils/getPaymentStatus"
 import { useTranslation } from 'react-i18next'
 import { QRCodeSVG } from 'qrcode.react'
 
-export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, wpId, openSuccessModal, openModal }) {
+export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, wpId, openSuccessModal, openModal, height }) {
 	const { t } = useTranslation()
 
 	const currencies = {
@@ -185,7 +185,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 	}
 
 	return (
-		<div className={"pop-up-wrapper pop-up-product animate" + (orderStage ? ' active' : '')} onClick={() => setOrderStage('')}>
+		<div className={"pop-up-wrapper pop-up-product animate" + (orderStage ? ' active' : '')} onClick={() => setOrderStage('')} style={{ height: height ? (height - 71) + 'px' : 'calc(100vh - 71px)' }}>
 			<div className='pop-up pop-up-full' onClick={e => e.stopPropagation()} style={{ backgroundImage: 'url(/img/pop-up-bg.png)' }}>
 				<div className="cross" onClick={() => setOrderStage('')}><CrossIcon /></div>
 				{orderStage === 'purchase' && <>

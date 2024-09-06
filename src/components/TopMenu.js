@@ -7,7 +7,7 @@ import PopUp from './PopUp'
 import Option from './Option'
 import { languages } from '../utils/constants'
 
-export default function TopMenu({ profileData, setData, wpId }) {
+export default function TopMenu({ profileData, setData, wpId, height }) {
 	const { t, i18n } = useTranslation()
 
 	const [popUpLanguage, setPopUpLanguage] = useState(false)
@@ -58,6 +58,7 @@ export default function TopMenu({ profileData, setData, wpId }) {
 				onSave={languageSaveClickHandler}
 				saveActive={language.tag !== profileData.language.tag}
 				full={true}
+				height={height}
 			>
 				<div className="select">
 					{languages.map((item, i) => (

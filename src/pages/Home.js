@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import TopMenu from '../components/TopMenu'
 import { useState } from 'react'
 
-export default function Home({ profileData, setData, wpId }) {
+export default function Home({ profileData, setData, wpId, height }) {
 	const { t } = useTranslation()
 
 	const [balance, setBalance] = useState('coin')
@@ -42,7 +42,7 @@ export default function Home({ profileData, setData, wpId }) {
 
 	return (
 		<div id="home">
-			<TopMenu profileData={profileData} setData={setData} wpId={wpId} />
+			<TopMenu profileData={profileData} setData={setData} wpId={wpId} height={height} />
 			<div className='card'>
 				<div className='card-header'>
 					<div className='balance' onClick={changeBalance}>

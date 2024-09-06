@@ -1,5 +1,35 @@
+@keyframes open-pop-up-product {
+	from {
+		display: flex;
+		background: rgba(0, 0, 0, 0);
+	}
+
+	to {
+		display: flex;
+		background: rgba(0, 0, 0, 0);
+	}
+}
+
+@keyframes close-pop-up-product {
+	from {
+		display: flex;
+		background: rgba(0, 0, 0, 0);
+	}
+
+	to {
+		display: flex;
+		background: rgba(0, 0, 0, 0);
+	}
+}
+
 .pop-up-wrapper.pop-up-product {
-	height: calc(var(--tg-viewport-stable-height) - 71px);
+	top: 71px;
+	background: transparent;
+	animation-name: close-pop-up-product;
+
+	&.active {
+		animation-name: open-pop-up-product;
+	}
 }
 
 .pop-up-wrapper.pop-up-product .pop-up.pop-up-full {
