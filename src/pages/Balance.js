@@ -9,6 +9,7 @@ import { products } from '../utils/constants'
 
 export default function Balance({ profileData, wpId, setData }) {
 	const { t } = useTranslation()
+
 	const [modal, setModal] = useState(false)
 	const [modalTitle, setModalTitle] = useState('')
 	const [modalText, setModalText] = useState('')

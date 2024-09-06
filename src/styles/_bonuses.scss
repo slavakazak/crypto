@@ -1,0 +1,30 @@
+#bonuses {
+	width: 100%;
+	padding: 35px 15px 15px 15px;
+
+	.top-menu {
+		padding-right: $block-height;
+		margin-bottom: 3px;
+
+		h1 {
+			font-size: 32px;
+			font-weight: 500;
+			text-transform: uppercase;
+
+			@media (max-width: 370px) {
+				font-size: 30px;
+			}
+		}
+	}
+
+	.description {
+		margin-bottom: 28px;
+		font-size: 14px;
+		font-weight: 400;
+		text-align: center;
+	}
+
+	.tab-menu {
+		margin-bottom: 30px;
+	}
+}

@@ -45,3 +45,28 @@ export const products = [
 		inactive: true
 	}
 ]
+
+export const defaultProfileData = {
+	nickname: '',
+	fullName: '',
+	username: '',
+	email: '',
+	gender: '',
+	age: 0,
+	country: countries[0],
+	login: '',
+	password: '',
+	passwordChanged: false,
+	pin: '',
+	wallet: '',
+	avatars: ['robot', 'robot2'],
+	myAvatar: '',
+	avatar: 'robot',
+	language: languages[0],
+	level: 1,
+	token: 0,
+	coin: 0,
+	usdt: 0,
+	ref: '',
+	link: ''
+}

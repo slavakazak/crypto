@@ -230,9 +230,12 @@
 		"inviteText": "you and your friend will get!",
 		"invite": "INVITE A FRIEND",
 		"invited": "Personally invited",
+		"amount": "Amount",
 		"command": "Team",
 		"noUsers": "No users",
 		"lvl": "lvl",
-		"date": "Date"
+		"date": "Date",
+		"line": "Line",
+		"bonusReference": "The bonus program is only available to ambassadors"
 	}
 }

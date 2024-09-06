@@ -10,69 +10,51 @@ import Profile from "../pages/Profile"
 import Settings from "../pages/Settings"
 import setWpUser from "../utils/setWpUser"
 import setWpFields from "../utils/setWpFields"
-import { countries, languages } from "../utils/constants"
+import { defaultProfileData } from "../utils/constants"
 import { useTranslation } from 'react-i18next'
 import Balance from "../pages/Balance"
 import getIdFromRef from "../utils/getIdFromRef"
-import updateWpFields from "../utils/getWpFields"
 import addTransaction from "../utils/addTransaction"
 import getUTCTime from "../utils/getUTCTime"
 import addWpBalance from "../utils/addWpBalance"
 import getWpFields from "../utils/getWpFields"
+import Bonuses from "../pages/Bonuses"
 
 export default function App() {
 	const { i18n } = useTranslation()
 
 	//Default Profile Data
-	const [profileData, setProfileData] = useState({
-		nickname: '',
-		fullName: '',
-		username: '',
-		email: '',
-		gender: '',
-		age: 0,
-		country: countries[0],
-		login: '',
-		password: '',
-		passwordChanged: false,
-		pin: '',
-		wallet: '',
-		avatars: ['robot', 'robot2'],
-		myAvatar: '',
-		avatar: 'robot',
-		language: languages[0],
-		level: 1,
-		token: 0,
-		coin: 0,
-		usdt: 0,
-		ref: '',
-		link: ''
-	})
+	const [profileData, setProfileData] = useState(defaultProfileData)
 
 	//Init Telegram & Wordpress
 	const [wpId, setWpId] = useState()
 	const [tg, setTg] = useState()
 	const [startParam, setStartParam] = useState()
+	const test = false
 	useEffect(() => {
 		async function init() {
-			if (window?.Telegram?.WebApp) {
-				const tgData = window.Telegram.WebApp
-				setTg(tgData)
-				tgData.setHeaderColor('#111')
-				tgData.setBackgroundColor('#111')
-				tgData.disableVerticalSwipes()
-				tgData.expand()
-				if (tgData.initDataUnsafe?.user) {
-					const user = tgData.initDataUnsafe.user
-					const isWpSet = await setWpUser(user, setProfileData, setWpId)
-					setStartParam(tgData.initDataUnsafe.start_param)
-					if (!isWpSet) console.log('WordPress login error!')
-				} else {
-					console.log('Telegram is not running!')
-				}
+			if (test) {
+				await setWpUser({}, setProfileData, setWpId, test)
 			} else {
-				console.log('Telegram WebApp is undefined, retrying…')
-				setTimeout(init, 500)
+				if (window?.Telegram?.WebApp) {
+					const tgData = window.Telegram.WebApp
+					setTg(tgData)
+					tgData.setHeaderColor('#111')
+					tgData.setBackgroundColor('#111')
+					tgData.disableVerticalSwipes()
+					tgData.expand()
+					if (tgData.initDataUnsafe?.user) {
+						const user = tgData.initDataUnsafe.user
+						const isWpSet = await setWpUser(user, setProfileData, setWpId)
+						setStartParam(tgData.initDataUnsafe.start_param)
+						if (!isWpSet) console.log('WordPress login error!')
+					} else {
+						console.log('Telegram is not running!')
+					}
+				} else {
+					console.log('Telegram WebApp is undefined, retrying…')
+					setTimeout(init, 500)
+				}
 			}
 		}
 		init()
@@ -86,10 +68,7 @@ export default function App() {
 	//Set Data and Send Data to server
 	async function setData(data) {
 		if (!wpId) return
-		console.log(data)
 		const fields = await getWpFields(wpId)
-		console.log(fields)
-		console.log({ ...profileData, ...fields, ...data })
 		await setWpFields(wpId, { ...profileData, ...fields, ...data })
 		setProfileData(previous => ({ ...previous, ...fields, ...data }))
 	}
@@ -97,8 +76,12 @@ export default function App() {
 	//Add ref link and bonus
 	useEffect(() => {
 		async function handleReferral() {
-			if (wpId && startParam?.startsWith('r_') && !profileData.link) {
+			if (wpId && startParam?.startsWith('r_') && (!profileData.link || +profileData.link === wpId)) {
 				const refId = await getIdFromRef(startParam.slice(2))
+				if (!refId || +refId === wpId) {
+					await setData({ link: '1' })
+					return
+				}
 				const bonus = 1000
 				await addWpBalance(wpId, bonus)
 				await addWpBalance(+refId, bonus)
@@ -120,6 +103,8 @@ export default function App() {
 					user_id: +refId,
 					comment: `Пользователь ${wpId} зарегистрировался по реф ссылке`
 				})
+			} else if (!profileData?.link) {
+				await setData({ link: '1' })
 			}
 		}
 		handleReferral()
@@ -137,6 +122,7 @@ export default function App() {
 					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} wpId={wpId} />} />
 					<Route path="/balance" element={<Balance profileData={profileData} wpId={wpId} setData={setData} />} />
+					<Route path="/bonuses" element={<Bonuses />} />
 				</Routes>
 			</div>
 			<Menu />

@@ -4,9 +4,15 @@ import getWpFields from './getWpFields'
 import getWpUserId from './getWpUserId'
 import { languages } from './constants'
 
-export default async function setWpUser(user, setProfileData, setWpId) {
-	const username = `user${user.id}`
-	const wpUserId = await getWpUserId(username)
+export default async function setWpUser(user, setProfileData, setWpId, test = false) {
+	let username, wpUserId
+	if (test) {
+		username = 'user123'
+		wpUserId = 1
+	} else {
+		username = `user${user.id}`
+		wpUserId = await getWpUserId(username)
+	}
 	if (wpUserId) {
 		const fields = await getWpFields(wpUserId)
 		setProfileData(previous => ({
