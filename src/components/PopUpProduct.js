@@ -9,9 +9,13 @@ import getTimeString from "../utils/getTimeString"
 import getPaymentStatus from "../utils/getPaymentStatus"
 import { useTranslation } from 'react-i18next'
 import { QRCodeSVG } from 'qrcode.react'
+import { useContext } from 'react'
+import { HeightContext, WpIdContext } from "../utils/contexts"
 
-export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, wpId, openSuccessModal, openModal, height }) {
+export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, openSuccessModal, openModal }) {
 	const { t } = useTranslation()
+	const { height, maxHeight } = useContext(HeightContext)
+	const wpId = useContext(WpIdContext)
 
 	const currencies = {
 		"USDTBSC": {
@@ -185,8 +189,16 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 	}
 
 	return (
-		<div className={"pop-up-wrapper pop-up-product animate" + (orderStage ? ' active' : '')} onClick={() => setOrderStage('')} style={{ height: height ? (height - 71) + 'px' : 'calc(100vh - 71px)' }}>
-			<div className='pop-up pop-up-full' onClick={e => e.stopPropagation()} style={{ backgroundImage: 'url(/img/pop-up-bg.png)' }}>
+		<div
+			className={"pop-up-wrapper pop-up-product animate" + (orderStage ? ' active' : '')}
+			onClick={() => setOrderStage('')}
+			style={{ height: maxHeight ? (maxHeight - 71) + 'px' : 'calc(100vh - 71px)' }}
+		>
+			<div
+				className='pop-up pop-up-full'
+				onClick={e => e.stopPropagation()}
+				style={{ backgroundImage: 'url(/img/pop-up-bg.png)', paddingBottom: maxHeight - height < 150 ? '30px' : (maxHeight - height + 30) + 'px' }}
+			>
 				<div className="cross" onClick={() => setOrderStage('')}><CrossIcon /></div>
 				{orderStage === 'purchase' && <>
 					<div className='row'>

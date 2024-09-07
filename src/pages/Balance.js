@@ -6,9 +6,14 @@ import addTransaction from "../utils/addTransaction"
 import getUTCTime from "../utils/getUTCTime"
 import getTransactions from "../utils/getTransactions"
 import { products } from '../utils/constants'
+import { useContext } from "react"
+import { ProfileContext, WpIdContext, SetDataContext } from "../utils/contexts"
 
-export default function Balance({ profileData, wpId, setData }) {
+export default function Balance() {
 	const { t } = useTranslation()
+	const profileData = useContext(ProfileContext)
+	const wpId = useContext(WpIdContext)
+	const setData = useContext(SetDataContext)
 
 	const [modal, setModal] = useState(false)
 	const [modalTitle, setModalTitle] = useState('')

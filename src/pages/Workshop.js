@@ -9,9 +9,12 @@ import { Link } from 'react-router-dom'
 import PopUpProduct from '../components/PopUpProduct'
 import getRobots from '../utils/getRobots'
 import { products } from '../utils/constants'
+import { useContext } from 'react'
+import { WpIdContext } from '../utils/contexts'
 
-export default function Workshop({ profileData, wpId, setData, height }) {
+export default function Workshop() {
 	const { t } = useTranslation()
+	const wpId = useContext(WpIdContext)
 
 	const [inventory, setInventory] = useState(false)
 
@@ -75,7 +78,7 @@ export default function Workshop({ profileData, wpId, setData, height }) {
 		<>
 
 			<div id="workshop">
-				<TopMenu profileData={profileData} setData={setData} wpId={wpId} height={height} />
+				<TopMenu />
 				<Switch second={inventory} setSecond={setInventory} firstText={t('workshop.workshop')} secondText={t('workshop.inventory')} />
 				{inventory ? <>
 					{availableRobots.length !== 0 && <>
@@ -137,10 +140,8 @@ export default function Workshop({ profileData, wpId, setData, height }) {
 				currentProduct={currentProduct}
 				orderStage={orderStage}
 				setOrderStage={setOrderStage}
-				wpId={wpId}
 				openSuccessModal={openSuccessModal}
 				openModal={openModal}
-				height={height}
 			/>}
 
 			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} text={modalText} content={modalContent} type={modalType} />

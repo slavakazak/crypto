@@ -6,15 +6,19 @@ import { useState, useEffect } from 'react'
 import { avatars } from '../utils/constants'
 import AddAvatar from '../components/AddAvatar'
 import { useTranslation } from 'react-i18next'
+import { useContext } from "react"
+import { ProfileContext, SetDataContext } from "../utils/contexts"
 
-export default function Profile({ profileData, setData, wpId, height }) {
+export default function Profile() {
 	const { t } = useTranslation()
+	const profileData = useContext(ProfileContext)
+	const setData = useContext(SetDataContext)
 	const [popUpAvatar, setPopUpAvatar] = useState(false)
 	const [avatar, setAvatar] = useState(profileData.avatar)
 
 	useEffect(() => {
 		setAvatar(profileData.avatar)
-	}, [wpId])
+	}, [profileData])
 
 	function nameClickHandler() {
 		if (profileData.fullName && profileData.username === profileData.nickname) {
@@ -115,7 +119,6 @@ export default function Profile({ profileData, setData, wpId, height }) {
 				onSave={changeAvatarSaveClickHandler}
 				saveActive={profileData.avatar !== avatar}
 				full={profileData.avatars.length > 3}
-				height={height}
 			>
 				<div className="avatar-select">
 					{profileData.avatars.map((item, i) => (
@@ -129,7 +132,7 @@ export default function Profile({ profileData, setData, wpId, height }) {
 							<img src={profileData.myAvatar} alt={profileData.username} />
 						</div>
 						:
-						<AddAvatar setData={setData} />
+						<AddAvatar />
 					}
 				</div>
 			</PopUp>

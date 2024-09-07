@@ -4,10 +4,14 @@ import getPartners from "../utils/getPartners"
 import { useTranslation } from 'react-i18next'
 import Modal from "../components/Modal"
 import { useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import { ProfileContext, WpIdContext } from "../utils/contexts"
 const botName = process.env.REACT_APP_BOT_NAME
 
-export default function Invite({ profileData, wpId, tg }) {
+export default function Invite({ tg }) {
 	const { t } = useTranslation()
+	const profileData = useContext(ProfileContext)
+	const wpId = useContext(WpIdContext)
 	const navigate = useNavigate()
 
 	const [modal, setModal] = useState(false)

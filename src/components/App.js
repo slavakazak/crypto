@@ -19,18 +19,17 @@ import getUTCTime from "../utils/getUTCTime"
 import addWpBalance from "../utils/addWpBalance"
 import getWpFields from "../utils/getWpFields"
 import Bonuses from "../pages/Bonuses"
+import { HeightContext, ProfileContext, WpIdContext, SetDataContext } from "../utils/contexts"
 
 export default function App() {
 	const { i18n } = useTranslation()
 
-	//Default Profile Data
-	const [profileData, setProfileData] = useState(defaultProfileData)
-
 	//Init Telegram & Wordpress
+	const [profileData, setProfileData] = useState(defaultProfileData)
 	const [wpId, setWpId] = useState()
 	const [tg, setTg] = useState()
 	const [startParam, setStartParam] = useState()
-	const test = false
+	const test = true
 	useEffect(() => {
 		async function init() {
 			if (window?.Telegram?.WebApp) {
@@ -74,7 +73,6 @@ export default function App() {
 		} else {
 			setHeight(Math.min(document.documentElement.clientHeight, window.innerHeight))
 		}
-		console.log(maxHeight - Math.min(document.documentElement.clientHeight, window.innerHeight))
 	}
 	function focusHandler() {
 		setTimeout(() => {
@@ -103,7 +101,7 @@ export default function App() {
 			document.removeEventListener('touchend', scrollHandler, false);
 			document.removeEventListener('touchcancel', scrollHandler, false);
 			document.removeEventListener('focus', focusHandler, true);
-		};
+		}
 	}, [tg])
 
 	//Set language
@@ -157,21 +155,31 @@ export default function App() {
 	}, [startParam, wpId])
 
 	return (
-		<div className="App" style={{ height: maxHeight ? maxHeight + 'px' : '100vh' }}>
-			<div className="content" style={{ backgroundImage: 'url(/img/bg.png)', height: maxHeight ? maxHeight + 'px' : '100vh', paddingBottom: maxHeight - height < 150 ? '75px' : (maxHeight - height) + 'px' }}>
-				<Routes>
-					<Route path="/workshop" element={<Workshop profileData={profileData} wpId={wpId} setData={setData} height={height} />} />
-					<Route path="/task" element={<Task tg={tg} />} />
-					<Route path="/" element={<Home profileData={profileData} setData={setData} wpId={wpId} />} height={height} />
-					<Route path="/invite" element={<Invite profileData={profileData} wpId={wpId} tg={tg} />} />
-					<Route path="/rating" element={<Rating />} />
-					<Route path="/profile" element={<Profile profileData={profileData} setData={setData} wpId={wpId} height={height} />} />
-					<Route path="/settings" element={<Settings profileData={profileData} setData={setData} wpId={wpId} height={height} />} />
-					<Route path="/balance" element={<Balance profileData={profileData} wpId={wpId} setData={setData} />} />
-					<Route path="/bonuses" element={<Bonuses />} />
-				</Routes>
-			</div>
-			<Menu style={{ display: maxHeight - height < 150 ? 'flex' : 'none' }} />
-		</div>
+		<HeightContext.Provider value={{ height, maxHeight }}>
+			<ProfileContext.Provider value={profileData}>
+				<WpIdContext.Provider value={wpId}>
+					<SetDataContext.Provider value={setData}>
+						<div className="App" style={{
+							backgroundImage: 'url(/img/bg.png)',
+							height: maxHeight ? maxHeight + 'px' : '100vh',
+							paddingBottom: maxHeight - height < 150 ? '85px' : (maxHeight - height) + 'px'
+						}}>
+							<Routes>
+								<Route path="/workshop" element={<Workshop />} />
+								<Route path="/task" element={<Task tg={tg} />} />
+								<Route path="/" element={<Home />} />
+								<Route path="/invite" element={<Invite tg={tg} />} />
+								<Route path="/rating" element={<Rating />} />
+								<Route path="/profile" element={<Profile />} />
+								<Route path="/settings" element={<Settings />} />
+								<Route path="/balance" element={<Balance />} />
+								<Route path="/bonuses" element={<Bonuses />} />
+							</Routes>
+						</div>
+						<Menu style={{ display: maxHeight - height < 150 ? 'flex' : 'none' }} />
+					</SetDataContext.Provider>
+				</WpIdContext.Provider>
+			</ProfileContext.Provider>
+		</HeightContext.Provider>
 	)
 }

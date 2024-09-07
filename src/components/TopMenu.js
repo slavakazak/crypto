@@ -6,16 +6,20 @@ import { useTranslation } from 'react-i18next'
 import PopUp from './PopUp'
 import Option from './Option'
 import { languages } from '../utils/constants'
+import { useContext } from 'react'
+import { ProfileContext, SetDataContext } from '../utils/contexts'
 
-export default function TopMenu({ profileData, setData, wpId, height }) {
+export default function TopMenu() {
 	const { t, i18n } = useTranslation()
+	const profileData = useContext(ProfileContext)
+	const setData = useContext(SetDataContext)
 
 	const [popUpLanguage, setPopUpLanguage] = useState(false)
 	const [language, setLanguage] = useState(profileData.language)
 
 	useEffect(() => {
 		setLanguage(profileData.language)
-	}, [wpId])
+	}, [profileData])
 
 	function languageCancelClickHandler() {
 		setLanguage(profileData.language)
@@ -58,7 +62,6 @@ export default function TopMenu({ profileData, setData, wpId, height }) {
 				onSave={languageSaveClickHandler}
 				saveActive={language.tag !== profileData.language.tag}
 				full={true}
-				height={height}
 			>
 				<div className="select">
 					{languages.map((item, i) => (

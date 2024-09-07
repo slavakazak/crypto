@@ -5,9 +5,12 @@ import { avatars } from '../utils/constants'
 import { useTranslation } from 'react-i18next'
 import TopMenu from '../components/TopMenu'
 import { useState } from 'react'
+import { useContext } from 'react'
+import { ProfileContext } from '../utils/contexts'
 
-export default function Home({ profileData, setData, wpId, height }) {
+export default function Home() {
 	const { t } = useTranslation()
+	const profileData = useContext(ProfileContext)
 
 	const [balance, setBalance] = useState('coin')
 
@@ -42,7 +45,7 @@ export default function Home({ profileData, setData, wpId, height }) {
 
 	return (
 		<div id="home">
-			<TopMenu profileData={profileData} setData={setData} wpId={wpId} height={height} />
+			<TopMenu />
 			<div className='card'>
 				<div className='card-header'>
 					<div className='balance' onClick={changeBalance}>
