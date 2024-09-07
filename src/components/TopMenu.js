@@ -1,6 +1,6 @@
 import logo from '../img/logo.png'
 import { Link } from "react-router-dom"
-import { RightArrowIcon, WalletIcon, QuestionIcon } from '../components/Icons'
+import { RightArrowIcon, WalletIcon, QuestionIcon, DollarIcon, CoinIcon, TokenIcon } from '../components/Icons'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PopUp from './PopUp'
@@ -38,9 +38,24 @@ export default function TopMenu() {
 
 			<div className="top-menu main-top-menu">
 				<Link to='/profile' className="profile">
-					<img src={logo} alt="K2" />
-					<span>{profileData.username}</span>
-					<RightArrowIcon />
+					<div className='left-side'>
+						<img src={logo} alt="K2" />
+						<span className='username'>{profileData.username}</span>
+					</div>
+					<div className='right-side'>
+						<div className='balance green'>
+							<div className='icon'><DollarIcon size={9} /></div>
+							<span>{profileData.usdt}</span>
+						</div>
+						<div className='balance cold'>
+							<div className='icon'><CoinIcon size={8} /></div>
+							<span>{profileData.coin}</span>
+						</div>
+						<div className='balance'>
+							<div className='icon'><TokenIcon size={10} /></div>
+							<span>{profileData.token}</span>
+						</div>
+					</div>
 				</Link>
 				<Link to='/balance' className="button">
 					<WalletIcon />

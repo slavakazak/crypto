@@ -7,6 +7,7 @@ $font: #FCFCFC;
 $second-font: #A4A4A6;
 $accent: #5A35EE;
 $gold: #FED32C;
+$green: #179F3D;
 $blue: #29186D;
 $success: #179F3D;
 $error: #DD1E10;
@@ -148,7 +149,6 @@ body {
 @import 'profile';
 @import 'settings';
 @import 'pop-up';
-@import 'thank-you';
 @import 'balance';
 @import 'modal';
 @import 'components';

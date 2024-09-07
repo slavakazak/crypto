@@ -35,6 +35,7 @@
 .pop-up-wrapper.pop-up-product .pop-up.pop-up-full {
 	padding: 30px 24px 30px 30px;
 	overflow-y: auto;
+	border-radius: $radius $radius 0 0;
 
 	.row {
 		display: flex;

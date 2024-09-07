@@ -19,7 +19,8 @@
 
 		&-header {
 			height: 73px;
-			background: $accent;
+			background: linear-gradient(231deg, $accent 9.12%, #2E2E77 100.25%);
+			box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 			border-radius: calc($radius - 2px) calc($radius - 2px) 0 0;
 			display: flex;
 			align-items: center;
@@ -61,8 +62,12 @@
 					letter-spacing: -0.4px;
 					margin-right: 4px;
 
-					&.coin {
+					&.gold {
 						color: $gold;
+					}
+
+					&.green {
+						color: $green;
 					}
 				}
 
@@ -83,10 +88,15 @@
 		.level {
 			cursor: pointer;
 			text-align: center;
-			height: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
+			width: 90px;
+			height: 90px;
+			background: linear-gradient(148deg, #17123B 0%, #3E31A1 67.58%);
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.55);
+			border-radius: 50%;
+			position: relative;
 
 			.title {
 				color: $font;
@@ -96,9 +106,46 @@
 			}
 
 			.value {
-				font-size: 32px;
+				font-size: 24px;
 				font-weight: 700;
-				letter-spacing: -0.64px;
+				line-height: 24px;
+				letter-spacing: -0.48px;
+			}
+
+			.circle {
+				position: absolute;
+				left: 50%;
+				margin-left: -39px;
+				top: 50%;
+				margin-top: -39px;
+			}
+
+			.progress {
+				position: absolute;
+				width: 38px;
+				height: 18px;
+				bottom: -4px;
+				left: 50%;
+				margin-left: -19px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 2px;
+				font-size: 8px;
+				font-weight: 700;
+				border-radius: $radius;
+				background: #3F32A2;
+				box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+
+				span {
+					color: $second-font;
+				}
+
+				svg {
+					width: 6px;
+					height: 7px;
+					fill: $second-font;
+				}
 			}
 		}
 
@@ -156,11 +203,12 @@
 
 		.avatar {
 			cursor: pointer;
-			width: 186px;
-			height: 186px;
+			width: 145px;
+			height: 192px;
 			border-radius: 38px;
 			border: 1px solid $accent;
 			box-shadow: 0px 0px 8.9px 0px $accent;
+			margin-top: 17px;
 
 			@media (max-height: 720px) {
 				width: 160px;
@@ -185,7 +233,7 @@
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
-				object-position: center;
+				object-position: top center;
 				border-radius: 38px;
 			}
 		}
@@ -246,10 +294,10 @@
 		border-radius: $radius;
 		padding: 17px 15px 0 21px;
 		position: relative;
-		border: 1px solid $accent;
+		border: 1px solid rgba($accent, 0.5);
 
 		.slide {
-			margin-bottom: 46px;
+			padding-bottom: 56px;
 
 			h2 {
 				color: $font;
@@ -261,10 +309,11 @@
 
 			p {
 				color: $second-font;
-				font-size: 14px;
+				font-size: 12px;
 				font-weight: 400;
 				letter-spacing: -0.42px;
 				line-height: normal;
+				padding-right: 104px;
 			}
 		}
 
@@ -325,16 +374,23 @@
 			align-items: center;
 			justify-content: center;
 			position: absolute;
-			right: 15px;
-			bottom: 15px;
+			left: 21px;
+			bottom: 21px;
 			cursor: pointer;
+		}
+
+		img {
+			position: absolute;
+			right: 21px;
+			bottom: -10px;
+			width: 71px;
 		}
 
 		@media (max-height: 685px) {
 			padding: 15px 115px 0 21px;
 
 			.slide {
-				margin-bottom: 15px;
+				padding-bottom: 15px;
 
 				h2 {
 					margin-bottom: 0;
@@ -343,10 +399,20 @@
 				p {
 					display: none;
 				}
+
+				img {
+					display: none;
+				}
 			}
 
 			.slick-dots {
 				display: none;
+			}
+
+			.read {
+				right: 15px;
+				left: auto;
+				bottom: 15px;
 			}
 
 		}

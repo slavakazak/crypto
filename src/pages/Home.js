@@ -7,6 +7,8 @@ import TopMenu from '../components/TopMenu'
 import { useState } from 'react'
 import { useContext } from 'react'
 import { ProfileContext } from '../utils/contexts'
+import slideRobot from '../img/slide-bot.png'
+import Circle from '../components/Circle'
 
 export default function Home() {
 	const { t } = useTranslation()
@@ -55,10 +57,10 @@ export default function Home() {
 						</div>
 						<div className='value'>
 							{balance === 'coin' ? <>
-								<span className='coin'>{profileData.coin}</span>
+								<span className='gold'>{profileData.coin}</span>
 								<div className='icon'><CoinIcon /></div>
 							</> : balance === 'usdt' ? <>
-								<span>{profileData.usdt}</span>
+								<span className='green'>{profileData.usdt}</span>
 								<div className='icon'><DollarIcon /></div>
 							</> : balance === 'token' ? <>
 								<span>{profileData.token}</span>
@@ -69,6 +71,11 @@ export default function Home() {
 					<div className='level'>
 						<div className='title'>{t('home.level')}</div>
 						<div className='value'>K-{profileData.level}</div>
+						<Circle total={4} filled={1} fill={'#8B6EFF'} size={78} />
+						<div className='progress'>
+							<p>1/<span>4</span></p>
+							<RightArrowIcon />
+						</div>
 					</div>
 					<div className='career'>
 						<span>{t('home.career')}</span>
@@ -122,6 +129,7 @@ export default function Home() {
 							<p>{t('home.slide2.text')}</p>
 						</div>
 					</Slider>
+					<img src={slideRobot} alt='robot' />
 					<div className='read'>{t('home.read')}</div>
 				</div>
 			</div>
