@@ -20,6 +20,7 @@ import addWpBalance from "../utils/addWpBalance"
 import getWpFields from "../utils/getWpFields"
 import Bonuses from "../pages/Bonuses"
 import { HeightContext, ProfileContext, WpIdContext, SetDataContext } from "../utils/contexts"
+import Career from "../pages/Career"
 
 export default function App() {
 	const { i18n } = useTranslation()
@@ -78,8 +79,8 @@ export default function App() {
 		setTimeout(() => {
 			let focusedElement = document.activeElement
 			if (focusedElement && (focusedElement.tagName === 'INPUT' || focusedElement.tagName === 'TEXTAREA')) {
-				const top = focusedElement.getBoundingClientRect().top + document.querySelector('.content').scrollTop
-				document.querySelector('.content').scrollTo({ top: top - 200, behavior: 'smooth' })
+				const top = focusedElement.getBoundingClientRect().top + document.querySelector('.App').scrollTop
+				document.querySelector('.App').scrollTo({ top: top - 200, behavior: 'smooth' })
 			}
 		}, 700)
 	}
@@ -174,6 +175,7 @@ export default function App() {
 								<Route path="/settings" element={<Settings />} />
 								<Route path="/balance" element={<Balance />} />
 								<Route path="/bonuses" element={<Bonuses />} />
+								<Route path="/career" element={<Career />} />
 							</Routes>
 						</div>
 						<Menu style={{ display: maxHeight - height < 150 ? 'flex' : 'none' }} />

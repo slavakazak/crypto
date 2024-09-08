@@ -9,6 +9,7 @@ $accent: #5A35EE;
 $gold: #FED32C;
 $green: #179F3D;
 $blue: #29186D;
+$violet: #8B6EFF;
 $success: #179F3D;
 $error: #DD1E10;
 $processing: #F8D205;
@@ -153,3 +154,4 @@ body {
 @import 'modal';
 @import 'components';
 @import 'bonuses';
+@import 'career';

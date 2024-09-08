@@ -9,6 +9,7 @@ import { useContext } from 'react'
 import { ProfileContext } from '../utils/contexts'
 import slideRobot from '../img/slide-bot.png'
 import Circle from '../components/Circle'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
 	const { t } = useTranslation()
@@ -68,19 +69,19 @@ export default function Home() {
 							</> : ''}
 						</div>
 					</div>
-					<div className='level'>
+					<Link to={'/career'} className='level'>
 						<div className='title'>{t('home.level')}</div>
 						<div className='value'>K-{profileData.level}</div>
 						<Circle total={4} filled={1} fill={'#8B6EFF'} size={78} />
-						<div className='progress'>
+						<div className='progress-info'>
 							<p>1/<span>4</span></p>
 							<RightArrowIcon />
 						</div>
-					</div>
-					<div className='career'>
+					</Link>
+					<Link to={'/career'} className='career'>
 						<span>{t('home.career')}</span>
 						<RightArrowIcon />
-					</div>
+					</Link>
 				</div>
 				<div className='card-content'>
 					<div className='messages'>

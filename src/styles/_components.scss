@@ -423,3 +423,244 @@
 		}
 	}
 }
+
+//Прогресс
+.progress {
+	padding: 15px 15px 13px 16px;
+	border-radius: $radius;
+	border: 1px solid $accent;
+	background: var(--2, linear-gradient(231deg, $accent 9.12%, #2E2E77 100.25%));
+	box-shadow: 0px 0px 10px 0px $accent;
+	margin-bottom: 15px;
+	position: relative;
+
+	.note {
+		position: absolute;
+		height: 23px;
+		width: 92px;
+		text-align: center;
+		font-size: 8px;
+		font-weight: 700;
+		letter-spacing: -0.32px;
+		line-height: 23px;
+		border-radius: $radius;
+		background: $violet;
+		top: -12px;
+		right: 22px;
+	}
+
+	.title {
+		text-align: center;
+		font-size: 14px;
+		font-weight: 400;
+		letter-spacing: -0.28px;
+		margin-bottom: 10px;
+	}
+
+	.row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 14px;
+	}
+
+	.text {
+		font-size: 14px;
+		font-weight: 700;
+		letter-spacing: -0.28px;
+		display: flex;
+		align-items: center;
+
+	}
+
+	.info {
+		width: 18px;
+		height: 18px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+
+		svg {
+			fill: $second-font;
+		}
+	}
+
+	.sum {
+		font-size: 12px;
+		font-weight: 400;
+		letter-spacing: -0.24px;
+	}
+
+	.progress-bar {
+		width: 100%;
+		height: 3px;
+		background: #E8E8E8;
+		margin-bottom: 6px;
+
+		.line {
+			background: $violet;
+			height: 100%;
+		}
+	}
+
+	.number-row {
+		font-size: 10px;
+		font-weight: 400;
+		letter-spacing: -0.2px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		position: relative;
+		height: 13px;
+
+		.start, .end {
+			position: absolute;
+			top: 0;
+		}
+
+		.start {
+			left: 0;
+		}
+
+		.end {
+			right: 0;
+		}
+
+		.current {
+			position: absolute;
+			top: 0;
+			width: 24px;
+			text-align: center;
+			margin-left: -12px;
+		}
+	}
+}
+
+//Задания
+.task-title {
+	text-align: center;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: -0.28px;
+	margin-bottom: 15px;
+}
+
+.task {
+	border-radius: $radius;
+	border: 1px solid $inactive;
+	padding: 17px 17px 16px 10px;
+	display: flex;
+	gap: 9px;
+	margin-bottom: 10px;
+	position: relative;
+
+	&.inactive .overlay {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: $radius;
+		background: rgba(0, 0, 0, 0.42);
+		left: 0;
+		top: 0;
+	}
+
+	.number {
+		border-radius: 9px;
+		border: 1px solid $inactive;
+		background: linear-gradient(225deg, #151517 51%, #202024 100%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		font-weight: 400;
+		letter-spacing: -0.28px;
+		width: 30px;
+		height: 30px;
+		flex-shrink: 0;
+	}
+
+	.content {
+		flex-grow: 1;
+	}
+
+	.check {
+		width: 15px;
+		height: 15px;
+		margin-top: 7px;
+		margin-left: 5px;
+		border-radius: 3px;
+		border: 1px solid $inactive;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+
+		svg {
+			fill: transparent;
+		}
+
+		&.active {
+			border: 1px solid $accent;
+
+			svg {
+				fill: $accent;
+			}
+		}
+	}
+
+	.text {
+		margin-bottom: 23px;
+		font-size: 12px;
+		font-weight: 400;
+	}
+
+	.progress-bar {
+		width: 100%;
+		max-width: 249px;
+		height: 3px;
+		background: #E8E8E8;
+		margin-bottom: 6px;
+
+		.line {
+			background: $accent;
+			height: 100%;
+		}
+	}
+
+	.number-row {
+		width: 100%;
+		max-width: 249px;
+		font-size: 10px;
+		font-weight: 400;
+		letter-spacing: -0.2px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		position: relative;
+		height: 13px;
+
+		.start, .end {
+			color: $inactive;
+			position: absolute;
+			top: 0;
+		}
+
+		.start {
+			left: 0;
+		}
+
+		.end {
+			right: 0;
+		}
+
+		.current {
+			position: absolute;
+			color: $accent;
+			top: 0;
+			width: 24px;
+			text-align: center;
+			margin-left: -12px;
+		}
+	}
+}
