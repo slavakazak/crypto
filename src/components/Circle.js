@@ -16,7 +16,7 @@ export default function Circle({ total, filled, fill = '#5A35EE', size = 58 }) {
 					fill="transparent"
 					stroke={i < filled ? fill : '#CECECE'}
 					strokeWidth="5"
-					strokeDasharray={`${sector} ${circuit - sector}`}
+					strokeDasharray={total === 1 ? '' : `${sector} ${circuit - sector}`}
 					strokeDashoffset={circuit / 4 + sector / 2 - (sector + 5) * i}
 				/>
 			))}

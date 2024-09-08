@@ -237,5 +237,27 @@
 		"date": "Date",
 		"line": "Line",
 		"bonusReference": "The bonus program is only available to ambassadors"
+	},
+	"bonuses": {
+		"title": "Take your bonus!",
+		"description": "Here you can track the achievement status of your bonuses!",
+		"month": "Monthly promotion",
+		"start": "Start Bonus",
+		"travel": "Travel Bonus",
+		"monthTitle": "Iphone/macbook",
+		"monthDescription": "Participate in the promotion and win the main prize!",
+		"startDescription": "Get 24500 coins for 12 sales!",
+		"earned": "Earned",
+		"travelTitle": "k2-club dubai",
+		"travelDescription": "Participate in the promotion and take a trip to Dubai with the leaders of K2!",
+		"terms": "Terms",
+		"termsDescription": "Track the dynamics of completing tasks to close the Travel Bonus",
+		"points": "points",
+		"points2": "points",
+		"progress": "Progress",
+		"progressDescription": "TRAVEL BONUS DUBAI 2025",
+		"tasks": "Tasks",
+		"task1": "Connect 22 investors with K2 level to the first line for one",
+		"task2": "Connect 37 investors with K2 level to the first line for the 2nd half"
 	}
 }

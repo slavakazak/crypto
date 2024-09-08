@@ -471,6 +471,9 @@
 		display: flex;
 		align-items: center;
 
+		@media (max-width: 370px) {
+			font-size: 13px;
+		}
 	}
 
 	.info {
@@ -487,9 +490,14 @@
 	}
 
 	.sum {
-		font-size: 12px;
+		font-size: 14px;
 		font-weight: 400;
-		letter-spacing: -0.24px;
+		letter-spacing: -0.28px;
+
+		span {
+			font-size: 12px;
+			letter-spacing: -0.24px;
+		}
 	}
 
 	.progress-bar {
@@ -609,10 +617,31 @@
 		}
 	}
 
+	&.text-only {
+		align-items: center;
+
+		.content {
+			display: flex;
+			align-items: center;
+		}
+
+		.check {
+			margin-top: 0;
+		}
+	}
+
 	.text {
-		margin-bottom: 23px;
 		font-size: 12px;
 		font-weight: 400;
+
+		@media (max-width: 380px) {
+			font-size: 11px;
+		}
+
+		span {
+			color: $accent;
+			cursor: pointer;
+		}
 	}
 
 	.progress-bar {
@@ -621,6 +650,7 @@
 		height: 3px;
 		background: #E8E8E8;
 		margin-bottom: 6px;
+		margin-top: 23px;
 
 		.line {
 			background: $accent;

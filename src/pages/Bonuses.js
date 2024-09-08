@@ -4,11 +4,14 @@ import Modal from '../components/Modal'
 import Back from '../components/Back'
 import { CoinIcon, InfoIcon, OkIcon, RefreshIcon } from '../components/Icons'
 import Timer from '../components/Timer'
-import getTimeString from '../utils/getTimeString'
+import getDateTimeString from '../utils/getDateTimeString'
 import promo from '../img/month-promo.png'
+import { useContext } from 'react'
+import { ProfileContext } from '../utils/contexts'
 
 export default function Bonuses() {
 	const { t } = useTranslation()
+	const profileData = useContext(ProfileContext)
 
 	const bonuses = [1000, 750, 1500, 750, 750, 2500, 750, 750, 5000, 750, 5000, 5000]
 
@@ -49,7 +52,7 @@ export default function Bonuses() {
 			const offsetMoscow = 3 * 60
 			const localOffset = endOfMonth.getTimezoneOffset()
 			endOfMonth.setMinutes(endOfMonth.getMinutes() + localOffset + offsetMoscow)
-			setMonthTime(getTimeString(endOfMonth))
+			setMonthTime(getDateTimeString(endOfMonth))
 		}, 1000)
 		return () => {
 			clearInterval(interval)
@@ -65,35 +68,35 @@ export default function Bonuses() {
 			<div id="bonuses">
 				<div className="top-menu">
 					<Back />
-					<h1>Забери бонус!</h1>
+					<h1>{t('bonuses.title')}</h1>
 				</div>
-				<p className="description">Здесь вы можете отслеживать статус достижения ваших бонусов!</p>
+				<p className="description">{t('bonuses.description')}</p>
 				<div className="tab-menu">
 					<div className={'link' + (page === 'month' ? ' active' : '')} onClick={() => setPage('month')}>
-						<span>Ежемесячное промо</span>
+						<span>{t('bonuses.month')}</span>
 						<Timer time={monthTime} />
 					</div>
 					<div className={'link' + (page === 'start' ? ' active' : '')} onClick={() => setPage('start')}>
-						<span>Start Bonus</span>
+						<span>{t('bonuses.start')}</span>
 						<Timer time={'28:12:35'} />
 					</div>
 					<div className={'link' + (page === 'travel' ? ' active' : '')} onClick={() => setPage('travel')}>
-						<span>Travel	Bonus</span>
+						<span>{t('bonuses.travel')}</span>
 						<Timer time={'28:12:35'} />
 					</div>
 					<div className="icon" onClick={updateBonuses}><RefreshIcon /></div>
 				</div>
 				{page === 'month' && <div className="tab month">
-					<h2>Iphone/macbook</h2>
-					<p className="description">Участвуй в промоушене и забери главный приз!</p>
+					<h2>{t('bonuses.monthTitle')}</h2>
+					<p className="description">{t('bonuses.monthDescription')}</p>
 					<img src={promo} alt='Ежемесячное промо' />
 				</div>}
 				{page === 'start' && <div className="tab start">
 					<div className='title'>
-						<h2>Start bonus</h2>
+						<h2>{t('bonuses.start')}</h2>
 						<div className='info'><InfoIcon size={22} /></div>
 					</div>
-					<p className="description">Забери 24500 coins за 12 продаж!</p>
+					<p className="description">{t('bonuses.startDescription')}</p>
 					<div className='start-row'>
 						{bonuses.map((bonus, i) => (
 							<div key={i} className={'block' + (i === 0 ? ' active' : '')}>
@@ -106,29 +109,36 @@ export default function Bonuses() {
 						))}
 					</div>
 					<div className='earned'>
-						<p>Заработано:</p>
+						<p>{t('bonuses.earned')}:</p>
 						<span>1000/24500</span>
 						<CoinIcon size={19} />
 					</div>
 				</div>}
 				{page === 'travel' && <div className="tab travel">
-					<h2>k2-club dubai</h2>
-					<p className="description"><span>Участвуй в промоушене и забери поездку в Дубай с лидерами К2!</span></p>
-					<iframe width="100%" height="200" src="https://www.youtube.com/embed/0zMLl9WbHVg?si=6Adtx-tK7540Ybhp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					<h2>{t('bonuses.travelTitle')}</h2>
+					<p className="description"><span>{t('bonuses.travelDescription')}</span></p>
+					<iframe
+						width="100%"
+						height="200"
+						src={`https://www.youtube.com/embed/0zMLl9WbHVg?si=6Adtx-tK7540Ybhp&fs=0&hl=${profileData.language.tag}&rel=0`}
+						title="YouTube video player"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+						referrerPolicy="strict-origin-when-cross-origin"
+					/>
 					<div className='title'>
-						<h3>Условия</h3>
+						<h3>{t('bonuses.terms')}</h3>
 						<div className='info'><InfoIcon size={17} /></div>
 					</div>
-					<p className="grey-description">Отслеживайте динамику выполнения заданий для закрытия Travel Bonus</p>
+					<p className="grey-description">{t('bonuses.termsDescription')}</p>
 					<div className='progress'>
-						<div className='note'>K2 = 3 балла</div>
-						<p className='title'>Прогресс</p>
+						<div className='note'>K2 = 3 {t('bonuses.points')}</div>
+						<p className='title'>{t('bonuses.progress')}</p>
 						<div className='row'>
 							<div className='text'>
-								<span>TRAVEL BONUS DUBAI 2025</span>
+								<span>{t('bonuses.progressDescription')}</span>
 								<div className='info'><InfoIcon /></div>
 							</div>
-							<span className='sum'>{progressCurrent}/{progressTotal} баллов</span>
+							<span className='sum'>{progressCurrent}<span>/{progressTotal}</span> {t('bonuses.points2')}</span>
 						</div>
 						<div className='progress-bar'><div className='line' style={{ width: progress > 100 ? '100%' : progress + '%' }} /></div>
 						<div className='number-row'>
@@ -137,11 +147,11 @@ export default function Bonuses() {
 							<span className='end' style={{ display: progress > 87 ? 'none' : 'block' }}>100%</span>
 						</div>
 					</div>
-					<h4 className='task-title'>Задания</h4>
+					<h4 className='task-title'>{t('bonuses.tasks')}</h4>
 					<div className='task'>
 						<div className='number'>1</div>
 						<div className='content'>
-							<p className='text'>Подключить 22 инвестора с уровнем K2 в первую линию для одного</p>
+							<p className='text'>{t('bonuses.task1')}</p>
 							<div className='progress-bar'><div className='line' style={{ width: progressTack1 > 100 ? '100%' : progressTack1 + '%' }} /></div>
 							<div className='number-row'>
 								<span className='start' style={{ display: progressTack1 < 5 ? 'none' : 'block' }}>0</span>
@@ -155,7 +165,7 @@ export default function Bonuses() {
 						<div className='overlay' />
 						<div className='number'>2</div>
 						<div className='content'>
-							<p className='text'>Подключить 37 инвесторов с уровнем K2 в первую линию для 2-ой половины</p>
+							<p className='text'>{t('bonuses.task2')}</p>
 							<div className='progress-bar'><div className='line' style={{ width: progressTack2 > 100 ? '100%' : progressTack2 + '%' }} /></div>
 							<div className='number-row'>
 								<span className='start' style={{ display: progressTack2 < 5 ? 'none' : 'block' }}>0</span>

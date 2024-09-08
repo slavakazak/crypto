@@ -237,5 +237,27 @@
 		"date": "Дата",
 		"line": "Линия",
 		"bonusReference": "Бонусная программа доступна только для амбассадоров"
+	},
+	"bonuses": {
+		"title": "Забери бонус!",
+		"description": "Здесь вы можете отслеживать статус достижения ваших бонусов!",
+		"month": "Ежемесячное промо",
+		"start": "Start Bonus",
+		"travel": "Travel Bonus",
+		"monthTitle": "Iphone/macbook",
+		"monthDescription": "Участвуй в промоушене и забери главный приз!",
+		"startDescription": "Забери 24500 coins за 12 продаж!",
+		"earned": "Заработано",
+		"travelTitle": "k2-club dubai",
+		"travelDescription": "Участвуй в промоушене и забери поездку в Дубай с лидерами К2!",
+		"terms": "Условия",
+		"termsDescription": "Отслеживайте динамику выполнения заданий для закрытия Travel Bonus",
+		"points": "балла",
+		"points2": "баллов",
+		"progress": "Прогресс",
+		"progressDescription": "TRAVEL BONUS DUBAI 2025",
+		"tasks": "Задания",
+		"task1": "Подключить 22 инвестора с уровнем K2 в первую линию для одного",
+		"task2": "Подключить 37 инвесторов с уровнем K2 в первую линию для 2-ой половины"
 	}
 }
