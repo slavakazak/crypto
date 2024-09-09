@@ -1,4 +1,3 @@
-import SaveRow from "./SaveRow"
 import { useEffect, useState } from "react"
 import { CrossIcon } from "./Icons"
 import { useTranslation } from 'react-i18next'
@@ -26,8 +25,8 @@ export default function PopUpCareer({ active, onClose, children }) {
 				style={{ backgroundImage: 'url(/img/pop-up-bg.png)', paddingBottom: maxHeight - height < 150 ? '49px' : (maxHeight - height + 49) + 'px' }}
 			>
 				<div className="cross" onClick={onClose}><CrossIcon /></div>
-				<h2>Задания</h2>
-				<p className="description">Отслеживайте динамику выполнения заданий для перехода на следующий уровень</p>
+				<h2>{t('career.tasksTitle')}</h2>
+				<p className="description">{t('career.tasksDescription')}</p>
 				{children}
 			</div>
 		</div>

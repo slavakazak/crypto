@@ -7,7 +7,7 @@
 		position: absolute;
 		stroke: #272728;
 		width: 3px;
-		height: 1480px;
+		height: 1550px;
 		left: 48px;
 		top: 100px;
 		z-index: -1;
@@ -34,10 +34,6 @@
 
 		&.active {
 			background: linear-gradient(225deg, #151517 51%, #202024 100%);
-		}
-
-		&.current {
-			margin-bottom: 52px;
 		}
 
 		.ok {
@@ -132,6 +128,7 @@
 		display: flex;
 		gap: 9px;
 		margin-bottom: 32px;
+		margin-top: 52px;
 	}
 
 	.level-card {

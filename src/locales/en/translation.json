@@ -259,5 +259,145 @@
 		"tasks": "Tasks",
 		"task1": "Connect 22 investors with K2 level to the first line for one",
 		"task2": "Connect 37 investors with K2 level to the first line for the 2nd half"
+	},
+	"career": {
+		"title": "Career ladder",
+		"league": "league",
+		"level": "Lvl",
+		"current": "Current level",
+		"earned": "Earned",
+		"referrals": "Referrals",
+		"reached": "Reached",
+		"goToLevel": "Go to level",
+		"achievements": "Achievements",
+		"seeTasks": "VIEW TASKS",
+		"tasksTitle": "Tasks",
+		"tasksDescription": "Track the dynamics of task completion to move to the next level",
+		"leagues": {
+			"0": "Paper",
+			"1": "Wooden",
+			"2": "Stone",
+			"3": "Silver",
+			"4": "Golden",
+			"5": "Platinum"
+		},
+		"levels": {
+			"1": {
+				"inactive": "Investors with the K2 robot",
+				"tasks": {
+					"0": "Buy a K2 robot"
+				}
+			},
+			"2": {
+				"inactive": "Investors with the K2 robot",
+				"tasks": {
+					"0": {
+						"0": "Take",
+						"1": "test",
+						"2": "to ambassador"
+					},
+					"1": "Connect 1 investor with level K2"
+				},
+				"achievements": {
+					"0": "Opening up the opportunity to earn money from 3 lines in depth",
+					"1": "Opening Start Bonus, Travel Bonus"
+				}
+			},
+			"3": {
+				"inactive": "Investors with the K2 robot",
+				"tasks": {
+					"0": "Connect 2 investors with level K2 to the first line",
+					"1": "Connect 5 investors with K2 level to your team"
+				},
+				"achievements": {
+					"0": "Opening up the opportunity to earn money from 4 lines in depth"
+				}
+			},
+			"4": {
+				"inactive": "Investors with the K2 robot",
+				"tasks": {
+					"0": "Connect 5 investors with level K2 to the first line",
+					"1": "Connect 25 investors with K2 level in your team"
+				},
+				"achievements": {
+					"0": "Opening up the opportunity to earn money from 5 lines in depth"
+				}
+			},
+			"5": {
+				"inactive": "Investors with the K2 robot",
+				"tasks": {
+					"0": "Connect 10 investors with level K2 to the first line",
+					"1": "Connect 125 investors with K2 level in your team",
+					"2": "Help 2 investors reach level K4 in your structure"
+				},
+				"achievements": {
+					"0": "Opening up the opportunity to earn money from 6 lines deep",
+					"1": "Access to Pool Bonus K6 (0.5% of company turnover)",
+					"2": "Level Achievement Bonus - Iphone 15"
+				}
+			},
+			"6": {
+				"inactive": "Investors with the K2 robot",
+				"tasks": {
+					"0": "Connect 20 investors with K2 level to the first line",
+					"1": "Connect 500 investors with K2 level in your team",
+					"2": "Help 2 investors reach level K5 in your structure",
+					"3": "Help 1 investor reach level K4 in your structure"
+				},
+				"achievements": {
+					"0": "Opening up the opportunity to earn money from 7 lines deep",
+					"1": "Access to Pool Bonus K7 (0.5% of company turnover)",
+					"2": "Bonus for reaching a level - a trip for two"
+				}
+			},
+			"7": {
+				"inactive": "Investors with the K2 robot",
+				"tasks": {
+					"0": "Connect 25 investors with K2 level to the first line",
+					"1": "Connect 1500 investors with K2 level in your team",
+					"2": "Help 2 investors reach level K6 in your structure",
+					"3": "Help 1 investor reach level K5 in your structure",
+					"4": "Help 1 investor reach level K4 in your structure"
+				},
+				"achievements": {
+					"0": "Opening up the opportunity to earn money from 7 lines deep",
+					"1": "Access to Pool Bonus K7 (0.5% of company turnover)",
+					"2": "Bonus for reaching a level - a trip for two"
+				}
+			},
+			"8": {
+				"inactive": "Investors with the K2 robot",
+				"tasks": {
+					"0": "Connect 30 investors with K2 level to the first line",
+					"1": "Connect 4000 investors with K2 level in your team",
+					"2": "Help 2 investors reach level K7 in your structure",
+					"3": "Help 1 investor reach level K6 in your structure",
+					"4": "Help 1 investor reach level K5 in your structure",
+					"5": "Help 1 investor reach level K4 in your structure"
+				},
+				"achievements": {
+					"0": "Opening up the opportunity to earn money from 7 lines deep",
+					"1": "Access to Pool Bonus K7 (0.5% of company turnover)",
+					"2": "Bonus for reaching a level - a trip for two"
+				}
+			},
+			"9": {
+				"inactive": "Investors with the K2 robot",
+				"tasks": {
+					"0": "Connect 40 investors with K2 level to the first line",
+					"1": "Connect 10,000 investors with K2 level in your team",
+					"2": "Help 2 investors reach level K8 in your structure",
+					"3": "Help 1 investor reach level K7 in your structure",
+					"4": "Help 1 investor reach level K6 in your structure",
+					"5": "Help 1 investor reach level K5 in your structure",
+					"6": "Help 1 investor reach level K4 in your structure"
+				},
+				"achievements": {
+					"0": "Opening up the opportunity to earn money from 10 lines deep",
+					"1": "Access to Pool Bonus K10 (2% of company turnover)",
+					"2": "Bonus for reaching a level - an apartment worth $100,000"
+				}
+			}
+		}
 	}
 }

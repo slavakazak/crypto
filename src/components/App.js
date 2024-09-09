@@ -30,7 +30,7 @@ export default function App() {
 	const [wpId, setWpId] = useState()
 	const [tg, setTg] = useState()
 	const [startParam, setStartParam] = useState()
-	const test = false
+	const test = true
 	useEffect(() => {
 		async function init() {
 			if (window?.Telegram?.WebApp) {

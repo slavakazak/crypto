@@ -633,6 +633,7 @@
 	.text {
 		font-size: 12px;
 		font-weight: 400;
+		vertical-align: middle;
 
 		@media (max-width: 380px) {
 			font-size: 11px;
@@ -641,6 +642,20 @@
 		span {
 			color: $accent;
 			cursor: pointer;
+		}
+	}
+
+	.info {
+		width: 16px;
+		height: 16px;
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		vertical-align: middle;
+
+		svg {
+			fill: $second-font;
 		}
 	}
 
