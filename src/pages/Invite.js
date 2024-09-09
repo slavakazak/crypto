@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { BonusIcon, CopyIcon, FAQIcon, MetricsIcon, PresentIcon, RefreshIcon, TokenIcon } from "../components/Icons"
+import { BonusIcon, CopyIcon, FAQIcon, MetricsIcon, OkIcon, PresentIcon, RefreshIcon, TokenIcon } from "../components/Icons"
 import getPartners from "../utils/getPartners"
 import { useTranslation } from 'react-i18next'
 import Modal from "../components/Modal"
@@ -59,10 +59,12 @@ export default function Invite({ tg }) {
 		tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/${botName}?startapp=r_${profileData.ref}&text=${encodedText}`)
 	}
 
+	const [copied, setCopied] = useState(false)
+
 	function copyHandler() {
 		if (navigator.clipboard) {
 			navigator.clipboard.writeText(`https://t.me/${botName}?startapp=r_${profileData.ref}\n${inviteText}`).then(() => {
-				console.log('copied')
+				setCopied(true)
 			}, err => {
 				console.error('An error occurred while copying text: ', err)
 			})
@@ -105,7 +107,7 @@ export default function Invite({ tg }) {
 						<div className="text"><TokenIcon /><span>+1000</span><p>{t('invite.inviteText')}</p></div>
 						<div className="invite-row">
 							<div className="invite-button" onClick={inviteClickHandler}>{t('invite.invite')}</div>
-							<div className="copy-button" onClick={copyHandler}><CopyIcon size={19} /></div>
+							<div className="copy-button" onClick={copyHandler}>{copied ? <OkIcon size={24} /> : <CopyIcon size={19} />}</div>
 						</div>
 					</div>
 				</div>

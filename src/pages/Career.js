@@ -174,6 +174,7 @@ export default function Career() {
 									<div className='level'>
 										<span>K{level.value}</span>
 										<Circle total={progressTotal} filled={progressCurrent} />
+										<div className='progress-info'>{progressCurrent}/<span>{level.tasks.length}</span></div>
 									</div>
 									<div className='level-card'>
 										<div className='notice'>{t('career.current')}</div>

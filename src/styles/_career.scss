@@ -94,6 +94,27 @@
 			margin-left: -29px;
 		}
 
+		.progress-info {
+			position: absolute;
+			background: $accent;
+			width: 38px;
+			height: 18px;
+			line-height: 18px;
+			text-align: center;
+			font-size: 9px;
+			font-weight: 700;
+			border-radius: $radius;
+			bottom: -27px;
+			left: 50%;
+			margin-left: -19px;
+
+			span {
+				color: $violet;
+				font-size: 9px;
+				font-weight: 700;
+			}
+		}
+
 		&.lock {
 			color: #6C6C6D;
 
