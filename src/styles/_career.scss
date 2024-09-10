@@ -7,10 +7,49 @@
 		position: absolute;
 		stroke: #272728;
 		width: 3px;
-		height: 1550px;
 		left: 48px;
 		top: 100px;
 		z-index: -1;
+
+		&[data-level='1'] {
+			height: 1550px;
+		}
+
+		&[data-level='2'] {
+			height: 1650px;
+		}
+
+		&[data-level='3'] {
+			height: 1750px;
+		}
+
+		&[data-level='4'] {
+			height: 1900px;
+		}
+
+		&[data-level='5'] {
+			height: 2000px;
+		}
+
+		&[data-level='6'] {
+			height: 2100px;
+		}
+
+		&[data-level='7'] {
+			height: 2200px;
+		}
+
+		&[data-level='8'] {
+			height: 2300px;
+		}
+
+		&[data-level='9'] {
+			height: 2400px;
+		}
+
+		&[data-level='10'] {
+			height: 2400px;
+		}
 	}
 
 	.top-menu {
@@ -32,12 +71,8 @@
 		padding: 0 15px;
 		margin-bottom: 40px;
 
-		&.active {
-			background: linear-gradient(225deg, #151517 51%, #202024 100%);
-		}
-
 		.ok {
-			fill: $accent;
+			fill: $font;
 		}
 
 		.left-side {
@@ -46,6 +81,7 @@
 
 			.trophy {
 				margin-right: 7px;
+				fill: $font;
 			}
 
 			.name {
@@ -68,6 +104,28 @@
 				align-items: center;
 				justify-content: center;
 				cursor: pointer;
+
+				svg {
+					fill: $second-font;
+				}
+			}
+		}
+
+		&.active {
+			background: linear-gradient(231deg, $accent 9.12%, #2E2E77 100.25%);
+			margin-bottom: 52px;
+
+			.left-side .info svg {
+				fill: $font;
+			}
+		}
+
+		&.passed {
+			background: $violet;
+			margin-bottom: 52px;
+
+			.left-side .info svg {
+				fill: $font;
 			}
 		}
 	}
@@ -115,6 +173,10 @@
 			}
 		}
 
+		&.passed .progress-info {
+			background: $violet;
+		}
+
 		&.lock {
 			color: #6C6C6D;
 
@@ -149,7 +211,6 @@
 		display: flex;
 		gap: 9px;
 		margin-bottom: 32px;
-		margin-top: 52px;
 	}
 
 	.level-card {
@@ -211,6 +272,22 @@
 				border-radius: $radius;
 				font-size: 12px;
 				font-weight: 700;
+			}
+		}
+
+		&.passed {
+			border: 1px solid $violet;
+			background: #272728;
+			box-shadow: none;
+
+			.notice {
+				width: 138px;
+			}
+
+			.see-button {
+				padding-right: 0;
+				font-size: 12px;
+				background: $violet;
 			}
 		}
 	}

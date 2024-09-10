@@ -1,7 +1,6 @@
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import "./styles/styles.scss"
-import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import App from "./components/App"
 import { BrowserRouter } from "react-router-dom"
@@ -26,11 +25,9 @@ i18next.use(initReactI18next).init({
 const root = createRoot(document.getElementById("root"))
 
 root.render(
-	<StrictMode>
-		<I18nextProvider i18next={i18next}>
-			<BrowserRouter basename="/">
-				<App />
-			</BrowserRouter>
-		</I18nextProvider>
-	</StrictMode>
+	<I18nextProvider i18next={i18next}>
+		<BrowserRouter basename="/">
+			<App />
+		</BrowserRouter>
+	</I18nextProvider>
 )

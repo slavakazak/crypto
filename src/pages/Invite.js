@@ -6,6 +6,8 @@ import Modal from "../components/Modal"
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { ProfileContext, WpIdContext } from "../utils/contexts"
+import InviteTab from "../components/InviteTab"
+import TabMenu from "../components/TabMenu"
 const botName = process.env.REACT_APP_BOT_NAME
 
 export default function Invite({ tg }) {
@@ -26,6 +28,10 @@ export default function Invite({ tg }) {
 		setModal(true)
 	}
 
+	const pages = [
+		{ value: 'invited', text: t('invite.invited') },
+		{ value: 'command', text: t('invite.command') }
+	]
 	const [page, setPage] = useState('invited')
 	const [partners, setPartners] = useState([])
 	const [command, setCommand] = useState([])
@@ -111,56 +117,9 @@ export default function Invite({ tg }) {
 						</div>
 					</div>
 				</div>
-				<div className="tab-menu">
-					<div className={'link' + (page === 'invited' ? ' active' : '')} onClick={() => setPage('invited')}><span>{t('invite.invited')}</span></div>
-					<div className={'link' + (page === 'command' ? ' active' : '')} onClick={() => setPage('command')}><span>{t('invite.command')}</span></div>
-					<div className="text">{t('invite.amount')}: {partners?.length + command?.length || 0}</div>
-					<div className="icon" onClick={updatePartners}><RefreshIcon /></div>
-				</div>
-				{page === 'invited' && <div className="tab">
-					{loading ? t('loading') : partners.length === 0 ? t('invite.noUsers') : <div className="tab-list">
-						{partners.map((partner, i) => {
-							const date = new Date(partner.registered_date.replace(' ', 'T') + 'Z')
-							const dateFormat = new Intl.DateTimeFormat(profileData.language.tag, { year: "numeric", month: "numeric", day: "numeric" })
-							return (
-								<div key={i} className="item">
-									<div className="left-side">
-										<div className="number">{i + 1}</div>
-										<div className="col">
-											<p>{partner.username}</p>
-											<p><span>{t('invite.lvl')}:</span> K{partner.level || 1}</p>
-											<p><span>{t('invite.date')}:</span> {dateFormat.format(date)}</p>
-										</div>
-									</div>
-								</div>
-							)
-						})}
-					</div>}
-				</div>}
-				{page === 'command' && <div className="tab">
-					{loading ? t('loading') : command.length === 0 ? t('invite.noUsers') : <div className="tab-list">
-						{command.map((partner, i) => {
-							const date = new Date(partner.registered_date.replace(' ', 'T') + 'Z')
-							const dateFormat = new Intl.DateTimeFormat(profileData.language.tag, { year: "numeric", month: "numeric", day: "numeric" })
-							return (
-								<div key={i} className="item">
-									<div className="left-side">
-										<div className="number">{i + 1}</div>
-										<div className="col">
-											<p>{partner.username}</p>
-											<p><span>{t('invite.lvl')}:</span> K{partner.level || 1}</p>
-											<p><span>{t('invite.date')}:</span> {dateFormat.format(date)}</p>
-										</div>
-									</div>
-									<div className="right-side">
-										<span className="title">{t('invite.line')}:</span>
-										<span className="value">{partner.line}</span>
-									</div>
-								</div>
-							)
-						})}
-					</div>}
-				</div>}
+				<TabMenu pages={pages} page={page} setPage={setPage} onReload={updatePartners} amount={partners?.length + command?.length || 0} />
+				{page === 'invited' && <InviteTab items={partners} loading={loading} />}
+				{page === 'command' && <InviteTab items={command} loading={loading} />}
 			</div>
 			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} text={modalText} type={modalType} />
 		</>

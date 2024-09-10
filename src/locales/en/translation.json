@@ -265,6 +265,7 @@
 		"league": "league",
 		"level": "Lvl",
 		"current": "Current level",
+		"passed": "Passed level",
 		"earned": "Earned",
 		"referrals": "Referrals",
 		"reached": "Reached",
@@ -397,7 +398,26 @@
 					"1": "Access to Pool Bonus K10 (2% of company turnover)",
 					"2": "Bonus for reaching a level - an apartment worth $100,000"
 				}
+			},
+			"10": {
+				"inactive": "Investors with the K2 robot"
 			}
 		}
+	},
+	"rating": {
+		"god": "God of Sales",
+		"income": "TOP by income",
+		"invitations": "TOP by invitation",
+		"travel": "Travel bonus",
+		"records": "Company records",
+		"my": "My achievements",
+		"command": "Team Achievements",
+		"august": "August",
+		"result": "Result",
+		"day1": "day",
+		"day2": "days",
+		"day3": "days",
+		"nomination": "Nomination",
+		"date": "Date"
 	}
 }

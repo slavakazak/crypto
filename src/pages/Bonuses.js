@@ -89,7 +89,7 @@ export default function Bonuses() {
 				{page === 'month' && <div className="tab month">
 					<h2>{t('bonuses.monthTitle')}</h2>
 					<p className="description">{t('bonuses.monthDescription')}</p>
-					<img src={promo} alt='Ежемесячное промо' />
+					<img src={promo} alt={t('bonuses.month')} />
 				</div>}
 				{page === 'start' && <div className="tab start">
 					<div className='title'>

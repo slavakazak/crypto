@@ -1,4 +1,134 @@
 #rating {
 	width: 100%;
-	height: 100%;
+	padding: 18px 15px 15px 15px;
+
+	.head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 46px;
+		margin-bottom: 25px;
+
+		.right-side {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			height: 100%;
+
+			.button {
+				.trophy {
+					fill: $font;
+				}
+
+				&.active {
+					.trophy {
+						fill: $accent;
+					}
+				}
+			}
+		}
+	}
+
+	h1 {
+		font-size: 22px;
+		font-weight: 500;
+		text-transform: uppercase;
+	}
+
+	.god-of-sales-block {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-radius: $radius;
+		background: linear-gradient(231deg, $accent 9.12%, #2E2E77 100.25%);
+		padding: 18px 13px 18px 18px;
+		margin-bottom: 25px;
+
+		.left-side {
+			display: flex;
+			align-items: center;
+			gap: 16px;
+
+			img {
+				width: 66px;
+				height: 66px;
+				object-position: center;
+				object-fit: cover;
+				border-radius: 23px;
+			}
+
+			.name {
+				font-size: 14px;
+				font-weight: 400;
+				letter-spacing: -0.56px;
+			}
+
+			.title {
+				font-size: 16px;
+				font-weight: 700;
+				letter-spacing: -0.64px;
+
+				@media (max-width: 380px) {
+					font-size: 14px;
+				}
+			}
+		}
+
+		.right-side {
+			text-align: center;
+
+			.result {
+				font-size: 9px;
+				font-weight: 400;
+				letter-spacing: -0.36px;
+			}
+
+			.value {
+				font-size: 20px;
+				font-weight: 700;
+				letter-spacing: -0.8px;
+			}
+		}
+	}
+
+	.tab-menu {
+		margin-bottom: 25px;
+	}
+
+	.tab-list {
+		border: 1px solid $accent;
+
+		.item {
+			border-bottom: 1px solid $accent;
+			height: auto;
+			padding: 12px 13px 11px 18px;
+
+			.number {
+				&[data-number="0"] {
+					border: 1px solid #F8D205;
+				}
+
+				&[data-number="1"] {
+					border: 1px solid #DBDBDB;
+				}
+
+				&[data-number="2"] {
+					border: 1px solid #834E00;
+				}
+			}
+
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+
+		.right-side {
+			.value span {
+				font-size: 10px;
+				font-weight: 400;
+				letter-spacing: -0.4px;
+				margin-left: 5px;
+			}
+		}
+	}
 }
