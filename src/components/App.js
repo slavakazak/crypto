@@ -30,7 +30,7 @@ export default function App() {
 	const [wpId, setWpId] = useState()
 	const [tg, setTg] = useState()
 	const [startParam, setStartParam] = useState()
-	const test = true
+	const test = false
 	useEffect(() => {
 		async function init() {
 			if (window?.Telegram?.WebApp) {
@@ -167,7 +167,7 @@ export default function App() {
 						}}>
 							<Routes>
 								<Route path="/workshop" element={<Workshop />} />
-								<Route path="/task" element={<Task tg={tg} />} />
+								<Route path="/task" element={<Task />} />
 								<Route path="/" element={<Home />} />
 								<Route path="/invite" element={<Invite tg={tg} />} />
 								<Route path="/rating" element={<Rating />} />

@@ -405,6 +405,7 @@
 		}
 	},
 	"rating": {
+		"title": "Leaders rating",
 		"god": "God of Sales",
 		"income": "TOP by income",
 		"invitations": "TOP by invitation",

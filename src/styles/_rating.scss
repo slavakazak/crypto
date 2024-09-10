@@ -35,14 +35,17 @@
 		text-transform: uppercase;
 	}
 
-	.god-of-sales-block {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+	.slider {
 		border-radius: $radius;
 		background: linear-gradient(231deg, $accent 9.12%, #2E2E77 100.25%);
 		padding: 18px 13px 18px 18px;
 		margin-bottom: 25px;
+
+		.slide .content {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
 
 		.left-side {
 			display: flex;
@@ -87,6 +90,13 @@
 				font-size: 20px;
 				font-weight: 700;
 				letter-spacing: -0.8px;
+
+				span {
+					font-size: 10px;
+					font-weight: 400;
+					letter-spacing: -0.4px;
+					margin-left: 5px;
+				}
 			}
 		}
 	}
