@@ -8,9 +8,9 @@ export default function RatingTab({ items }) {
 		<div className="tab">
 			<div className="tab-list">
 				{items.map((item, i) => (
-					<div key={i} className="item">
+					<div key={i} className="item" data-number={item.number || i}>
 						<div className="left-side">
-							<div className='number' data-number={item.number || i}>{i + 1}</div>
+							<div className='number'>{i + 1}</div>
 							<div className="col">
 								<p>{item.username}</p>
 								{item.nomination && <p><span>{t('rating.nomination')}:</span> {item.nomination}</p>}

@@ -1,5 +1,8 @@
 {
 	"loading": "Loading...",
+	"day1": "day",
+	"day2": "days",
+	"day3": "days",
 	"modal": {
 		"error": "Error!",
 		"success": "Success!",
@@ -415,10 +418,24 @@
 		"command": "Team Achievements",
 		"august": "August",
 		"result": "Result",
-		"day1": "day",
-		"day2": "days",
-		"day3": "days",
 		"nomination": "Nomination",
 		"date": "Date"
+	},
+	"task": {
+		"title": "Earn more coins",
+		"youTube": "K2 Youtube",
+		"task1Title": "What is a trading robot?",
+		"task1Description": "This video will tell you all the secret information about trading robots, just click the button and join!",
+		"task2Title": "Disassembling the K2 robot",
+		"task2Description": "",
+		"daily": "Daily tasks",
+		"dailyText": "Daily activity",
+		"dailyTitle": "Daily reward",
+		"dailyDescription1": "Get coins and",
+		"dailyDescription2": "bonuses for daily login",
+		"dailyDescription3": "to K2 without passes",
+		"week": "week",
+		"day": "Day",
+		"take": "TAKE"
 	}
 }

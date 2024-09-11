@@ -8,6 +8,7 @@ import getTransactions from "../utils/getTransactions"
 import { products } from '../utils/constants'
 import { useContext } from "react"
 import { ProfileContext, WpIdContext, SetDataContext } from "../utils/contexts"
+import Back from "../components/Back"
 
 export default function Balance() {
 	const { t } = useTranslation()
@@ -114,9 +115,12 @@ export default function Balance() {
 	return (
 		<>
 			<div id="balance">
-				<div className="head">
-					<h1>{t('balance.balance')}</h1>
-					<div className="info"><InfoIcon size={18} /></div>
+				<div className="top-menu">
+					<Back />
+					<div className="head">
+						<h1>{t('balance.balance')}</h1>
+						<div className="info"><InfoIcon size={18} /></div>
+					</div>
 				</div>
 				<div className="sub-title">
 					<div className="col">

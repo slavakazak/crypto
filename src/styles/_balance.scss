@@ -13,11 +13,16 @@
 		}
 	}
 
+	.top-menu {
+		margin-bottom: 23px;
+		padding-right: 46px;
+	}
+
 	.head {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin: 0 auto 23px auto;
+		margin: 0 auto;
 
 		.info {
 			width: 20px;

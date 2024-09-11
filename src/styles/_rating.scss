@@ -38,13 +38,14 @@
 	.slider {
 		border-radius: $radius;
 		background: linear-gradient(231deg, $accent 9.12%, #2E2E77 100.25%);
-		padding: 18px 13px 18px 18px;
+		padding: 18px 6px 18px 9px;
 		margin-bottom: 25px;
 
 		.slide .content {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			padding: 0 7px 0 9px;
 		}
 
 		.left-side {
@@ -109,20 +110,29 @@
 		border: 1px solid $accent;
 
 		.item {
-			border-bottom: 1px solid $accent;
 			height: auto;
 			padding: 12px 13px 11px 18px;
 
-			.number {
-				&[data-number="0"] {
+			&[data-number="0"] {
+				border-bottom: 1px solid $accent;
+
+				.number {
 					border: 1px solid #F8D205;
 				}
+			}
 
-				&[data-number="1"] {
+			&[data-number="1"] {
+				border-bottom: 1px solid $accent;
+
+				.number {
 					border: 1px solid #DBDBDB;
 				}
+			}
 
-				&[data-number="2"] {
+			&[data-number="2"] {
+				border-bottom: 1px solid $accent;
+
+				.number {
 					border: 1px solid #834E00;
 				}
 			}
