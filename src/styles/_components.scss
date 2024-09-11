@@ -45,14 +45,6 @@
 				justify-content: center;
 			}
 
-			img {
-				width: 34px;
-				height: 34px;
-				border-radius: $radius;
-				object-fit: cover;
-				object-position: center;
-			}
-
 			.username {
 				font-size: 11px;
 				font-weight: 400;
@@ -380,7 +372,14 @@
 		.left-side {
 			display: flex;
 			align-items: center;
-			gap: 13px;
+
+			.number {
+				margin-right: 13px;
+			}
+
+			.avatar {
+				margin-right: 7px;
+			}
 		}
 
 		.right-side {
@@ -782,5 +781,107 @@
 		.content {
 			max-height: 200px;
 		}
+	}
+}
+
+// Аватар
+.avatar {
+	width: 34px;
+	height: 34px;
+	border-radius: $radius;
+	position: relative;
+	flex-shrink: 0;
+
+	img {
+		width: 100%;
+		height: 100%;
+		border-radius: $radius;
+		object-fit: cover;
+		object-position: top center;
+	}
+
+	&.outline {
+		border: 1px solid $accent;
+	}
+
+	svg {
+		position: absolute;
+		top: -1px;
+		right: 0;
+	}
+}
+
+// Preloader
+@keyframes close-preloader {
+	from {
+		display: flex;
+		opacity: 1;
+	}
+
+	to {
+		display: flex;
+		opacity: 0;
+	}
+}
+
+.main-preloader {
+	width: 100vw;
+	height: 100vh;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1000;
+	background: $bg;
+	opacity: 1;
+	animation-name: close-preloader;
+	animation-duration: $duration;
+
+	&.active {
+		display: flex;
+		animation: none;
+	}
+}
+
+.preloader {
+	height: 100px;
+	width: 100%;
+	margin-bottom: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.loader {
+	width: 50px;
+	aspect-ratio: 1;
+	display: grid;
+	color: #854f1d;
+	background: radial-gradient(farthest-side, currentColor calc(100% - 6px), #0000 calc(100% - 5px) 0);
+	-webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 13px), #000 calc(100% - 12px));
+	border-radius: 50%;
+	animation: l19 2s infinite linear;
+}
+
+.loader::before,
+.loader::after {
+	content: "";
+	grid-area: 1/1;
+	background:
+		linear-gradient(currentColor 0 0) center,
+		linear-gradient(currentColor 0 0) center;
+	background-size: 100% 10px, 10px 100%;
+	background-repeat: no-repeat;
+}
+
+.loader::after {
+	transform: rotate(45deg);
+}
+
+@keyframes l19 {
+	100% {
+		transform: rotate(1turn)
 	}
 }

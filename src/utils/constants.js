@@ -38,11 +38,6 @@ export const products = [
 		name: 'K-X',
 		img: robot,
 		inactive: true
-	},
-	{
-		name: 'K-X',
-		img: robot,
-		inactive: true
 	}
 ]
 

@@ -3,12 +3,10 @@ const adminUsername = process.env.REACT_APP_WP_ADMIN_USERNAME
 const adminPassword = process.env.REACT_APP_WP_ADMIN_PASSWORD
 const url = process.env.REACT_APP_SITE_URL
 
-export default async function getWpUser(wpId) {
+export default async function getToken() {
 	try {
 		const tokenResponse = await axios.post(`${url}/wp-json/jwt-auth/v1/token`, { username: adminUsername, password: adminPassword })
-		const token = tokenResponse.data.token
-		const response = await axios.get(`${url}/wp-json/wp/v2/users/${wpId}`, { headers: { Authorization: `Bearer ${token}` } })
-		return response.data
+		return tokenResponse.data.token
 	} catch (error) {
 		console.error('Error getting user id:', error)
 	}

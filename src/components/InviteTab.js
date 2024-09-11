@@ -8,7 +8,7 @@ export default function InviteTab({ items, loading }) {
 
 	return (
 		<div className="tab">
-			{loading ? t('loading') : items.length === 0 ? t('invite.noUsers') : <div className="tab-list">
+			{loading ? <div className='preloader'><div className='loader' /></div> : items?.length === 0 ? t('invite.noUsers') : <div className="tab-list">
 				{items.map((partner, i) => {
 					const date = new Date(partner.registered_date.replace(' ', 'T') + 'Z')
 					const dateFormat = new Intl.DateTimeFormat(profileData.language.tag, { year: "numeric", month: "numeric", day: "numeric" })
@@ -22,10 +22,10 @@ export default function InviteTab({ items, loading }) {
 									<p><span>{t('invite.date')}:</span> {dateFormat.format(date)}</p>
 								</div>
 							</div>
-							<div className="right-side">
+							{partner.line && <div className="right-side">
 								<span className="title">{t('invite.line')}:</span>
 								<span className="value">{partner.line}</span>
-							</div>
+							</div>}
 						</div>
 					)
 				})}

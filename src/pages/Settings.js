@@ -308,7 +308,6 @@ export default function Settings() {
 						<input className='item' placeholder={t('settings.placeholder.age')} value={age || ''} onChange={ageChangeHandler} />
 						<div className='item item-center active' onClick={countryClickHandler}>
 							{profileData.country.icon}
-							{/* <span>{profileData.country.value}</span> */}
 						</div>
 					</div>
 				</div>

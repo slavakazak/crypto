@@ -163,7 +163,7 @@ export default function Balance() {
 					<div className="filter-button"><FilterIcon /></div>
 				</div>
 				<div className="transactions">
-					{!transactionsDates ? t('loading') :
+					{!transactionsDates ? <div className='preloader'><div className='loader' /></div> :
 						Object.keys(transactionsDates).map((item, i) => {
 							const date = new Date(item + 'T00:00:00Z')
 							const dateFormat = new Intl.DateTimeFormat(profileData.language.tag, { month: "long", day: "numeric" })

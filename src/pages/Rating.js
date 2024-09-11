@@ -27,50 +27,50 @@ export default function Rating() {
 	const [myPage, setMyPage] = useState('my')
 
 	const gods = [
-		{ username: 'Иванов Иван', level: 3, result: 12 },
-		{ username: 'Иванов Иван', level: 3, result: 10 },
-		{ username: 'Иванов Иван', level: 3, result: 8 },
-		{ username: 'Иванов Иван', level: 3, result: 3 },
-		{ username: 'Иванов Иван', level: 3, result: 3 }
+		{ username: 'Иванов Иван', level: 3, result: 12, photo, outline: true, verified: true },
+		{ username: 'Иванов Иван', level: 3, result: 10, photo, outline: true },
+		{ username: 'Иванов Иван', level: 3, result: 8, photo },
+		{ username: 'Иванов Иван', level: 3, result: 3, photo },
+		{ username: 'Иванов Иван', level: 3, result: 3, photo }
 	]
 
 	const income = [
-		{ username: 'Иванов Иван', level: 3 },
-		{ username: 'Иванов Иван', level: 3 },
-		{ username: 'Иванов Иван', level: 3 },
-		{ username: 'Иванов Иван', level: 3 },
-		{ username: 'Иванов Иван', level: 3 }
+		{ username: 'Иванов Иван', level: 3, photo },
+		{ username: 'Иванов Иван', level: 3, photo },
+		{ username: 'Иванов Иван', level: 3, photo },
+		{ username: 'Иванов Иван', level: 3, photo },
+		{ username: 'Иванов Иван', level: 3, photo }
 	]
 
 	const invitations = [
-		{ username: 'Иванов Иван', level: 3, result: 12 },
-		{ username: 'Иванов Иван', level: 3, result: 10 },
-		{ username: 'Иванов Иван', level: 3, result: 8 },
-		{ username: 'Иванов Иван', level: 3, result: 3 },
-		{ username: 'Иванов Иван', level: 3, result: 3 }
+		{ username: 'Иванов Иван', level: 3, result: 12, photo },
+		{ username: 'Иванов Иван', level: 3, result: 10, photo },
+		{ username: 'Иванов Иван', level: 3, result: 8, photo },
+		{ username: 'Иванов Иван', level: 3, result: 3, photo },
+		{ username: 'Иванов Иван', level: 3, result: 3, photo }
 	]
 
 	const travel = [
-		{ username: 'Иванов Иван', level: 3, result: 40, days: true },
-		{ username: 'Иванов Иван', level: 3, result: 42, days: true },
-		{ username: 'Иванов Иван', level: 3, result: 45, days: true },
-		{ username: 'Иванов Иван', level: 3, result: 48, days: true },
-		{ username: 'Иванов Иван', level: 3, result: 55, days: true }
+		{ username: 'Иванов Иван', level: 3, result: 40, days: true, photo },
+		{ username: 'Иванов Иван', level: 3, result: 42, days: true, photo },
+		{ username: 'Иванов Иван', level: 3, result: 45, days: true, photo },
+		{ username: 'Иванов Иван', level: 3, result: 48, days: true, photo },
+		{ username: 'Иванов Иван', level: 3, result: 55, days: true, photo }
 	]
 
 	const records = [
-		{ username: 'Гарелов Дмитрий', nomination: t('rating.god'), date: '08.2024', level: 3, result: 12, number: 0 },
-		{ username: 'Гарелов Дмитрий', nomination: t('rating.travel'), date: '08.2024', level: 3, result: 38, days: true, number: 1 },
+		{ username: 'Гарелов Дмитрий', nomination: t('rating.god'), date: '08.2024', level: 3, result: 12, number: 0, photo },
+		{ username: 'Гарелов Дмитрий', nomination: t('rating.travel'), date: '08.2024', level: 3, result: 38, days: true, number: 1, photo },
 	]
 
 	const my = [
-		{ username: 'Гарелов Дмитрий', nomination: t('rating.god'), date: '08.2024', level: 3, result: 12, number: 0 },
-		{ username: 'Гарелов Дмитрий', nomination: t('rating.travel'), date: '08.2024', level: 3, result: 38, days: true, number: 1 },
+		{ username: 'Гарелов Дмитрий', nomination: t('rating.god'), date: '08.2024', level: 3, result: 12, number: 0, photo },
+		{ username: 'Гарелов Дмитрий', nomination: t('rating.travel'), date: '08.2024', level: 3, result: 38, days: true, number: 1, photo },
 	]
 
 	const command = [
-		{ username: 'Гарелов Дмитрий', nomination: t('rating.god'), date: '08.2024', level: 3, result: 12, number: 0 },
-		{ username: 'Гарелов Дмитрий', nomination: t('rating.travel'), date: '08.2024', level: 3, result: 38, days: true, number: 1 },
+		{ username: 'Гарелов Дмитрий', nomination: t('rating.god'), date: '08.2024', level: 3, result: 12, number: 0, photo },
+		{ username: 'Гарелов Дмитрий', nomination: t('rating.travel'), date: '08.2024', level: 3, result: 38, days: true, number: 1, photo },
 	]
 
 	const settingsSlider = {

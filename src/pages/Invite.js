@@ -39,7 +39,7 @@ export default function Invite({ tg }) {
 	const inviteText = t('invite.text')
 
 	function getCommand(arr, res = [], line = 1) {
-		if (arr.length === 0) return
+		if (!arr || arr.length === 0) return []
 		arr.forEach(item => {
 			if (line > 1) res.push({ ...item, line })
 			getCommand(item.partners, res, line + 1)
@@ -57,7 +57,7 @@ export default function Invite({ tg }) {
 	}
 
 	useEffect(() => {
-		updatePartners()
+		if (wpId) updatePartners()
 	}, [wpId])
 
 	function inviteClickHandler() {
@@ -117,7 +117,7 @@ export default function Invite({ tg }) {
 						</div>
 					</div>
 				</div>
-				<TabMenu pages={pages} page={page} setPage={setPage} onReload={updatePartners} amount={partners?.length + command?.length || 0} />
+				<TabMenu pages={pages} page={page} setPage={setPage} onReload={updatePartners} amount={(page === 'invited' ? partners?.length : command?.length) || 0} />
 				{page === 'invited' && <InviteTab items={partners} loading={loading} />}
 				{page === 'command' && <InviteTab items={command} loading={loading} />}
 			</div>

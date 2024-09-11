@@ -1,11 +1,10 @@
-import logo from '../img/logo.png'
 import { Link } from "react-router-dom"
-import { RightArrowIcon, WalletIcon, QuestionIcon, DollarIcon, CoinIcon, TokenIcon } from '../components/Icons'
+import { WalletIcon, QuestionIcon, DollarIcon, CoinIcon, TokenIcon, VerifiedIcon } from '../components/Icons'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PopUp from './PopUp'
 import Option from './Option'
-import { languages } from '../utils/constants'
+import { avatars, languages } from '../utils/constants'
 import { useContext } from 'react'
 import { ProfileContext, SetDataContext } from '../utils/contexts'
 
@@ -39,7 +38,10 @@ export default function TopMenu() {
 			<div className="top-menu main-top-menu">
 				<Link to='/profile' className="profile">
 					<div className='left-side'>
-						<img src={logo} alt="K2" />
+						<div className="avatar outline">
+							<img src={profileData.avatar === 'my' ? profileData.myAvatar : avatars[profileData.avatar]} alt={profileData.username} />
+							<VerifiedIcon />
+						</div>
 						<span className='username'>{profileData.username}</span>
 					</div>
 					<div className='right-side'>

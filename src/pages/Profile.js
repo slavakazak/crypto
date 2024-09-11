@@ -77,10 +77,7 @@ export default function Profile() {
 				<Link to='/settings' className='profile-data'>
 					<div className={'item' + (profileData.gender ? ' active' : '')}>{t([`constants.genders.${profileData.gender?.tag}`, 'constants.genders.default'])}</div>
 					<div className={'item' + (profileData.age ? ' active' : '')}>{profileData.age || t('profile.age')}</div>
-					<div className='item item-center active'>
-						{profileData.country.icon}
-						{/* <span>{profileData.country.value}</span> */}
-					</div>
+					<div className='item item-center active'>{profileData.country.icon}</div>
 				</Link>
 				<div className='info'>
 					<Link to='/balance' className='item'>
@@ -106,7 +103,7 @@ export default function Profile() {
 				</div>
 				<div className='exit-row'>
 					<div className='remove'>{t('profile.delete')}</div>
-					<div className='exit'>{t('profile.logOut')}</div>
+					{/* <div className='exit'>{t('profile.logOut')}</div> */}
 				</div>
 			</div>
 

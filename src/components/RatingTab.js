@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import DayString from './DayString'
+import { VerifiedIcon } from './Icons'
 
 export default function RatingTab({ items }) {
 	const { t } = useTranslation()
@@ -11,6 +12,10 @@ export default function RatingTab({ items }) {
 					<div key={i} className="item" data-number={item.number || i}>
 						<div className="left-side">
 							<div className='number'>{i + 1}</div>
+							<div className={'avatar' + (item.outline ? ' outline' : '')} >
+								<img src={item.photo} alt={item.username} />
+								{item.outline && item.verified && <VerifiedIcon />}
+							</div>
 							<div className="col">
 								<p>{item.username}</p>
 								{item.nomination && <p><span>{t('rating.nomination')}:</span> {item.nomination}</p>}

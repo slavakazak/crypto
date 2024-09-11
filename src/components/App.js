@@ -14,8 +14,6 @@ import { defaultProfileData } from "../utils/constants"
 import { useTranslation } from 'react-i18next'
 import Balance from "../pages/Balance"
 import getIdFromRef from "../utils/getIdFromRef"
-import addTransaction from "../utils/addTransaction"
-import getUTCTime from "../utils/getUTCTime"
 import addWpBalance from "../utils/addWpBalance"
 import getWpFields from "../utils/getWpFields"
 import Bonuses from "../pages/Bonuses"
@@ -35,6 +33,7 @@ export default function App() {
 	const [wpId, setWpId] = useState()
 	const [tg, setTg] = useState()
 	const [startParam, setStartParam] = useState()
+	const [loading, setLoading] = useState(true)
 	const test = false
 	useEffect(() => {
 		async function init() {
@@ -61,7 +60,7 @@ export default function App() {
 			}
 		}
 		init()
-	}, [])
+	}, [test])
 
 	//Window height
 	const [height, setHeight] = useState(0)
@@ -69,9 +68,7 @@ export default function App() {
 
 	function scrollHandler() {
 		window.scrollTo({ top: 0, behavior: 'smooth' })
-		setTimeout(() => {
-			window.scrollTo({ top: 0, behavior: 'smooth' })
-		}, 500)
+		setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 500)
 	}
 	function updateHeight() {
 		if (tg) {
@@ -102,18 +99,18 @@ export default function App() {
 		document.addEventListener('touchcancel', scrollHandler, false)
 		document.addEventListener('focus', focusHandler, true)
 		return () => {
-			tg?.offEvent('viewportChanged', updateHeight);
-			window.removeEventListener('resize', updateHeight);
-			document.removeEventListener('touchend', scrollHandler, false);
-			document.removeEventListener('touchcancel', scrollHandler, false);
-			document.removeEventListener('focus', focusHandler, true);
+			tg?.offEvent('viewportChanged', updateHeight)
+			window.removeEventListener('resize', updateHeight)
+			document.removeEventListener('touchend', scrollHandler, false)
+			document.removeEventListener('touchcancel', scrollHandler, false)
+			document.removeEventListener('focus', focusHandler, true)
 		}
 	}, [tg])
 
 	//Set language
 	useEffect(() => {
 		i18n.changeLanguage(profileData.language.tag)
-	}, [profileData.language.tag])
+	}, [profileData.language.tag, i18n])
 
 	//Set Data and Send Data to server
 	async function setData(data) {
@@ -126,6 +123,7 @@ export default function App() {
 	//Add ref link and bonus
 	useEffect(() => {
 		async function handleReferral() {
+			setLoading(true)
 			if (wpId && startParam?.startsWith('r_') && (!profileData.link || +profileData.link === wpId)) {
 				const refId = await getIdFromRef(startParam.slice(2))
 				if (!refId || +refId === wpId) {
@@ -133,38 +131,23 @@ export default function App() {
 					return
 				}
 				const bonus = 1000
-				await addWpBalance(wpId, bonus)
-				await addWpBalance(+refId, bonus)
+				await addWpBalance(wpId, bonus, 'token', `Этот пользователь зарегистрировался по реф ссылке пользователя ${refId}`)
+				await addWpBalance(+refId, bonus, 'token', `Пользователь ${wpId} зарегистрировался по реф ссылке этого пользователя`)
 				await setData({ link: refId })
-				const transactionData = {
-					transaction_type: 'accrual',
-					transaction_status: 'success',
-					price: bonus,
-					currency: 'token',
-					transaction_time: getUTCTime(),
-				}
-				await addTransaction({
-					...transactionData,
-					user_id: wpId,
-					comment: `Регистрация по реф ссылке пользователя ${refId}`
-				})
-				await addTransaction({
-					...transactionData,
-					user_id: +refId,
-					comment: `Пользователь ${wpId} зарегистрировался по реф ссылке`
-				})
 			} else if (!profileData?.link) {
 				await setData({ link: '1' })
 			}
+			if (wpId) setLoading(false)
 		}
 		handleReferral()
-	}, [startParam, wpId])
+	}, [startParam, wpId, profileData.link])
 
 	return (
 		<HeightContext.Provider value={{ height, maxHeight }}>
 			<ProfileContext.Provider value={profileData}>
 				<WpIdContext.Provider value={wpId}>
 					<SetDataContext.Provider value={setData}>
+						<div className={'main-preloader' + (loading ? ' active' : '')}><div className="loader" /></div>
 						<div className="App" style={{
 							backgroundImage: 'url(/img/bg.png)',
 							height: maxHeight ? maxHeight + 'px' : '100vh',

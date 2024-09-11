@@ -36,11 +36,14 @@ export default function Workshop() {
 	const [orderStage, setOrderStage] = useState('purchase')
 	const [availableRobots, setAvailableRobots] = useState([])
 	const [availableProducts, setAvailableProducts] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	async function updateProducts() {
+		setLoading(true)
 		const robots = await getRobots(wpId)
 		setAvailableRobots(products.filter(product => robots.includes(String(product.id))))
 		setAvailableProducts(products.filter(product => !robots.includes(String(product.id))))
+		setLoading(false)
 	}
 
 	function openSuccessModal() {
@@ -80,7 +83,7 @@ export default function Workshop() {
 			<div id="workshop">
 				<TopMenu />
 				<Switch second={inventory} setSecond={setInventory} firstText={t('workshop.workshop')} secondText={t('workshop.inventory')} />
-				{inventory ? <>
+				{loading ? <div className='preloader'><div className='loader' /></div> : inventory ? <>
 					{availableRobots.length !== 0 && <>
 						<h2>{t('workshop.robots')}</h2>
 						<div className='robots'>
