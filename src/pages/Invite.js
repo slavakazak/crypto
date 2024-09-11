@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { BonusIcon, CopyIcon, FAQIcon, MetricsIcon, OkIcon, PresentIcon, RefreshIcon, TokenIcon } from "../components/Icons"
+import { BonusIcon, CopyIcon, FAQIcon, MetricsIcon, OkIcon, PresentIcon, QuestionIcon, RefreshIcon, TokenIcon } from "../components/Icons"
 import getPartners from "../utils/getPartners"
 import { useTranslation } from 'react-i18next'
 import Modal from "../components/Modal"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { ProfileContext, WpIdContext } from "../utils/contexts"
 import InviteTab from "../components/InviteTab"
@@ -101,10 +101,10 @@ export default function Invite({ tg }) {
 						<div className="icon"><MetricsIcon /></div>
 						<span>{t('invite.metrics')}</span>
 					</div>
-					<div className="big-button">
-						<div className="icon"><FAQIcon /></div>
+					<Link to={'/faq-invite'} className="big-button">
+						<div className="icon"><QuestionIcon size={41} /></div>
 						<span>{t('invite.faq')}</span>
-					</div>
+					</Link>
 				</div>
 				<div className="invite">
 					<PresentIcon />

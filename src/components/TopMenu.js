@@ -60,9 +60,9 @@ export default function TopMenu() {
 				<Link to='/balance' className="button">
 					<WalletIcon />
 				</Link>
-				<div className="button">
+				<Link to={'/faq'} className="button">
 					<QuestionIcon size={18} />
-				</div>
+				</Link>
 				<div className="button" onClick={() => setPopUpLanguage(true)}>
 					{profileData.language.icon}
 				</div>

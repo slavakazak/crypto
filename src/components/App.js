@@ -21,6 +21,11 @@ import getWpFields from "../utils/getWpFields"
 import Bonuses from "../pages/Bonuses"
 import { HeightContext, ProfileContext, WpIdContext, SetDataContext } from "../utils/contexts"
 import Career from "../pages/Career"
+import Mail from "../pages/Mail"
+import FAQ from "../pages/FAQ"
+import Start from "../pages/Start"
+import FAQRating from "../pages/FAQRating"
+import FAQInvite from "../pages/FAQInvite"
 
 export default function App() {
 	const { i18n } = useTranslation()
@@ -176,6 +181,11 @@ export default function App() {
 								<Route path="/balance" element={<Balance />} />
 								<Route path="/bonuses" element={<Bonuses />} />
 								<Route path="/career" element={<Career />} />
+								<Route path="/mail" element={<Mail />} />
+								<Route path="/faq" element={<FAQ />} />
+								<Route path="/start" element={<Start />} />
+								<Route path="/faq-rating" element={<FAQRating />} />
+								<Route path="/faq-invite" element={<FAQInvite />} />
 							</Routes>
 						</div>
 						<Menu style={{ display: maxHeight - height < 150 ? 'flex' : 'none' }} />

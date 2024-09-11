@@ -84,10 +84,10 @@ export default function Home() {
 					</Link>
 				</div>
 				<div className='card-content'>
-					<div className='messages'>
+					<Link to={'/mail'} className='messages'>
 						<div className='count'>1</div>
 						<MessagesIcon />
-					</div>
+					</Link>
 					<div className='avatar'>
 						<Slider {...settingsAvatarsSlider}>
 							<img src={profileData.avatar === 'my' ? profileData.myAvatar : avatars[profileData.avatar]} alt={profileData.avatar === 'my' ? profileData.username : profileData.avatar} />

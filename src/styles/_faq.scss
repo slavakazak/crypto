@@ -1,0 +1,45 @@
+#faq {
+	width: 100%;
+	padding: 23px 15px 15px 15px;
+
+	.top-menu {
+		padding-right: $block-height;
+		align-items: flex-start;
+		height: auto;
+
+		.back {
+			height: 29px;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 22px;
+			font-weight: 500;
+			line-height: 29px;
+			text-transform: uppercase;
+		}
+	}
+
+	h2 {
+		margin: 15px 0;
+		color: $second-font;
+		text-align: center;
+		font-size: 14px;
+		font-weight: 500;
+		letter-spacing: -0.28px;
+	}
+
+	.question {
+		margin-top: 25px;
+		width: 100%;
+		height: $block-height;
+		text-align: center;
+		line-height: $block-height;
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: -0.24px;
+		cursor: pointer;
+		border-radius: $radius;
+		border: 1px solid $accent;
+	}
+}

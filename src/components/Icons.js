@@ -384,14 +384,6 @@ export function MetricsIcon() {
 	)
 }
 
-export function FAQIcon() {
-	return (
-		<svg width="41" height="41" viewBox="0 0 41 41" fill="none">
-			<path d="M20.5 0C9.17812 0 0 9.17812 0 20.5C0 31.8219 9.17812 41 20.5 41C31.8219 41 41 31.8219 41 20.5C41 9.17812 31.8219 0 20.5 0ZM22.2083 32.4583H18.7917V29.0417H22.2083V32.4583ZM24.8226 21.0939C23.0041 22.2317 22.2083 22.8389 22.2083 23.9167V25.625H18.7917V23.9167C18.7917 20.8337 21.2307 19.3088 23.0108 18.1978C24.8292 17.06 25.625 16.4527 25.625 15.375C25.625 13.4898 24.0918 11.9583 22.2083 11.9583H18.7917C16.9082 11.9583 15.375 13.4898 15.375 15.375V17.0833H11.9583V15.375C11.9583 11.608 15.023 8.54167 18.7917 8.54167H22.2083C25.977 8.54167 29.0417 11.608 29.0417 15.375C29.0417 18.458 26.6026 19.9828 24.8226 21.0939Z" fill="#FCFCFC" />
-		</svg>
-	)
-}
-
 export function PresentIcon() {
 	return (
 		<svg width="57" height="57" viewBox="0 0 57 57" fill="none">
@@ -445,13 +437,13 @@ export function CalendarIcon() {
 export function CirclesIcon() {
 	return (
 		<svg width="259" height="259" viewBox="0 0 259 259" fill="none" className="circles-icon">
-			<circle cx="129" cy="129" r="53" stroke="#292930" stroke-width="16" />
-			<circle cx="129" cy="129" r="68.5" stroke="#1B1B1B" stroke-width="15" />
+			<circle cx="129" cy="129" r="53" stroke="#292930" strokeWidth="16" />
+			<circle cx="129" cy="129" r="68.5" stroke="#1B1B1B" strokeWidth="15" />
 			<g filter="url(#filter0_d_946_901)">
 				<path d="M129.5 179C102.161 179 80 156.839 80 129.5C80 102.161 102.161 80 129.5 80C156.839 80 179 102.161 179 129.5C179 156.839 156.839 179 129.5 179ZM129.5 108.497L108.497 129.5L129.5 150.503L150.503 129.5L129.5 108.497Z" fill="white" />
 			</g>
 			<defs>
-				<filter id="filter0_d_946_901" x="0" y="0" width="259" height="259" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+				<filter id="filter0_d_946_901" x="0" y="0" width="259" height="259" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
 					<feFlood flood-opacity="0" result="BackgroundImageFix" />
 					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
 					<feOffset />

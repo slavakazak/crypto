@@ -6,6 +6,7 @@ import RatingTab from "../components/RatingTab"
 import TabMenu from "../components/TabMenu"
 import Slider from "react-slick"
 import DayString from "../components/DayString"
+import { Link } from "react-router-dom"
 
 export default function Rating() {
 	const { t } = useTranslation()
@@ -96,7 +97,7 @@ export default function Rating() {
 				<h1>{t('rating.title')}</h1>
 				<div className="right-side">
 					<div className={'button' + (myRating ? ' active' : '')} onClick={() => setMyRating(previous => !previous)}><TrophyIcon size={24} /></div>
-					<div className="button"><QuestionIcon size={22} /></div>
+					<Link to={'/faq-rating'} className="button"><QuestionIcon size={22} /></Link>
 				</div>
 			</div>
 			<Slider {...settingsSlider} className="slider">

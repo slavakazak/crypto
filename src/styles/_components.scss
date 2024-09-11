@@ -116,6 +116,7 @@
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	flex-shrink: 0;
 
 	svg {
 		fill: #AEAEB0;
@@ -715,6 +716,71 @@
 			width: 24px;
 			text-align: center;
 			margin-left: -12px;
+		}
+	}
+}
+
+// Аккордеон
+.accordion {
+	margin-bottom: 10px;
+	border-radius: $radius;
+	background: #282B30;
+	transition-duration: $duration;
+
+	.head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 15px;
+		border-radius: $radius;
+		background: linear-gradient(231deg, $accent 9.12%, #2E2E77 100.25%);
+		cursor: pointer;
+		transition-duration: $duration;
+
+		.left-side {
+			display: flex;
+			gap: 5px;
+			font-size: 12px;
+			font-weight: 500;
+			letter-spacing: -0.24px;
+		}
+
+		svg {
+			height: 11px;
+			width: 11px;
+			fill: $font;
+			transform: rotate(90deg);
+			flex-shrink: 0;
+			transition-duration: $duration;
+		}
+	}
+
+	.content {
+		max-height: 0;
+		overflow: hidden;
+		padding: 0 10px;
+		transition-duration: $duration;
+
+		.block {
+			text-align: justify;
+			font-size: 10px;
+			font-weight: 400;
+			letter-spacing: -0.2px;
+			margin: 10px 0 22px 0;
+		}
+	}
+
+	&.active {
+		.head {
+			border-radius: $radius $radius 0 0;
+
+			svg {
+				transform: rotate(-90deg);
+			}
+		}
+
+		.content {
+			max-height: 200px;
 		}
 	}
 }

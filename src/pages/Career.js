@@ -148,7 +148,7 @@ export default function Career() {
 
 			<div id="career">
 				<svg className='broken-line' data-level={profileData.level}>
-					<line x1="0" y1="0" x2="0" y2="2400" strokeWidth="3" stroke-dasharray="8 2" />
+					<line x1="0" y1="0" x2="0" y2="2400" strokeWidth="3" strokeDasharray="8 2" />
 				</svg>
 				<div className="top-menu">
 					<Back />

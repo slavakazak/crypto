@@ -437,5 +437,27 @@
 		"week": "week",
 		"day": "Day",
 		"take": "TAKE"
+	},
+	"mail": {
+		"title": "Mail"
+	},
+	"faq": {
+		"faqTitle": "Frequently Asked Questions",
+		"algorithm": "Algorithm",
+		"exchange": "Exchange",
+		"faqText": "On the other hand, the constant quantitative growth and scope of our activity allows us to carry out important tasks in developing appropriate conditions for activation.",
+		"faqTitle1": "What is a trading algorithm?",
+		"faqTitle2": "What is a trading algorithm, how does it work and why is it needed at all?",
+		"faqTitle3": "I want to start, but I don’t know where!",
+		"faqTitle4": "What is a trading exchange?",
+		"question": "ASK YOUR QUESTION",
+		"startTitle": "Guide for Beginners",
+		"investors": "Start for investors",
+		"business": "Start for business inside K2",
+		"startTitle1": "What is a start?",
+		"startTitle2": "How to buy and configure a robot so as not to make mistakes?",
+		"startTitle3": "I want to start, but I don’t know where!",
+		"startTitle4": "What is business inside K2",
+		"write": "WRITE TO A MENTOR"
 	}
 }

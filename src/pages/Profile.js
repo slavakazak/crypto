@@ -88,16 +88,16 @@ export default function Profile() {
 						<span>{t('profile.history')}</span>
 						<RightArrowIcon />
 					</Link>
-					<div className='item'>
+					<Link to={'/start'} className='item'>
 						<BookIcon />
 						<span>{t('profile.start')}</span>
 						<RightArrowIcon />
-					</div>
-					<div className='item'>
+					</Link>
+					<Link to={'/faq'} className='item'>
 						<QuestionIcon size={23} />
 						<span>{t('profile.faq')}</span>
 						<RightArrowIcon />
-					</div>
+					</Link>
 					<div className='item'>
 						<SupportIcon />
 						<span>{t('profile.support')}</span>
