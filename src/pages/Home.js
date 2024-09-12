@@ -6,14 +6,14 @@ import { useTranslation } from 'react-i18next'
 import TopMenu from '../components/TopMenu'
 import { useState } from 'react'
 import { useContext } from 'react'
-import { ProfileContext } from '../utils/contexts'
+import { DataContext } from '../context/DataProvider'
 import slideRobot from '../img/slide-bot.png'
 import Circle from '../components/Circle'
 import { Link } from 'react-router-dom'
 
 export default function Home() {
 	const { t } = useTranslation()
-	const profileData = useContext(ProfileContext)
+	const { profileData } = useContext(DataContext)
 
 	const [balance, setBalance] = useState('coin')
 

@@ -5,15 +5,14 @@ import { useTranslation } from 'react-i18next'
 import Modal from "../components/Modal"
 import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
-import { ProfileContext, WpIdContext } from "../utils/contexts"
+import { DataContext } from "../context/DataProvider"
 import InviteTab from "../components/InviteTab"
 import TabMenu from "../components/TabMenu"
 const botName = process.env.REACT_APP_BOT_NAME
 
-export default function Invite({ tg }) {
+export default function Invite() {
 	const { t } = useTranslation()
-	const profileData = useContext(ProfileContext)
-	const wpId = useContext(WpIdContext)
+	const { profileData, wpId, tg } = useContext(DataContext)
 	const navigate = useNavigate()
 
 	const [modal, setModal] = useState(false)

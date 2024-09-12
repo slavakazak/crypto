@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { CrossIcon, TokenBigIcon } from "./Icons"
 import { useTranslation } from 'react-i18next'
 import { useContext } from 'react'
-import { HeightContext } from "../utils/contexts"
+import { HeightContext } from "../context/HeightProvider"
 import robot from '../img/robot.png'
 
 export default function PopUpDaily({ active, onClose }) {

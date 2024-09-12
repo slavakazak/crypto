@@ -4,14 +4,14 @@ import { PlusIcon } from './Icons'
 import { useTranslation } from 'react-i18next'
 import Modal from "./Modal"
 import { useContext } from "react"
-import { SetDataContext } from "../utils/contexts"
+import { DataContext } from "../context/DataProvider"
 const adminUsername = process.env.REACT_APP_WP_ADMIN_USERNAME
 const adminPassword = process.env.REACT_APP_WP_ADMIN_PASSWORD
 const url = process.env.REACT_APP_SITE_URL
 
 export default function AddAvatar() {
 	const { t } = useTranslation()
-	const setData = useContext(SetDataContext)
+	const { setData } = useContext(DataContext)
 	const [load, setLoad] = useState(false)
 	const MAX_FILE_SIZE = 4 * 1024 * 1024
 	const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml', 'image/x-icon', 'image/bmp', 'image/tiff']

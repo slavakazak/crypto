@@ -10,11 +10,11 @@ import PopUpProduct from '../components/PopUpProduct'
 import getRobots from '../utils/getRobots'
 import { products } from '../utils/constants'
 import { useContext } from 'react'
-import { WpIdContext } from '../utils/contexts'
+import { DataContext } from '../context/DataProvider'
 
 export default function Workshop() {
 	const { t } = useTranslation()
-	const wpId = useContext(WpIdContext)
+	const { wpId } = useContext(DataContext)
 
 	const [inventory, setInventory] = useState(false)
 

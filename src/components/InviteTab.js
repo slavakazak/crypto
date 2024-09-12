@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import { useContext } from "react"
-import { ProfileContext } from "../utils/contexts"
+import { DataContext } from '../context/DataProvider'
 
 export default function InviteTab({ items, loading }) {
 	const { t } = useTranslation()
-	const profileData = useContext(ProfileContext)
+	const { profileData } = useContext(DataContext)
 
 	return (
 		<div className="tab">

@@ -6,12 +6,11 @@ import PopUp from './PopUp'
 import Option from './Option'
 import { avatars, languages } from '../utils/constants'
 import { useContext } from 'react'
-import { ProfileContext, SetDataContext } from '../utils/contexts'
+import { DataContext } from "../context/DataProvider"
 
 export default function TopMenu() {
 	const { t, i18n } = useTranslation()
-	const profileData = useContext(ProfileContext)
-	const setData = useContext(SetDataContext)
+	const { profileData, setData } = useContext(DataContext)
 
 	const [popUpLanguage, setPopUpLanguage] = useState(false)
 	const [language, setLanguage] = useState(profileData.language)

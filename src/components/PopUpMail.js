@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { CrossIcon } from "./Icons"
 import { useContext } from 'react'
-import { HeightContext } from "../utils/contexts"
+import { HeightContext } from "../context/HeightProvider"
 
 export default function PopUpMail({ active, onClose, title, children }) {
 	const { height, maxHeight } = useContext(HeightContext)

@@ -7,12 +7,11 @@ import { avatars } from '../utils/constants'
 import AddAvatar from '../components/AddAvatar'
 import { useTranslation } from 'react-i18next'
 import { useContext } from "react"
-import { ProfileContext, SetDataContext } from "../utils/contexts"
+import { DataContext } from "../context/DataProvider"
 
 export default function Profile() {
 	const { t } = useTranslation()
-	const profileData = useContext(ProfileContext)
-	const setData = useContext(SetDataContext)
+	const { profileData, setData } = useContext(DataContext)
 	const [popUpAvatar, setPopUpAvatar] = useState(false)
 	const [avatar, setAvatar] = useState(profileData.avatar)
 

@@ -1,10 +1,10 @@
 import { useContext } from "react"
-import { ProfileContext } from "../utils/contexts"
+import { DataContext } from "../context/DataProvider"
 import { useTranslation } from 'react-i18next'
 
 export default function DayString({ number }) {
 	const { t } = useTranslation()
-	const profileData = useContext(ProfileContext)
+	const { profileData } = useContext(DataContext)
 	let day
 	if (profileData.language.tag === 'en') {
 		day = t('day2')

@@ -4,11 +4,11 @@ import { InfoIcon, LockIcon, OkIcon, TrophyIcon } from '../components/Icons'
 import Circle from '../components/Circle'
 import PopUpCareer from '../components/PopUpCareer'
 import { useState, useContext } from 'react'
-import { ProfileContext } from '../utils/contexts'
+import { DataContext } from '../context/DataProvider'
 
 export default function Career() {
 	const { t } = useTranslation()
-	const profileData = useContext(ProfileContext)
+	const { profileData } = useContext(DataContext)
 
 	const leagues = [
 		{

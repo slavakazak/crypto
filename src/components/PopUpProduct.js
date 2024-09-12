@@ -10,12 +10,13 @@ import getPaymentStatus from "../utils/getPaymentStatus"
 import { useTranslation } from 'react-i18next'
 import { QRCodeSVG } from 'qrcode.react'
 import { useContext } from 'react'
-import { HeightContext, WpIdContext } from "../utils/contexts"
+import { HeightContext } from "../context/HeightProvider"
+import { DataContext } from "../context/DataProvider"
 
 export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, openSuccessModal, openModal }) {
 	const { t } = useTranslation()
 	const { height, maxHeight } = useContext(HeightContext)
-	const wpId = useContext(WpIdContext)
+	const { wpId } = useContext(DataContext)
 
 	const currencies = {
 		"USDTBSC": {

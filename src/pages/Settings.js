@@ -8,12 +8,11 @@ import { genders, countries } from "../utils/constants"
 import { useTranslation } from 'react-i18next'
 import Modal from "../components/Modal"
 import { useContext } from "react"
-import { ProfileContext, SetDataContext } from "../utils/contexts"
+import { DataContext } from "../context/DataProvider"
 
 export default function Settings() {
 	const { t } = useTranslation()
-	const profileData = useContext(ProfileContext)
-	const setData = useContext(SetDataContext)
+	const { profileData, setData } = useContext(DataContext)
 
 	const [modal, setModal] = useState(false)
 	const [modalText, setModalText] = useState('')

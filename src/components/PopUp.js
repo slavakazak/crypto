@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { CrossIcon } from "./Icons"
 import { useTranslation } from 'react-i18next'
 import { useContext } from 'react'
-import { HeightContext } from "../utils/contexts"
+import { HeightContext } from "../context/HeightProvider"
 
 export default function PopUp({ active, onClose, title, description, children, onCancel, onSave, saveActive, full = false, saveText, search, setSearch }) {
 	const { t } = useTranslation()

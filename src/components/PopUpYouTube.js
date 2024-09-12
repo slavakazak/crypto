@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { CrossIcon, TokenIcon, YouTubeIcon } from "./Icons"
 import { useTranslation } from 'react-i18next'
 import { useContext } from 'react'
-import { HeightContext } from "../utils/contexts"
+import { HeightContext } from "../context/HeightProvider"
 
 export default function PopUpYouTube({ active, onClose, title, description, link, bonus }) {
 	const { t } = useTranslation()

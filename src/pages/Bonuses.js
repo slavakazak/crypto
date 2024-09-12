@@ -7,11 +7,11 @@ import Timer from '../components/Timer'
 import getDateTimeString from '../utils/getDateTimeString'
 import promo from '../img/month-promo.png'
 import { useContext } from 'react'
-import { ProfileContext } from '../utils/contexts'
+import { DataContext } from '../context/DataProvider'
 
 export default function Bonuses() {
 	const { t } = useTranslation()
-	const profileData = useContext(ProfileContext)
+	const { profileData } = useContext(DataContext)
 
 	const bonuses = [1000, 750, 1500, 750, 750, 2500, 750, 750, 5000, 750, 5000, 5000]
 
