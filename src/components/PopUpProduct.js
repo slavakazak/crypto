@@ -12,11 +12,13 @@ import { QRCodeSVG } from 'qrcode.react'
 import { useContext } from 'react'
 import { HeightContext } from "../context/HeightProvider"
 import { DataContext } from "../context/DataProvider"
+import { AuthContext } from "../context/AuthProvider"
 
 export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, openSuccessModal, openModal }) {
 	const { t } = useTranslation()
 	const { height, maxHeight } = useContext(HeightContext)
 	const { wpId } = useContext(DataContext)
+	const { auth } = useContext(AuthContext)
 
 	const currencies = {
 		"USDTBSC": {
@@ -122,7 +124,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 		if (!disclaimer || !privacyPolicy || !placing) return
 		if (getPrice() === 0) {
 			setPlacing(false)
-			await addTransaction({
+			await addTransaction(auth, {
 				user_id: wpId,
 				transaction_type: 'purchase',
 				transaction_status: 'success',
@@ -136,7 +138,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 			return
 		}
 		setPlacing(false)
-		const transaction = await addTransaction({
+		const transaction = await addTransaction(auth, {
 			user_id: wpId,
 			transaction_type: 'purchase',
 			transaction_status: 'processing',

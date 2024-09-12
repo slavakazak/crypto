@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { BonusIcon, CopyIcon, FAQIcon, MetricsIcon, OkIcon, PresentIcon, QuestionIcon, RefreshIcon, TokenIcon } from "../components/Icons"
+import { BonusIcon, CopyIcon, MetricsIcon, OkIcon, PresentIcon, QuestionIcon, TokenIcon } from "../components/Icons"
 import getPartners from "../utils/getPartners"
 import { useTranslation } from 'react-i18next'
 import Modal from "../components/Modal"
 import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { DataContext } from "../context/DataProvider"
+import { AuthContext } from "../context/AuthProvider"
 import InviteTab from "../components/InviteTab"
 import TabMenu from "../components/TabMenu"
 const botName = process.env.REACT_APP_BOT_NAME
@@ -13,6 +14,7 @@ const botName = process.env.REACT_APP_BOT_NAME
 export default function Invite() {
 	const { t } = useTranslation()
 	const { profileData, wpId, tg } = useContext(DataContext)
+	const { auth } = useContext(AuthContext)
 	const navigate = useNavigate()
 
 	const [modal, setModal] = useState(false)
@@ -47,8 +49,9 @@ export default function Invite() {
 	}
 
 	async function updatePartners() {
+		if (!auth) return
 		setLoading(true)
-		const newPartners = await getPartners(wpId)
+		const newPartners = await getPartners(auth, wpId)
 		setPartners(newPartners)
 		const newCommand = getCommand(newPartners)
 		setCommand(newCommand)

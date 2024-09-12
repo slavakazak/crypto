@@ -11,10 +11,12 @@ import getRobots from '../utils/getRobots'
 import { products } from '../utils/constants'
 import { useContext } from 'react'
 import { DataContext } from '../context/DataProvider'
+import { AuthContext } from '../context/AuthProvider'
 
 export default function Workshop() {
 	const { t } = useTranslation()
 	const { wpId } = useContext(DataContext)
+	const { auth } = useContext(AuthContext)
 
 	const [inventory, setInventory] = useState(false)
 
@@ -39,8 +41,9 @@ export default function Workshop() {
 	const [loading, setLoading] = useState(true)
 
 	async function updateProducts() {
+		if (!auth) return
 		setLoading(true)
-		const robots = await getRobots(wpId)
+		const robots = await getRobots(auth, wpId)
 		setAvailableRobots(products.filter(product => robots.includes(String(product.id))))
 		setAvailableProducts(products.filter(product => !robots.includes(String(product.id))))
 		setLoading(false)
@@ -67,6 +70,7 @@ export default function Workshop() {
 	}
 
 	useEffect(() => {
+		if (!wpId) return
 		document.addEventListener('click', setOrderStage(''))
 		updateProducts()
 	}, [wpId])

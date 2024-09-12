@@ -8,11 +8,13 @@ import getTransactions from "../utils/getTransactions"
 import { products } from '../utils/constants'
 import { useContext } from "react"
 import { DataContext } from "../context/DataProvider"
+import { AuthContext } from "../context/AuthProvider"
 import Back from "../components/Back"
 
 export default function Balance() {
 	const { t } = useTranslation()
 	const { profileData, wpId, setData } = useContext(DataContext)
+	const { auth } = useContext(AuthContext)
 
 	const [modal, setModal] = useState(false)
 	const [modalTitle, setModalTitle] = useState('')
@@ -22,8 +24,9 @@ export default function Balance() {
 	const [transactionsDates, setTransactionsDates] = useState(null)
 
 	async function updateTransactions() {
+		if (!auth) return
 		setTransactionsDates(null)
-		const transactions = await getTransactions(wpId)
+		const transactions = await getTransactions(auth, wpId)
 		const groupedTransactions = {}
 		await transactions.forEach(async transaction => {
 			const date = transaction.transaction_time.split(' ')[0]
@@ -36,6 +39,7 @@ export default function Balance() {
 	}
 
 	useEffect(() => {
+		if (!wpId) return
 		// const transactionData = {
 		// 	user_id: 44,
 		// 	transaction_type: 'purchase', //accrual, swap, withdrawal, purchase

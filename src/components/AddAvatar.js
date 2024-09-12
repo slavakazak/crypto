@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import Modal from "./Modal"
 import { useContext } from "react"
 import { DataContext } from "../context/DataProvider"
+import { AuthContext } from "../context/AuthProvider"
 const adminUsername = process.env.REACT_APP_WP_ADMIN_USERNAME
 const adminPassword = process.env.REACT_APP_WP_ADMIN_PASSWORD
 const url = process.env.REACT_APP_SITE_URL
@@ -12,6 +13,7 @@ const url = process.env.REACT_APP_SITE_URL
 export default function AddAvatar() {
 	const { t } = useTranslation()
 	const { setData } = useContext(DataContext)
+	const { token } = useContext(AuthContext)
 	const [load, setLoad] = useState(false)
 	const MAX_FILE_SIZE = 4 * 1024 * 1024
 	const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml', 'image/x-icon', 'image/bmp', 'image/tiff']
@@ -39,8 +41,6 @@ export default function AddAvatar() {
 			const formData = new FormData()
 			formData.append('file', file)
 			try {
-				const tokenResponse = await axios.post(`${url}/wp-json/jwt-auth/v1/token`, { username: adminUsername, password: adminPassword })
-				const token = tokenResponse.data.token
 				const response = await axios.post(`${url}/wp-json/wp/v2/media`,
 					formData,
 					{

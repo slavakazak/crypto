@@ -6,20 +6,16 @@ export const AuthContext = createContext()
 export function AuthProvider({ children }) {
 	const [token, setToken] = useState(null)
 
-	async function updateToken() {
-		const newToken = await getToken()
-		setToken(newToken)
-	}
-
 	useEffect(() => {
 		async function init() {
-			await updateToken()
+			const newToken = await getToken()
+			setToken(newToken)
 		}
 		init()
 	}, [])
 
 	return (
-		<AuthContext.Provider value={{ token, updateToken }}>
+		<AuthContext.Provider value={{ token, auth: token ? { Authorization: `Bearer ${token}` } : null }}>
 			{children}
 		</AuthContext.Provider>
 	)

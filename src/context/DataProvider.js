@@ -5,18 +5,18 @@ import getWpFields from "../utils/getWpFields"
 import setWpFields from "../utils/setWpFields"
 import { AuthContext } from "./AuthProvider"
 
-const test = false
+const test = true
 export const DataContext = createContext()
 
 export function DataProvider({ children }) {
-	//TODO
-	const { token } = useContext(AuthContext)
+	const { auth } = useContext(AuthContext)
 	//Init Telegram & Wordpress
 	const [profileData, setProfileData] = useState(defaultProfileData)
 	const [wpId, setWpId] = useState()
 	const [tg, setTg] = useState()
 
 	useEffect(() => {
+		if (!auth) return
 		async function init() {
 			if (window?.Telegram?.WebApp) {
 				const tgData = window.Telegram.WebApp
@@ -27,12 +27,12 @@ export function DataProvider({ children }) {
 				tgData.expand()
 				if (test) {
 					const testId = 1
-					const fields = await getWpFields(testId)
+					const fields = await getWpFields(auth, testId)
 					setProfileData(previous => ({ ...previous, ...fields }))
 					setWpId(testId)
 				} else if (tgData.initDataUnsafe?.user) {
-					const newWpId = await setWpUser(tgData.initDataUnsafe)
-					const fields = await getWpFields(newWpId)
+					const newWpId = await setWpUser(auth, tgData.initDataUnsafe)
+					const fields = await getWpFields(auth, newWpId)
 					setProfileData(previous => ({ ...previous, ...fields }))
 					setWpId(newWpId)
 					if (!newWpId) console.log('WordPress login error!')
@@ -45,13 +45,13 @@ export function DataProvider({ children }) {
 			}
 		}
 		init()
-	}, [])
+	}, [auth])
 
 	//Set Data and Send Data to server
 	async function setData(data) {
 		if (!wpId) return
-		const fields = await getWpFields(wpId)
-		await setWpFields(wpId, { ...profileData, ...fields, ...data })
+		const fields = await getWpFields(auth, wpId)
+		await setWpFields(auth, wpId, { ...profileData, ...fields, ...data })
 		setProfileData(previous => ({ ...previous, ...fields, ...data }))
 	}
 

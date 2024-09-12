@@ -1,8 +1,8 @@
 import { genders, countries, languages, defaultProfileData } from './constants'
 import getWpUser from './getWpUser'
 
-export default async function getWpFields(wpId) {
-	const wpUser = await getWpUser(wpId)
+export default async function getWpFields(auth, wpId) {
+	const wpUser = await getWpUser(auth, wpId)
 	if (!wpUser) return {}
 	const meta = wpUser.meta || {}
 	return {
