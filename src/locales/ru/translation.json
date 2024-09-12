@@ -56,12 +56,15 @@
 			"emptyLogin": "Поле \"Логин\" не должно быть пустым",
 			"busyLogin": "Логин занят",
 			"emptyPassword": "Пароль не должен быть пустым",
-			"invalidWallet": "Неверный адрес кошелька"
+			"invalidWallet": "Неверный адрес кошелька",
+			"invalidExchange": "Неверная ссылка на биржу"
 		},
 		"editProfile": "Редактировать профиль",
 		"personalData": "Личные данные",
 		"loginData": "Данные входа",
+		"securityData": "Данные безопасности",
 		"financialData": "Финансовые данные",
+		"bitgetData": "Данные Bitget",
 		"placeholder": {
 			"nickname": "Nickname",
 			"fullName": "Иванов Иван Иванович",
@@ -70,7 +73,8 @@
 			"login": "Логин",
 			"password": "Пароль",
 			"pin": "PIN (требуется для проверки операций)",
-			"wallet": "Адрес кошелька USDT в сети BEP20"
+			"wallet": "Адрес кошелька USDT в сети BEP20",
+			"exchange": "Реферальная ссылка на бирже"
 		},
 		"popUpGender": {
 			"title": "Редактировать пол",

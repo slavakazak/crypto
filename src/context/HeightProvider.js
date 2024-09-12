@@ -20,15 +20,15 @@ export function HeightProvider({ children }) {
 			setHeight(Math.min(document.documentElement.clientHeight, window.innerHeight))
 		}
 	}
-	function focusHandler() {
-		setTimeout(() => {
-			let focusedElement = document.activeElement
-			if (focusedElement && (focusedElement.tagName === 'INPUT' || focusedElement.tagName === 'TEXTAREA')) {
-				const top = focusedElement.getBoundingClientRect().top + document.querySelector('.App').scrollTop
-				document.querySelector('.App').scrollTo({ top: top - 200, behavior: 'smooth' })
-			}
-		}, 700)
-	}
+	// function focusHandler() {
+	// 	setTimeout(() => {
+	// 		let focusedElement = document.activeElement
+	// 		if (focusedElement && (focusedElement.tagName === 'INPUT' || focusedElement.tagName === 'TEXTAREA')) {
+	// 			const top = focusedElement.getBoundingClientRect().top + document.querySelector('.App').scrollTop
+	// 			document.querySelector('.App').scrollTo({ top: top - 200, behavior: 'smooth' })
+	// 		}
+	// 	}, 700)
+	// }
 	useEffect(() => {
 		if (tg) {
 			setMaxHeight(Math.max(tg.viewportHeight, tg.viewportStableHeight, document.documentElement.clientHeight, window.innerHeight))
@@ -40,13 +40,13 @@ export function HeightProvider({ children }) {
 		window.addEventListener('resize', updateHeight)
 		document.addEventListener('touchend', scrollHandler, false)
 		document.addEventListener('touchcancel', scrollHandler, false)
-		document.addEventListener('focus', focusHandler, true)
+		//document.addEventListener('focus', focusHandler, true)
 		return () => {
 			tg?.offEvent('viewportChanged', updateHeight)
 			window.removeEventListener('resize', updateHeight)
 			document.removeEventListener('touchend', scrollHandler, false)
 			document.removeEventListener('touchcancel', scrollHandler, false)
-			document.removeEventListener('focus', focusHandler, true)
+			//document.removeEventListener('focus', focusHandler, true)
 		}
 	}, [tg])
 

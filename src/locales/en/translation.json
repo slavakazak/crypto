@@ -56,12 +56,15 @@
 			"emptyLogin": "The \"Login\" field should not be empty",
 			"busyLogin": "Login is busy",
 			"emptyPassword": "The password must not be empty",
-			"invalidWallet": "Invalid wallet address"
+			"invalidWallet": "Invalid wallet address",
+			"invalidExchange": "Invalid exchange link"
 		},
 		"editProfile": "Edit profile",
 		"personalData": "Personal information",
 		"loginData": "Login details",
+		"securityData": "Security data",
 		"financialData": "Financial data",
+		"bitgetData": "Bitget data",
 		"placeholder": {
 			"nickname": "Nickname",
 			"fullName": "Ivanov Ivan Ivanovich",
@@ -70,7 +73,8 @@
 			"login": "Login",
 			"password": "Password",
 			"pin": "PIN (required to verify transactions)",
-			"wallet": "USDT wallet address on the BEP20 network"
+			"wallet": "USDT wallet address on the BEP20 network",
+			"exchange": "Referral link on the exchange"
 		},
 		"popUpGender": {
 			"title": "Edit gender",

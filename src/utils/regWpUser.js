@@ -21,7 +21,7 @@ export default async function regWpUser(auth, username, email, password, nicknam
 		}
 		//обновление мета полей
 		await axios.post(`${url}/wp-json/wp/v2/users/${wpId}`,
-			{ meta: { t_nickname: nickname, t_username: nickname, t_password: password, t_ref: wpId + '', t_link: link, t_language: language } },
+			{ meta: { t_nickname: nickname, t_username: nickname, /*t_password: password,*/ t_ref: wpId + '', t_link: link, t_language: language } },
 			{ headers: auth }
 		)
 		return wpId

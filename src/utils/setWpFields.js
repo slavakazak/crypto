@@ -17,6 +17,7 @@ export default async function setWpFields(auth, wpId, data) {
 				t_password_changed: data.passwordChanged,
 				t_pin: data.pin,
 				t_wallet: data.wallet,
+				t_exchange: data.exchange,
 				t_avatars: data.avatars?.join(','),
 				t_my_avatar: data.myAvatar,
 				t_avatar: data.avatar,

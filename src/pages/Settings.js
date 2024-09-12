@@ -36,17 +36,17 @@ export default function Settings() {
 	const [popUpCountry, setPopUpCountry] = useState(false)
 	const [countrySearch, setCountrySearch] = useState('')
 
-	const [login, setLogin] = useState(profileData.login)
+	//const [login, setLogin] = useState(profileData.login)
 
-	const [password, setPassword] = useState(profileData.password)
-	const [popUpSeePassword, setPopUpSeePassword] = useState(false)
-	const [pinToSeePassword, setPinToSeePassword] = useState('')
-	const [seePassword, setSeePassword] = useState(false)
+	// const [password, setPassword] = useState(profileData.password)
+	// const [popUpSeePassword, setPopUpSeePassword] = useState(false)
+	// const [pinToSeePassword, setPinToSeePassword] = useState('')
+	// const [seePassword, setSeePassword] = useState(false)
 
-	const [popUpChangePassword, setPopUpChangePassword] = useState(false)
-	const [currentPassword, setCurrentPassword] = useState('')
-	const [newPassword, setNewPassword] = useState('')
-	const [pinToChangePassword, setPinToChangePassword] = useState('')
+	// const [popUpChangePassword, setPopUpChangePassword] = useState(false)
+	// const [currentPassword, setCurrentPassword] = useState('')
+	// const [newPassword, setNewPassword] = useState('')
+	// const [pinToChangePassword, setPinToChangePassword] = useState('')
 
 	const [pin, setPin] = useState(profileData.pin)
 	const [popUpChangePin, setPopUpChangePin] = useState(false)
@@ -54,6 +54,24 @@ export default function Settings() {
 	const [newPin, setNewPin] = useState('')
 
 	const [wallet, setWallet] = useState(profileData.wallet)
+	const [exchange, setExchange] = useState(profileData.exchange)
+
+	function focusHandler() {
+		setTimeout(() => {
+			let focusedElement = document.activeElement
+			if (focusedElement && (focusedElement.tagName === 'INPUT' || focusedElement.tagName === 'TEXTAREA')) {
+				const top = focusedElement.getBoundingClientRect().top + document.querySelector('.App').scrollTop
+				document.querySelector('.App').scrollTo({ top: top - 200, behavior: 'smooth' })
+			}
+		}, 700)
+	}
+	useEffect(() => {
+		const settingsEl = document.querySelector('#settings')
+		settingsEl.addEventListener('focus', focusHandler, true)
+		return () => {
+			settingsEl.removeEventListener('focus', focusHandler, true)
+		}
+	}, [])
 
 	useEffect(() => {
 		setNickname(profileData.nickname)
@@ -62,10 +80,11 @@ export default function Settings() {
 		setGender(profileData.gender)
 		setAge(profileData.age)
 		setCountry(profileData.country)
-		setLogin(profileData.login)
-		setPassword(profileData.password)
+		//setLogin(profileData.login)
+		//setPassword(profileData.password)
 		setPin(profileData.pin)
 		setWallet(profileData.wallet)
+		setExchange(profileData.exchange)
 	}, [profileData])
 
 	//обработчики ввода полей
@@ -112,77 +131,77 @@ export default function Settings() {
 	}
 
 	//всплывающее окно просмотра пароля
-	function seePasswordClickHandler() {
-		if (!profileData.passwordChanged) {
-			setSeePassword(previous => !previous)
-			return
-		}
-		if (seePassword) {
-			setSeePassword(false)
-			return
-		}
-		if (!password) {
-			openModal(t('settings.messages.enterPassword'))
-			return
-		}
-		if (!profileData.pin) {
-			openModal(t('settings.messages.setPIN'))
-			return
-		}
-		setPopUpSeePassword(true)
-	}
-	function seePasswordCancelClickHandler() {
-		setPinToSeePassword('')
-		setPopUpSeePassword(false)
-	}
-	function seePasswordSaveClickHandler() {
-		setPinToSeePassword('')
-		setPopUpSeePassword(false)
-		if (pinToSeePassword !== profileData.pin) {
-			openModal(t('settings.messages.invalidPIN'))
-			return
-		}
-		setSeePassword(true)
-	}
+	// function seePasswordClickHandler() {
+	// 	if (!profileData.passwordChanged) {
+	// 		setSeePassword(previous => !previous)
+	// 		return
+	// 	}
+	// 	if (seePassword) {
+	// 		setSeePassword(false)
+	// 		return
+	// 	}
+	// 	if (!password) {
+	// 		openModal(t('settings.messages.enterPassword'))
+	// 		return
+	// 	}
+	// 	if (!profileData.pin) {
+	// 		openModal(t('settings.messages.setPIN'))
+	// 		return
+	// 	}
+	// 	setPopUpSeePassword(true)
+	// }
+	// function seePasswordCancelClickHandler() {
+	// 	setPinToSeePassword('')
+	// 	setPopUpSeePassword(false)
+	// }
+	// function seePasswordSaveClickHandler() {
+	// 	setPinToSeePassword('')
+	// 	setPopUpSeePassword(false)
+	// 	if (pinToSeePassword !== profileData.pin) {
+	// 		openModal(t('settings.messages.invalidPIN'))
+	// 		return
+	// 	}
+	// 	setSeePassword(true)
+	// }
 
 	//всплывающее окно смены пароля
-	function changePasswordClickHandler() {
-		if (!profileData.password) {
-			openModal(t('settings.messages.setPassword'))
-			return
-		}
-		if (!profileData.pin) {
-			openModal(t('settings.messages.setPIN'))
-			return
-		}
-		setPopUpChangePassword(true)
-	}
-	function changePasswordCancelClickHandler() {
-		setCurrentPassword('')
-		setNewPassword('')
-		setPinToChangePassword('')
-		setPopUpChangePassword(false)
-	}
-	function changePasswordSaveClickHandler() {
-		setCurrentPassword('')
-		setNewPassword('')
-		setPinToChangePassword('')
-		setPopUpChangePassword(false)
-		if (profileData.password !== currentPassword) {
-			openModal(t('settings.messages.invalidPassword'))
-			return
-		}
-		if (newPassword.includes(' ')) {
-			openModal(t('settings.messages.passwordSpaces'))
-			return
-		}
-		if (profileData.pin !== pinToChangePassword) {
-			openModal(t('settings.messages.invalidPIN'))
-			return
-		}
-		setPassword(newPassword)
-		setData({ password: newPassword })
-	}
+	//function changePasswordClickHandler() {
+	// 	if (!profileData.password) {
+	// 		openModal(t('settings.messages.setPassword'))
+	// 		return
+	// 	}
+	// 	if (!profileData.pin) {
+	// 		openModal(t('settings.messages.setPIN'))
+	// 		return
+	// 	}
+	// 	setPopUpChangePassword(true)
+	// }
+	// function changePasswordCancelClickHandler() {
+	// 	setCurrentPassword('')
+	// 	setNewPassword('')
+	// 	setPinToChangePassword('')
+	// 	setPopUpChangePassword(false)
+	// }
+	// function changePasswordSaveClickHandler() {
+	// 	setCurrentPassword('')
+	// 	setNewPassword('')
+	// 	setPinToChangePassword('')
+	// 	setPopUpChangePassword(false)
+	// 	if (profileData.password !== currentPassword) {
+	// 		openModal(t('settings.messages.invalidPassword'))
+	// 		return
+	// 	}
+	// 	if (newPassword.includes(' ')) {
+	// 		openModal(t('settings.messages.passwordSpaces'))
+	// 		return
+	// 	}
+	// 	if (profileData.pin !== pinToChangePassword) {
+	// 		openModal(t('settings.messages.invalidPIN'))
+	// 		return
+	// 	}
+	// 	setPassword(newPassword)
+	// 	setData({ password: newPassword })
+	// }
 
 	//всплывающее окно смены PIN
 	function changePinClickHandler() {
@@ -219,10 +238,11 @@ export default function Settings() {
 		setFullName(profileData.fullName)
 		setEmail(profileData.email)
 		setAge(profileData.age)
-		setLogin(profileData.login)
-		setPassword(profileData.password)
+		//setLogin(profileData.login)
+		//setPassword(profileData.password)
 		setPin(profileData.pin)
 		setWallet(profileData.wallet)
+		setExchange(profileData.exchange)
 		setFormChanged(false)
 	}
 
@@ -242,32 +262,35 @@ export default function Settings() {
 			openModal(t('settings.messages.youngAge'))
 			return
 		}
-		if (!login.trim()) {
-			openModal(t('settings.messages.emptyLogin'))
-			return
-		}
-		if (login.trim() === 'admin') {
-			openModal(t('settings.messages.busyLogin'))
-			return
-		}
-		if (password.trim() === '') {
-			openModal(t('settings.messages.emptyPassword'))
-			return
-		}
-		if (password.includes(' ')) {
-			openModal(t('settings.messages.passwordSpaces'))
-			return
-		}
+		// if (!login.trim()) {
+		// 	openModal(t('settings.messages.emptyLogin'))
+		// 	return
+		// }
+		// if (login.trim() === 'admin') {
+		// 	openModal(t('settings.messages.busyLogin'))
+		// 	return
+		// }
+		// if (password.trim() === '') {
+		// 	openModal(t('settings.messages.emptyPassword'))
+		// 	return
+		// }
+		// if (password.includes(' ')) {
+		// 	openModal(t('settings.messages.passwordSpaces'))
+		// 	return
+		// }
 		if (pin.includes(' ')) {
 			openModal(t('settings.messages.PINSpaces'))
 			return
 		}
-		if (wallet && (wallet.slice(0, 2) !== '0x' || wallet.includes(' '))) {
+		if (wallet && !/^0x[a-fA-F0-9]{40}$/.test(wallet.trim())) {
 			openModal(t('settings.messages.invalidWallet'))
 			return
 		}
-
-		const passwordChanged = profileData.passwordChanged || profileData.password !== password
+		if (exchange && !/^https:\/\/partner\.bitget\.com\/bg\/[a-zA-Z0-9]{6}$/.test(exchange.trim())) {
+			openModal(t('settings.messages.invalidExchange'))
+			return
+		}
+		//const passwordChanged = profileData.passwordChanged || profileData.password !== password
 
 		let newUsername = nickname.trim()
 		if (profileData.username === profileData.fullName && fullName.trim()) {
@@ -280,11 +303,12 @@ export default function Settings() {
 			username: newUsername,
 			email: email.trim(),
 			age,
-			login: login.trim(),
-			password,
-			passwordChanged,
+			//login: login.trim(),
+			//password,
+			//passwordChanged,
 			pin,
-			wallet
+			wallet: wallet.trim(),
+			exchange: exchange.trim()
 		})
 
 		setFormChanged(false)
@@ -311,21 +335,22 @@ export default function Settings() {
 					</div>
 				</div>
 				<div className="form-section">
-					<div className="label">{t('settings.loginData')}</div>
-					<input placeholder={t('settings.placeholder.login')} className="input" value={login} onChange={handler(setLogin)} />
+					<div className="label">{t('settings.securityData')}</div>
+					{/* <input placeholder={t('settings.placeholder.login')} className="input" value={login} onChange={handler(setLogin)} />
 					<div className={'input-container' + (profileData.passwordChanged ? ' two-icon' : ' one-icon')}>
 						<input placeholder={t('settings.placeholder.password')} className='input' readOnly={profileData.passwordChanged} type={seePassword ? 'text' : 'password'} value={password} onChange={handler(setPassword)} />
 						<div className={'eye' + (seePassword ? ' active' : '')} onClick={seePasswordClickHandler}><EyeCrossedIcon /></div>
 						{profileData.passwordChanged && <div className="settings" onClick={changePasswordClickHandler}><SettingsIcon /></div>}
-					</div>
+					</div> */}
 					<div className={'input-container' + (profileData.pin ? ' one-icon' : '')}>
 						<input placeholder={t('settings.placeholder.pin')} className='input' readOnly={profileData.pin !== ''} type="password" value={pin} onChange={handler(setPin)} />
 						{profileData.pin && <div className="settings" onClick={changePinClickHandler}><SettingsIcon /></div>}
 					</div>
 				</div>
 				<div className="form-section">
-					<div className="label">{t('settings.financialData')}</div>
+					<div className="label">{t('settings.bitgetData')}</div>
 					<input placeholder={t('settings.placeholder.wallet')} className="input wallet-input" value={wallet} onChange={handler(setWallet)} />
+					<input placeholder={t('settings.placeholder.exchange')} className="input exchange-input" value={exchange} onChange={handler(setExchange)} />
 				</div>
 				<SaveRow onCancel={cancelClickHandler} onSave={saveClickHandler} active={formChanged} />
 			</div>
@@ -365,7 +390,7 @@ export default function Settings() {
 				</div>
 			</PopUp>
 
-			<PopUp
+			{/* <PopUp
 				active={popUpSeePassword}
 				onClose={() => setPopUpSeePassword(false)}
 				title={t('settings.popUpSeePassword.title')}
@@ -378,9 +403,9 @@ export default function Settings() {
 				<div className="select">
 					<input placeholder={t('settings.popUpSeePassword.placeholder.pin')} type="password" value={pinToSeePassword} onChange={e => setPinToSeePassword(e.target.value)} />
 				</div>
-			</PopUp>
+			</PopUp> */}
 
-			<PopUp
+			{/* <PopUp
 				active={popUpChangePassword}
 				onClose={() => setPopUpChangePassword(false)}
 				title={t('settings.popUpChangePassword.title')}
@@ -394,7 +419,7 @@ export default function Settings() {
 					<input placeholder={t('settings.popUpChangePassword.placeholder.newPassword')} type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
 					<input placeholder={t('settings.popUpChangePassword.placeholder.pin')} type="password" value={pinToChangePassword} onChange={e => setPinToChangePassword(e.target.value)} />
 				</div>
-			</PopUp>
+			</PopUp> */}
 
 			<PopUp
 				active={popUpChangePin}
