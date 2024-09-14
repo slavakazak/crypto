@@ -168,13 +168,15 @@
 
 			span {
 				color: $violet;
-				font-size: 9px;
-				font-weight: 700;
 			}
 		}
 
 		&.passed .progress-info {
 			background: $violet;
+
+			span {
+				color: $font;
+			}
 		}
 
 		&.lock {

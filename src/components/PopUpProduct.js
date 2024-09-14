@@ -17,7 +17,7 @@ import { AuthContext } from "../context/AuthProvider"
 export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, openSuccessModal, openModal }) {
 	const { t } = useTranslation()
 	const { height, maxHeight } = useContext(HeightContext)
-	const { wpId } = useContext(DataContext)
+	const { wpId, setData, profileData } = useContext(DataContext)
 	const { auth } = useContext(AuthContext)
 
 	const currencies = {
@@ -122,8 +122,8 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 
 	async function placingClickHandler() {
 		if (!disclaimer || !privacyPolicy || !placing) return
+		setPlacing(false)
 		if (getPrice() === 0) {
-			setPlacing(false)
 			await addTransaction(auth, {
 				user_id: wpId,
 				transaction_type: 'purchase',
@@ -135,9 +135,11 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 				transaction_time: getUTCTime()
 			})
 			openSuccessModal()
+			if (profileData.level === 1 && currentProduct.id === 16) {
+				setData({ level: 2, avatars: [...profileData.avatars, 'k2avatar'], avatar: 'k2avatar' })
+			}
 			return
 		}
-		setPlacing(false)
 		const transaction = await addTransaction(auth, {
 			user_id: wpId,
 			transaction_type: 'purchase',
@@ -167,6 +169,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 			const paymentStatus = await getPaymentStatus(payment.payment_id)
 			if (paymentStatus.payment_status === 'finished') {
 				clearInterval(newStatusInterval)
+				setData({})
 				openSuccessModal()
 			}
 		}, 5000)
