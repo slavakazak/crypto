@@ -170,7 +170,24 @@
 		"usdt": "USDT",
 		"withdrawal": "WITHDRAWAL",
 		"transactions": "Transactions",
-		"search": "Enter type, date or amount"
+		"search": "Enter type, date or amount",
+		"balanceModal": {
+			"text1": "In the balance section you can see the number of coins credited to your wallets.",
+			"text2": "For your recommendation of K2, the company thanks you with a bonus in the form of",
+			"text3": "Coins, according to the marketing plan.",
+			"text4": "Every Monday at",
+			"text5": "Coins are converted into",
+			"text6": "Current conversion rate",
+			"text7": "Here you can create a withdrawal request, which will be processed within 5 business days.",
+			"text8": "In the “Transactions” section, you see all the transactions that have occurred on your account throughout its existence. You can search by transaction or filter for your convenience."
+		},
+		"walletsModal": {
+			"text1": "In the K2 ecosystem there are 3 types of wallets and 3 types of tokens, respectively:",
+			"text2": "an in-game token that is awarded for inviting users to the K2 ecosystem, as well as completing tasks.",
+			"text3": "an in-game token that is awarded for the purchase of K2 ecosystem products by invited users according to the marketing plan.",
+			"text4": "an in-game token that is awarded automatically by converting COIN at 00.00 every Monday. This token is available for generating a withdrawal request.",
+			"text5": "Conversion rate"
+		}
 	},
 	"workshop": {
 		"workshop": "Workshop",
@@ -180,6 +197,19 @@
 			"inventory": "inventory",
 			"text2": "You can monitor the status of your order in the section",
 			"history": "transaction history"
+		},
+		"messageTemplate": "Hello, I registered on the exchange, passed verification and made a deposit in the amount of X USDT, my UID: UID number, my telegram nickname: Y. Please check and provide a link and instructions for connection",
+		"copyMessage": "COPY MESSAGE TEMPLATE",
+		"inventoryModal": {
+			"text1": "To connect to the robot you need:",
+			"text2": "Register on the Bitget exchange using the link:",
+			"text3": "Go through identity verification on the exchange",
+			"text4": "Top up your deposit on the exchange",
+			"text5": "Write to support",
+			"text6": "the following message:",
+			"text7": "Along with this message, you need to send a screenshot from the exchange, where your uid is visible and a screenshot from your K2 personal account in the inventory.",
+			"text8": "*In the message, indicate your deposit instead of the letter “X”, your UID instead of “UID number”, your telegram nickname, which has a robot in your inventory",
+			"text9": "*Your UID can be found in your profile on the exchange in the line under your avatar."
 		},
 		"robots": "Robots",
 		"development": "In development",
@@ -265,7 +295,15 @@
 		"progressDescription": "TRAVEL BONUS DUBAI 2025",
 		"tasks": "Tasks",
 		"task1": "Connect 22 investors with K2 level to the first line for one",
-		"task2": "Connect 37 investors with K2 level to the first line for the 2nd half"
+		"task2": "Connect 37 investors with K2 level to the first line for the 2nd half",
+		"invite": "SUBSCRIBE ANOTHER",
+		"startModal": {
+			"text1": "This is your opportunity from the K2 company to earn even more than the marketing plan allows!",
+			"text2": "Start Bonus is available to ambassadors with the level of K3 and is valid for 60 days from the moment of purchase of the robot.",
+			"text3": "Already with the first purchase of a robot based on your recommendation, you get increased commissions.",
+			"text4": "I have completed the entire start bonus and you will earn 24500 coins, which is equivalent to 2450 usdt.",
+			"text5": "Only forward! We believe in you!"
+		}
 	},
 	"career": {
 		"title": "Career ladder",
@@ -440,7 +478,10 @@
 		"dailyDescription3": "to K2 without passes",
 		"week": "week",
 		"day": "Day",
-		"take": "TAKE"
+		"take": "TAKE",
+		"see": "WATCH VIDEO",
+		"reward": "Award",
+		"check": "CHECK"
 	},
 	"mail": {
 		"title": "Mail"

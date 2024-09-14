@@ -28,9 +28,9 @@ export default function PopUpYouTube({ active, onClose, title, description, link
 				<div className="icon"><YouTubeIcon size={138} /></div>
 				<h2>{title}</h2>
 				<p className="description">{description}</p>
-				<div className="see-video">СМОТРЕТЬ ВИДЕО</div>
-				<div className="bonus"><span className="text">Награда:</span><TokenIcon size={33} /><span className="value">+{bonus}</span></div>
-				<div className="check">ПРОВЕРИТЬ</div>
+				<div className="see-video">{t('task.see')}</div>
+				<div className="bonus"><span className="text">{t('task.reward')}:</span><TokenIcon size={33} /><span className="value">+{bonus}</span></div>
+				<div className="check">{t('task.check')}</div>
 			</div>
 		</div>
 	)

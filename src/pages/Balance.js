@@ -18,8 +18,45 @@ export default function Balance() {
 
 	const [modal, setModal] = useState(false)
 	const [modalTitle, setModalTitle] = useState('')
-	const [modalText, setModalText] = useState('')
+	const [modalContent, setModalContent] = useState('')
 	const [modalType, setModalType] = useState('')
+
+	function openModal(title, content, type = '') {
+		setModalTitle(title)
+		setModalContent(content)
+		setModalType(type)
+		setModal(true)
+	}
+
+	function balanceInfoHandler() {
+		openModal(t('modal.reference'), <>
+			<p>{t('balance.balanceModal.text1')}</p>
+			<br />
+			<p>{t('balance.balanceModal.text2')} <CoinIcon size={10} /> {t('balance.balanceModal.text3')}</p>
+			<br />
+			<p>{t('balance.balanceModal.text4')} 00.00 <CoinIcon size={10} /> {t('balance.balanceModal.text5')} <DollarIcon size={12} /> Usdt.</p>
+			<br />
+			<p>{t('balance.balanceModal.text6')}: 10:1.</p>
+			<br />
+			<p>{t('balance.balanceModal.text7')}</p>
+			<br />
+			<p>{t('balance.balanceModal.text8')}</p>
+		</>)
+	}
+
+	function walletsInfoHandler() {
+		openModal(t('modal.reference'), <>
+			<p>{t('balance.walletsModal.text1')}</p>
+			<br />
+			<p>1. <TokenIcon size={11} /> TOKEN - {t('balance.walletsModal.text2')}</p>
+			<br />
+			<p>2. <CoinIcon size={10} /> COIN - {t('balance.walletsModal.text3')}</p>
+			<br />
+			<p>3. <DollarIcon size={12} /> USDT - {t('balance.walletsModal.text4')}</p>
+			<br />
+			<p>{t('balance.walletsModal.text5')} COIN -&gt; USDT - 10:1.</p>
+		</>)
+	}
 
 	const [transactionsDates, setTransactionsDates] = useState(null)
 
@@ -54,13 +91,6 @@ export default function Balance() {
 		// }
 		updateTransactions()
 	}, [wpId])
-
-	function openModal(title, text, type = '') {
-		setModalTitle(title)
-		setModalText(text)
-		setModalType(type)
-		setModal(true)
-	}
 
 	const [searchActive, setSearchActive] = useState(false)
 	const [search, setSearch] = useState('')
@@ -121,13 +151,13 @@ export default function Balance() {
 					<Back />
 					<div className="head">
 						<h1>{t('balance.balance')}</h1>
-						<div className="info"><InfoIcon size={18} /></div>
+						<div className="info" onClick={balanceInfoHandler}><InfoIcon size={18} /></div>
 					</div>
 				</div>
 				<div className="sub-title">
 					<div className="col">
 						<span>{t('balance.wallets')}</span>
-						<div className="info"><InfoIcon size={10} /></div>
+						<div className="info" onClick={walletsInfoHandler}><InfoIcon size={10} /></div>
 					</div>
 					<div className="icon" onClick={refresh}><RefreshIcon /></div>
 				</div>
@@ -208,7 +238,7 @@ export default function Balance() {
 						})}
 				</div>
 			</div>
-			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} text={modalText} type={modalType} />
+			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} content={modalContent} type={modalType} />
 		</>
 	)
 }

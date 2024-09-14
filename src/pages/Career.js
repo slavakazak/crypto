@@ -160,7 +160,6 @@ export default function Career() {
 							<TrophyIcon />
 							<span className='name'>{t(`career.leagues.${i}`)} {t('career.league')}</span>
 							<span className='levels'>({league.levels.map(level => 'K' + level.value).join(',')} {t('career.level')})</span>
-							<div className='info'><InfoIcon /></div>
 						</div>
 						{profileData.level >= league.levels[0].value ? <OkIcon /> : <LockIcon />}
 					</div>
@@ -185,10 +184,7 @@ export default function Career() {
 											<div className='progress'>
 												<p className='title'>{t('bonuses.progress')}</p>
 												<div className='row'>
-													<div className='text'>
-														<span>{t('career.goToLevel')} K{level.value + 1}</span>
-														<div className='info'><InfoIcon /></div>
-													</div>
+													<div className='text'>{t('career.goToLevel')} K{level.value + 1}</div>
 													<span className='sum'>{progressCurrent}<span>/{progressTotal}</span></span>
 												</div>
 												<div className='progress-bar'><div className='line' style={{ width: progress > 100 ? '100%' : progress + '%' }} /></div>
@@ -256,10 +252,7 @@ export default function Career() {
 											<div className='progress'>
 												<p className='title'>{t('bonuses.progress')}</p>
 												<div className='row'>
-													<div className='text'>
-														<span>{t('career.goToLevel')} K{level.value + 1}</span>
-														<div className='info'><InfoIcon /></div>
-													</div>
+													<div className='text'>{t('career.goToLevel')} K{level.value + 1}</div>
 													<span className='sum'>{progressCurrent}<span>/{progressTotal}</span></span>
 												</div>
 												<div className='progress-bar'><div className='line' style={{ width: progress > 100 ? '100%' : progress + '%' }} /></div>

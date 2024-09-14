@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import TopMenu from '../components/TopMenu'
 import { useState, useEffect } from 'react'
 import Switch from '../components/Switch'
-import { InfoIcon } from '../components/Icons'
+import { InfoIcon, OkIcon } from '../components/Icons'
 import Modal from '../components/Modal'
 import { Link } from 'react-router-dom'
 import PopUpProduct from '../components/PopUpProduct'
@@ -34,6 +34,12 @@ export default function Workshop() {
 		setModal(true)
 	}
 
+
+	function closeModal() {
+		setModal(false)
+		setModalContent('')
+	}
+
 	const [currentProduct, setCurrentProduct] = useState(null)
 	const [orderStage, setOrderStage] = useState('purchase')
 	const [availableRobots, setAvailableRobots] = useState([])
@@ -49,6 +55,18 @@ export default function Workshop() {
 		setLoading(false)
 	}
 
+	function copyHandler() {
+		if (navigator.clipboard) {
+			navigator.clipboard.writeText(t('workshop.messageTemplate')).then(() => {
+				document.querySelector('.ok-icon').classList.add('active')
+			}, err => {
+				console.error('An error occurred while copying text: ', err)
+			})
+		} else {
+			console.error('Clipboard API not available')
+		}
+	}
+
 	function openSuccessModal() {
 		openModal({
 			title: t('modal.success'),
@@ -58,6 +76,28 @@ export default function Workshop() {
 			</p>
 		})
 		updateProducts()
+	}
+
+	function openInventoryModal() {
+		openModal({
+			title: t('modal.reference'),
+			content: <>
+				<p>{t('workshop.inventoryModal.text1')}</p>
+				<p>1. {t('workshop.inventoryModal.text2')} <Link className="link" to={'/'}>Ссылка</Link></p>
+				<p>3. {t('workshop.inventoryModal.text3')}</p>
+				<p>3. {t('workshop.inventoryModal.text4')}</p>
+				<p>4. {t('workshop.inventoryModal.text5')} <Link className="link" to={'https://t.me/helper_kk'}>t.me/helper_kk</Link> {t('workshop.inventoryModal.text6')}</p>
+				<br />
+				<p>”{t('workshop.messageTemplate')}”</p>
+				<br />
+				<p>{t('workshop.inventoryModal.text7')}</p>
+				<br />
+				<div className='copy-template' onClick={copyHandler}><span>{t('workshop.copyMessage')}</span> <span className='ok-icon'><OkIcon /></span></div>
+				<br />
+				<p>{t('workshop.inventoryModal.text8')}</p>
+				<p>{t('workshop.inventoryModal.text9')}</p>
+			</>
+		})
 	}
 
 	function openPopUp(product) {
@@ -96,14 +136,7 @@ export default function Workshop() {
 									<div className='image'><img src={item.img} alt={item.name} /></div>
 									<div className='title'>
 										<h3>{item.name}</h3>
-										<div className='info' onClick={() => openModal({
-											title: t('modal.reference'),
-											content: <>
-												<p>{t(`products.${item.id}.reference.title`)}</p>
-												<p>1.</p>
-												<p>2.</p>
-											</>
-										})}><InfoIcon /></div>
+										<div className='info' onClick={openInventoryModal}><InfoIcon /></div>
 									</div>
 								</div>
 							))}
@@ -151,7 +184,7 @@ export default function Workshop() {
 				openModal={openModal}
 			/>}
 
-			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} text={modalText} content={modalContent} type={modalType} />
+			<Modal active={modal} onClose={closeModal} title={modalTitle} text={modalText} content={modalContent} type={modalType} />
 
 		</>
 	)

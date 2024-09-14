@@ -8,10 +8,11 @@ import getDateTimeString from '../utils/getDateTimeString'
 import promo from '../img/month-promo.png'
 import { useContext } from 'react'
 import { DataContext } from '../context/DataProvider'
+const botName = process.env.REACT_APP_BOT_NAME
 
 export default function Bonuses() {
 	const { t } = useTranslation()
-	const { profileData } = useContext(DataContext)
+	const { profileData, tg } = useContext(DataContext)
 
 	const bonuses = [1000, 750, 1500, 750, 750, 2500, 750, 750, 5000, 750, 5000, 5000]
 
@@ -27,16 +28,37 @@ export default function Bonuses() {
 	const progressTack2Current = 6
 	const progressTack2 = progressTack2Current / progressTack2Total * 100
 
+	const inviteText = t('invite.text')
+	function inviteClickHandler() {
+		const encodedText = encodeURIComponent(inviteText)
+		tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/${botName}?startapp=r_${profileData.ref}&text=${encodedText}`)
+	}
+
 	const [modal, setModal] = useState(false)
 	const [modalTitle, setModalTitle] = useState('')
-	const [modalText, setModalText] = useState('')
+	const [modalContent, setModalContent] = useState('')
 	const [modalType, setModalType] = useState('')
 
-	function openModal(title, text, type = '') {
+	function openModal(title, content, type = '') {
 		setModalTitle(title)
-		setModalText(text)
+		setModalContent(content)
 		setModalType(type)
 		setModal(true)
+	}
+
+	function startModalHandler() {
+		openModal(t('modal.reference'), <>
+			<p><span className='link'>Start Bonus</span> {t('bonuses.startModal.text1')}</p>
+			<br />
+			<p>{t('bonuses.startModal.text2')}</p>
+			<br />
+			<p>{t('bonuses.startModal.text3')}</p>
+			<br />
+			<p>{t('bonuses.startModal.text4')}</p>
+			<br />
+			<p>{t('bonuses.startModal.text5')}</p>
+			<div className='invite'><div className='invite-button' onClick={inviteClickHandler}>{t('bonuses.invite')}</div></div>
+		</>)
 	}
 
 	const [page, setPage] = useState('month')
@@ -94,7 +116,7 @@ export default function Bonuses() {
 				{page === 'start' && <div className="tab start">
 					<div className='title'>
 						<h2>{t('bonuses.start')}</h2>
-						<div className='info'><InfoIcon size={22} /></div>
+						<div className='info' onClick={startModalHandler}><InfoIcon size={22} /></div>
 					</div>
 					<p className="description">{t('bonuses.startDescription')}</p>
 					<div className='start-row'>
@@ -127,17 +149,13 @@ export default function Bonuses() {
 					/>
 					<div className='title'>
 						<h3>{t('bonuses.terms')}</h3>
-						<div className='info'><InfoIcon size={17} /></div>
 					</div>
 					<p className="grey-description">{t('bonuses.termsDescription')}</p>
 					<div className='progress'>
 						<div className='note'>K2 = 3 {t('bonuses.points')}</div>
 						<p className='title'>{t('bonuses.progress')}</p>
 						<div className='row'>
-							<div className='text'>
-								<span>{t('bonuses.progressDescription')}</span>
-								<div className='info'><InfoIcon /></div>
-							</div>
+							<div className='text'>{t('bonuses.progressDescription')}</div>
 							<span className='sum'>{progressCurrent}<span>/{progressTotal}</span> {t('bonuses.points2')}</span>
 						</div>
 						<div className='progress-bar'><div className='line' style={{ width: progress > 100 ? '100%' : progress + '%' }} /></div>
@@ -177,7 +195,7 @@ export default function Bonuses() {
 					</div>
 				</div>}
 			</div>
-			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} text={modalText} type={modalType} />
+			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} content={modalContent} type={modalType} />
 		</>
 	)
 }

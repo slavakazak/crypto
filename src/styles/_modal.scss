@@ -46,7 +46,6 @@
 	position: fixed;
 	width: 100%;
 	height: var(--tg-viewport-stable-height);
-	//height: 100%;
 	left: 0;
 	top: 0;
 	background: rgba(0, 0, 0, 0.5);
@@ -66,7 +65,8 @@
 		box-sizing: border-box;
 		position: relative;
 		max-height: calc(var(--tg-viewport-stable-height) - 30px);
-		overflow-y: auto;
+		//overflow-y: auto;
+		max-height: 350px;
 	}
 
 	&.active {
@@ -131,6 +131,8 @@
 	.text {
 		display: flex;
 		justify-content: center;
+		overflow-y: scroll;
+		max-height: 264px;
 
 		p {
 			color: $font;
@@ -142,6 +144,50 @@
 		.link {
 			color: $accent;
 			cursor: pointer;
+		}
+
+		.copy-template {
+			vertical-align: middle;
+			cursor: pointer;
+
+			span {
+				color: $accent;
+				text-decoration: underline;
+				vertical-align: middle;
+			}
+
+			.ok-icon {
+				display: none;
+
+				&.active {
+					display: inline;
+				}
+			}
+
+			.ok {
+				fill: $accent;
+				vertical-align: middle;
+			}
+		}
+
+		svg {
+			fill: $font;
+		}
+
+		.invite {
+			text-align: center;
+			margin-top: 26px;
+
+			.invite-button {
+				display: inline-block;
+				text-align: center;
+				border-radius: $radius;
+				background: $accent;
+				cursor: pointer;
+				height: 44px;
+				line-height: 44px;
+				width: 217px;
+			}
 		}
 	}
 }
