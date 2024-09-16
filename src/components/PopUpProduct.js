@@ -13,12 +13,14 @@ import { useContext } from 'react'
 import { HeightContext } from "../context/HeightProvider"
 import { DataContext } from "../context/DataProvider"
 import { AuthContext } from "../context/AuthProvider"
+import { LevelsContext } from "../context/LevelsProvider"
 
 export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, openSuccessModal, openModal }) {
 	const { t } = useTranslation()
 	const { height, maxHeight } = useContext(HeightContext)
-	const { wpId, setData, profileData } = useContext(DataContext)
+	const { wpId, setData } = useContext(DataContext)
 	const { auth } = useContext(AuthContext)
+	const { checkLevel } = useContext(LevelsContext)
 
 	const currencies = {
 		"USDTBSC": {
@@ -135,9 +137,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 				transaction_time: getUTCTime()
 			})
 			openSuccessModal()
-			if (profileData.level === 1 && currentProduct.id === 16) {
-				setData({ level: 2, avatars: [...profileData.avatars, 'k2avatar'], avatar: 'k2avatar' })
-			}
+			checkLevel()
 			return
 		}
 		const transaction = await addTransaction(auth, {
@@ -169,7 +169,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 			const paymentStatus = await getPaymentStatus(payment.payment_id)
 			if (paymentStatus.payment_status === 'finished') {
 				clearInterval(newStatusInterval)
-				setData({})
+				checkLevel()
 				openSuccessModal()
 			}
 		}, 5000)

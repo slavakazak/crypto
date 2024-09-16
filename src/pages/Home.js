@@ -4,18 +4,43 @@ import Slider from "react-slick"
 import { avatars } from '../utils/constants'
 import { useTranslation } from 'react-i18next'
 import TopMenu from '../components/TopMenu'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useContext } from 'react'
+import { AuthContext } from '../context/AuthProvider'
 import { DataContext } from '../context/DataProvider'
+import { LevelsContext } from '../context/LevelsProvider'
 import slideRobot from '../img/slide-bot.png'
 import Circle from '../components/Circle'
 import { Link } from 'react-router-dom'
+import getIncome from '../utils/getIncome'
 
 export default function Home() {
 	const { t } = useTranslation()
-	const { profileData } = useContext(DataContext)
+	const { auth } = useContext(AuthContext)
+	const { profileData, wpId } = useContext(DataContext)
+	const { levels, levelsLoad } = useContext(LevelsContext)
 
 	const [balance, setBalance] = useState('coin')
+	const [income, setIncome] = useState({ total: 0, monthly: 0 })
+
+	useEffect(() => {
+		if (!auth || !wpId) return
+		async function init() {
+			const newIncome = await getIncome(auth, wpId)
+			setIncome(newIncome)
+		}
+		init()
+	}, [auth, wpId])
+
+	const [total, setTotal] = useState(1)
+	const [current, setCurrent] = useState(1)
+
+	useEffect(() => {
+		if (!levelsLoad) return
+		const tasks = levels[profileData.level - 1]?.tasks || []
+		setTotal(tasks.length)
+		setCurrent(tasks.filter(task => task.completed).length)
+	}, [levels, levelsLoad, profileData.level])
 
 	function changeBalance() {
 		setBalance(previous => {
@@ -72,9 +97,9 @@ export default function Home() {
 					<Link to={'/career'} className='level'>
 						<div className='title'>{t('home.level')}</div>
 						<div className='value'>K-{profileData.level}</div>
-						<Circle total={4} filled={1} fill={'#8B6EFF'} size={78} />
+						<Circle total={total} filled={current} fill={'#8B6EFF'} size={78} />
 						<div className='progress-info'>
-							<p>1/<span>4</span></p>
+							<p>{current}/<span>{total}</span></p>
 							<RightArrowIcon />
 						</div>
 					</Link>
@@ -105,14 +130,14 @@ export default function Home() {
 					<div className='income all-time'>
 						<div className='title'>{t('home.incomeAllTime')}</div>
 						<div className='value'>
-							<span>1245</span>
+							<span>{income.total}</span>
 							<DollarIcon />
 						</div>
 					</div>
 					<div className='income month'>
 						<div className='title'>{t('home.incomeMonth')}</div>
 						<div className='value'>
-							<span>355</span>
+							<span>{income.monthly}</span>
 							<DollarIcon />
 						</div>
 					</div>

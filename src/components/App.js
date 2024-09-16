@@ -19,11 +19,13 @@ import FAQRating from "../pages/FAQRating"
 import FAQInvite from "../pages/FAQInvite"
 import { DataContext } from "../context/DataProvider"
 import { HeightContext } from "../context/HeightProvider"
+import { LevelsContext } from "../context/LevelsProvider"
 
 export default function App() {
 	const { i18n } = useTranslation()
 	const { profileData, wpId } = useContext(DataContext)
 	const { height, maxHeight } = useContext(HeightContext)
+	const { checkLevel, levelsLoad } = useContext(LevelsContext)
 
 	//Set language
 	useEffect(() => {
@@ -33,8 +35,14 @@ export default function App() {
 	//Loading
 	const [loading, setLoading] = useState(true)
 	useEffect(() => {
-		if (wpId) setLoading(false)
-	}, [wpId])
+		setLoading(true)
+		if (!wpId || !levelsLoad) return
+		async function init() {
+			await checkLevel()
+			setLoading(false)
+		}
+		init()
+	}, [wpId, levelsLoad])
 
 	return (
 		<>

@@ -11,6 +11,7 @@ import i18next from 'i18next'
 import { AuthProvider } from "./context/AuthProvider"
 import { DataProvider } from "./context/DataProvider"
 import { HeightProvider } from "./context/HeightProvider"
+import { LevelsProvider } from "./context/LevelsProvider"
 
 i18next.use(initReactI18next).init({
 	//debug: true,
@@ -30,13 +31,15 @@ const root = createRoot(document.getElementById("root"))
 root.render(
 	<AuthProvider>
 		<DataProvider>
-			<HeightProvider>
-				<I18nextProvider i18next={i18next}>
-					<BrowserRouter basename="/">
-						<App />
-					</BrowserRouter>
-				</I18nextProvider>
-			</HeightProvider>
+			<LevelsProvider>
+				<HeightProvider>
+					<I18nextProvider i18next={i18next}>
+						<BrowserRouter basename="/">
+							<App />
+						</BrowserRouter>
+					</I18nextProvider>
+				</HeightProvider>
+			</LevelsProvider>
 		</DataProvider>
 	</AuthProvider>
 )

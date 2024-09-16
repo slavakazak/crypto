@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next'
 
-export default function Progress({ current, total, text }) {
+export default function Progress({ current, progressCurrent, total, text }) {
 	const { t } = useTranslation()
-	const progress = Math.round(current / total * 100)
+	const progress = Math.round(progressCurrent / total * 100)
 	return (
 		<div className='progress'>
 			<p className='title'>{t('bonuses.progress')}</p>
