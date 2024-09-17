@@ -13,6 +13,7 @@ import slideRobot from '../img/slide-bot.png'
 import Circle from '../components/Circle'
 import { Link } from 'react-router-dom'
 import getIncome from '../utils/getIncome'
+import getUnreadMessageCount from '../utils/getUnreadMessageCount'
 
 export default function Home() {
 	const { t } = useTranslation()
@@ -22,12 +23,15 @@ export default function Home() {
 
 	const [balance, setBalance] = useState('coin')
 	const [income, setIncome] = useState({ total: 0, monthly: 0 })
+	const [messagesCount, setMessagesCount] = useState(0)
 
 	useEffect(() => {
 		if (!auth || !wpId) return
 		async function init() {
 			const newIncome = await getIncome(auth, wpId)
 			setIncome(newIncome)
+			const newMessagesCount = await getUnreadMessageCount(auth, wpId)
+			setMessagesCount(newMessagesCount)
 		}
 		init()
 	}, [auth, wpId])
@@ -110,7 +114,7 @@ export default function Home() {
 				</div>
 				<div className='card-content'>
 					<Link to={'/mail'} className='messages'>
-						<div className='count'>1</div>
+						{messagesCount > 0 && <div className='count'>{messagesCount}</div>}
 						<MessagesIcon />
 					</Link>
 					<div className='avatar'>

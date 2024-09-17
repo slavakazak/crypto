@@ -1,10 +1,31 @@
 import Back from "../components/Back"
 import { useTranslation } from 'react-i18next'
 import PopUpMail from "../components/PopUpMail"
-import { useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import getMessages from "../utils/getMessages"
+import { AuthContext } from "../context/AuthProvider"
+import { DataContext } from "../context/DataProvider"
+import markMessageAsRead from "../utils/markMessageAsRead"
 
 export default function Mail() {
 	const { t } = useTranslation()
+	const { auth } = useContext(AuthContext)
+	const { wpId, profileData } = useContext(DataContext)
+
+	const [messages, setMessages] = useState([])
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		if (!auth || !wpId) return
+		async function init() {
+			setLoading(true)
+			const newMessages = await getMessages(auth, wpId)
+			console.log(newMessages)
+			setMessages(newMessages)
+			setLoading(false)
+		}
+		init()
+	}, [auth, wpId])
 
 	const [popUp, setPopUp] = useState(false)
 	const [popUpTitle, setPopUpTitle] = useState('')
@@ -16,23 +37,19 @@ export default function Mail() {
 		setPopUpContent(content)
 	}
 
-	function messageClickHandler() {
-		openPopUp('Поздравляем с достижением нового карьерного уровня!', <>
-			<p>Таким образом начало повседневной работы по формированию позиции способствует подготовки и реализации соответствующий условий активизации. Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения новых предложений.</p>
-			<br />
-			<p>Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции в значительной степени обуславливает создание позиций, занимаемых участниками в отношении поставленных задач.</p>
-			<br />
-			<p>С другой стороны постоянный количественный рост и сфера нашей активности позволяет выполнять важные задания по разработке соответствующий условий активизации.</p>
-		</>)
+	function messageClickHandler(message) {
+		return async () => {
+			openPopUp(
+				profileData.language.tag === 'en' && message.title_en ? message.title_en : message.title,
+				<div dangerouslySetInnerHTML={{ __html: profileData.language.tag === 'en' && message.content_en ? message.content_en : message.content }} />
+			)
+			setMessages(previous => {
+				const newMessages = [...previous]
+				return newMessages.map(newMessage => newMessage.id === message.id ? { ...newMessage, is_read: true } : newMessage)
+			})
+			await markMessageAsRead(auth, wpId, message.id)
+		}
 	}
-
-	const content = <>
-		<p>Таким образом начало повседневной работы по формированию позиции способствует подготовки и реализации соответствующий условий активизации. Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения новых предложений.</p>
-		<br />
-		<p>Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции в значительной степени обуславливает создание позиций, занимаемых участниками в отношении поставленных задач.</p>
-		<br />
-		<p>С другой стороны постоянный количественный рост и сфера нашей активности позволяет выполнять важные задания по разработке соответствующий условий активизации.</p>
-	</>
 
 	return (
 		<>
@@ -42,26 +59,17 @@ export default function Mail() {
 					<Back />
 					<h1>{t('mail.title')}</h1>
 				</div>
-				<div className="message active" onClick={() => openPopUp('Поздравляю с достижением нового карьерного уровня!', content)}>
-					<div className="left-side">
-						<div className="dot" />
-						<span className="title">Поздравляю с достижением нового карьерного уровня!</span>
-					</div>
-					<span className="date">15 авг</span>
-				</div>
-				<div className="message active" onClick={() => openPopUp('Поздравляю с достижением!', content)}>
-					<div className="left-side">
-						<div className="dot" />
-						<span className="title">Поздравляю с достижением!</span>
-					</div>
-					<span className="date">15 авг</span>
-				</div>
-				<div className="message" onClick={() => openPopUp('Поздравляю с достижением нового', content)}>
-					<div className="left-side">
-						<span className="title">Поздравляю с достижением нового</span>
-					</div>
-					<span className="date">15 авг</span>
-				</div>
+				{loading ? <div className='preloader'><div className='loader' /></div> : messages.length === 0 ? <>Нет сообщений</> : messages.map((message, i) => {
+					const dateTime = new Date(message.date)
+					const dateTimeFormat = new Intl.DateTimeFormat(profileData.language.tag, { month: "short", day: "numeric" })
+					return (<div key={i} className={'message' + (message.is_read ? '' : ' active')} onClick={messageClickHandler(message)}>
+						<div className="left-side">
+							<div className="dot" />
+							<span className="title">{profileData.language.tag === 'en' && message.title_en ? message.title_en : message.title}</span>
+						</div>
+						<span className="date">{dateTimeFormat.format(dateTime)}</span>
+					</div>)
+				})}
 			</div>
 
 			<PopUpMail active={popUp} onClose={() => setPopUp(false)} title={popUpTitle}>{popUpContent}</PopUpMail>
