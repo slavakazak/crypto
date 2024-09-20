@@ -7,26 +7,40 @@ import Timer from '../components/Timer'
 import getDateTimeString from '../utils/getDateTimeString'
 import promo from '../img/month-promo.png'
 import { useContext } from 'react'
+import { AuthContext } from '../context/AuthProvider'
 import { DataContext } from '../context/DataProvider'
+import { LevelsContext } from '../context/LevelsProvider'
+import { bonuses } from '../utils/constants'
+import getPartners from '../utils/getPartners'
 const botName = process.env.REACT_APP_BOT_NAME
 
 export default function Bonuses() {
 	const { t } = useTranslation()
-	const { profileData, tg } = useContext(DataContext)
+	const { auth } = useContext(AuthContext)
+	const { profileData, tg, wpId } = useContext(DataContext)
+	const { levels } = useContext(LevelsContext)
 
-	const bonuses = [1000, 750, 1500, 750, 750, 2500, 750, 750, 5000, 750, 5000, 5000]
-
-	const progressTotal = 66
-	const progressCurrent = 11
-	const progress = Math.round(progressCurrent / progressTotal * 100)
+	const [current, setCurrent] = useState(0)
+	const [progressTotal, setProgressTotal] = useState(66)
+	const [progress, setProgress] = useState(0)
 
 	const progressTack1Total = 22
-	const progressTack1Current = 6
-	const progressTack1 = progressTack1Current / progressTack1Total * 100
+	const [progressTack1, setProgressTack1] = useState(0)
 
 	const progressTack2Total = 37
-	const progressTack2Current = 6
-	const progressTack2 = progressTack2Current / progressTack2Total * 100
+	const [progressTack2, setProgressTack2] = useState(0)
+
+
+
+	//получить количество партнёров второго уровня или выше
+	function getCountPartners(arr) {
+		if (!arr || arr.length === 0) return 0
+		let res = 0
+		arr.forEach(item => {
+			if (item.level >= 2) res++
+		})
+		return res
+	}
 
 	const inviteText = t('invite.text')
 	function inviteClickHandler() {
@@ -68,6 +82,19 @@ export default function Bonuses() {
 	const [travelTime, setTravelTime] = useState('00:00')
 
 	useEffect(() => {
+		if (!auth || !wpId) return
+		async function init() {
+			const partners = await getPartners(auth, wpId)
+			const newCurrent = getCountPartners(partners)
+			setCurrent(newCurrent)
+			const newProgressTotal = newCurrent >= 22 ? 111 : 66
+			setProgressTotal(newProgressTotal)
+			setProgress(Math.round(newCurrent * 3 / newProgressTotal * 100))
+			setProgressTack1(newCurrent / progressTack1Total * 100)
+			setProgressTack2(newCurrent / progressTack2Total * 100)
+		}
+		init()
+		if (!levels || !levels[1]?.time) return
 		const interval = setInterval(() => {
 			const today = new Date()
 			const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1)
@@ -75,11 +102,18 @@ export default function Bonuses() {
 			const localOffset = endOfMonth.getTimezoneOffset()
 			endOfMonth.setMinutes(endOfMonth.getMinutes() + localOffset + offsetMoscow)
 			setMonthTime(getDateTimeString(endOfMonth))
+
+			const utcStartDate = new Date(levels[1].time.replace(' ', 'T') + 'Z')
+			utcStartDate.setDate(utcStartDate.getDate() + 60)
+			setStartTime(getDateTimeString(utcStartDate))
+
+			const travelDate = new Date('2024-12-31T21:00:00Z')
+			setTravelTime(getDateTimeString(travelDate))
 		}, 1000)
 		return () => {
-			clearInterval(interval)
+			if (interval) clearInterval(interval)
 		}
-	}, [])
+	}, [auth, wpId, levels])
 
 	function updateBonuses() {
 
@@ -100,11 +134,11 @@ export default function Bonuses() {
 					</div>
 					<div className={'link' + (page === 'start' ? ' active' : '')} onClick={() => setPage('start')}>
 						<span>{t('bonuses.start')}</span>
-						<Timer time={'28:12:35'} />
+						<Timer time={startTime} />
 					</div>
 					<div className={'link' + (page === 'travel' ? ' active' : '')} onClick={() => setPage('travel')}>
 						<span>{t('bonuses.travel')}</span>
-						<Timer time={'28:12:35'} />
+						<Timer time={travelTime} />
 					</div>
 					<div className="icon" onClick={updateBonuses}><RefreshIcon /></div>
 				</div>
@@ -121,7 +155,7 @@ export default function Bonuses() {
 					<p className="description">{t('bonuses.startDescription')}</p>
 					<div className='start-row'>
 						{bonuses.map((bonus, i) => (
-							<div key={i} className={'block' + (i === 0 ? ' active' : '')}>
+							<div key={i} className={'block' + (i < profileData.start ? ' active' : '')}>
 								<div className='number'>{i + 1}</div>
 								<div className='bonus'>
 									<CoinIcon />
@@ -130,9 +164,9 @@ export default function Bonuses() {
 							</div>
 						))}
 					</div>
-					<div className='earned'>
+					<div className={'earned' + (profileData.start === 12 ? ' active' : '')}>
 						<p>{t('bonuses.earned')}:</p>
-						<span>1000/24500</span>
+						<span>{bonuses.reduce((a, c, i) => i < profileData.start ? a + c : a, 0)}/{bonuses.reduce((a, c) => a + c, 0)}</span>
 						<CoinIcon size={19} />
 					</div>
 				</div>}
@@ -156,12 +190,12 @@ export default function Bonuses() {
 						<p className='title'>{t('bonuses.progress')}</p>
 						<div className='row'>
 							<div className='text'>{t('bonuses.progressDescription')}</div>
-							<span className='sum'>{progressCurrent}<span>/{progressTotal}</span> {t('bonuses.points2')}</span>
+							<span className='sum'>{current * 3 > 111 ? 111 : current * 3}<span>/{progressTotal}</span> {t('bonuses.points2')}</span>
 						</div>
 						<div className='progress-bar'><div className='line' style={{ width: progress > 100 ? '100%' : progress + '%' }} /></div>
 						<div className='number-row'>
 							<span className='start' style={{ display: progress < 8 ? 'none' : 'block' }}>0%</span>
-							<span className='current' style={{ left: progress < 2 ? '2%' : progress > 97 ? '96%' : progress + '%' }}>{progress}%</span>
+							<span className='current' style={{ left: progress < 2 ? '2%' : progress > 97 ? '96%' : progress + '%' }}>{progress > 100 ? 100 : progress}%</span>
 							<span className='end' style={{ display: progress > 87 ? 'none' : 'block' }}>100%</span>
 						</div>
 					</div>
@@ -173,13 +207,13 @@ export default function Bonuses() {
 							<div className='progress-bar'><div className='line' style={{ width: progressTack1 > 100 ? '100%' : progressTack1 + '%' }} /></div>
 							<div className='number-row'>
 								<span className='start' style={{ display: progressTack1 < 5 ? 'none' : 'block' }}>0</span>
-								<span className='current' style={{ left: progressTack1 < 1 ? '1%' : progressTack1 > 98 ? '98%' : progressTack1 + '%' }}>{progressTack1Current}</span>
+								<span className='current' style={{ left: progressTack1 < 1 ? '1%' : progressTack1 > 98 ? '98%' : progressTack1 + '%' }}>{current > 22 ? 22 : current}</span>
 								<span className='end' style={{ display: progressTack1 > 91 ? 'none' : 'block' }}>{progressTack1Total}</span>
 							</div>
 						</div>
-						<div className='check'><OkIcon size={11} /></div>
+						<div className={'check' + (progressTack1 >= 100 ? ' active' : '')}><OkIcon size={11} /></div>
 					</div>
-					<div className='task inactive'>
+					<div className={'task' + (progressTack1 < 100 ? ' inactive' : '')}>
 						<div className='overlay' />
 						<div className='number'>2</div>
 						<div className='content'>
@@ -187,11 +221,11 @@ export default function Bonuses() {
 							<div className='progress-bar'><div className='line' style={{ width: progressTack2 > 100 ? '100%' : progressTack2 + '%' }} /></div>
 							<div className='number-row'>
 								<span className='start' style={{ display: progressTack2 < 5 ? 'none' : 'block' }}>0</span>
-								<span className='current' style={{ left: progressTack2 < 1 ? '1%' : progressTack2 > 98 ? '98%' : progressTack2 + '%' }}>{progressTack2Current}</span>
+								<span className='current' style={{ left: progressTack2 < 1 ? '1%' : progressTack2 > 98 ? '98%' : progressTack2 + '%' }}>{current > 37 ? 37 : current}</span>
 								<span className='end' style={{ display: progressTack2 > 91 ? 'none' : 'block' }}>{progressTack2Total}</span>
 							</div>
 						</div>
-						<div className='check'><OkIcon size={11} /></div>
+						<div className={'check' + (progressTack2 >= 100 ? ' active' : '')}><OkIcon size={11} /></div>
 					</div>
 				</div>}
 			</div>

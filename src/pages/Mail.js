@@ -39,9 +39,11 @@ export default function Mail() {
 
 	function messageClickHandler(message) {
 		return async () => {
+			let content = profileData.language.tag === 'en' && message.content_en ? message.content_en : message.content
+			content = content.replace('http://', 'https://').replace('" width="560" height="315"', `&fs=0&hl=${profileData.language.tag}&rel=0" width="100%" height="200"`)
 			openPopUp(
 				profileData.language.tag === 'en' && message.title_en ? message.title_en : message.title,
-				<div dangerouslySetInnerHTML={{ __html: profileData.language.tag === 'en' && message.content_en ? message.content_en : message.content }} />
+				<div dangerouslySetInnerHTML={{ __html: content }} />
 			)
 			setMessages(previous => {
 				const newMessages = [...previous]

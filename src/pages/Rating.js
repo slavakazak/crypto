@@ -1,15 +1,21 @@
 import { QuestionIcon, TrophyIcon } from "../components/Icons"
 import { useTranslation } from 'react-i18next'
-import { useState } from "react"
+import { useState, useContext, useEffect } from "react"
 import photo from '../img/photo.png'
 import RatingTab from "../components/RatingTab"
 import TabMenu from "../components/TabMenu"
 import Slider from "react-slick"
 import DayString from "../components/DayString"
 import { Link } from "react-router-dom"
+import { AuthContext } from "../context/AuthProvider"
+import getGodsTop from "../utils/getGodsTop"
+import getIncomeTop from "../utils/getIncomeTop"
+import getInvitationsTop from "../utils/getInvitationsTop"
+
 
 export default function Rating() {
 	const { t } = useTranslation()
+	const { auth } = useContext(AuthContext)
 
 	const pages = [
 		{ value: 'god', text: t('rating.god') },
@@ -26,29 +32,22 @@ export default function Rating() {
 	const [myRating, setMyRating] = useState(false)
 	const [myPage, setMyPage] = useState('my')
 
-	const gods = [
-		{ username: 'Иванов Иван', level: 3, result: 12, photo, outline: true, verified: true },
-		{ username: 'Иванов Иван', level: 3, result: 10, photo, outline: true },
-		{ username: 'Иванов Иван', level: 3, result: 8, photo },
-		{ username: 'Иванов Иван', level: 3, result: 3, photo },
-		{ username: 'Иванов Иван', level: 3, result: 3, photo }
-	]
+	const [gods, setGods] = useState([])
+	const [income, setIncome] = useState([])
+	const [invitations, setInvitations] = useState([])
 
-	const income = [
-		{ username: 'Иванов Иван', level: 3, photo },
-		{ username: 'Иванов Иван', level: 3, photo },
-		{ username: 'Иванов Иван', level: 3, photo },
-		{ username: 'Иванов Иван', level: 3, photo },
-		{ username: 'Иванов Иван', level: 3, photo }
-	]
-
-	const invitations = [
-		{ username: 'Иванов Иван', level: 3, result: 12, photo },
-		{ username: 'Иванов Иван', level: 3, result: 10, photo },
-		{ username: 'Иванов Иван', level: 3, result: 8, photo },
-		{ username: 'Иванов Иван', level: 3, result: 3, photo },
-		{ username: 'Иванов Иван', level: 3, result: 3, photo }
-	]
+	useEffect(() => {
+		if (!auth) return
+		async function init() {
+			const newGods = await getGodsTop(auth)
+			setGods(newGods)
+			const newIncome = await getIncomeTop(auth)
+			setIncome(newIncome)
+			const newInvitations = await getInvitationsTop(auth)
+			setInvitations(newInvitations)
+		}
+		init()
+	}, [auth])
 
 	const travel = [
 		{ username: 'Иванов Иван', level: 3, result: 40, days: true, photo },

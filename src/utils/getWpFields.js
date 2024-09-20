@@ -29,5 +29,6 @@ export default async function getWpFields(auth, wpId) {
 		usdt: +meta.t_usdt || defaultProfileData.usdt,
 		ref: meta.t_ref || wpUser.id || defaultProfileData.ref,
 		link: meta.t_link || defaultProfileData.link,
+		start: meta.t_start || defaultProfileData.start
 	}
 }

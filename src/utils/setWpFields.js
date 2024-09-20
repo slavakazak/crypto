@@ -28,6 +28,7 @@ export default async function setWpFields(auth, wpId, data) {
 				t_usdt: +data.usdt,
 				t_ref: data.ref,
 				t_link: data.link,
+				t_start: data.start
 			},
 			password: data.password
 		}

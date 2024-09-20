@@ -68,7 +68,8 @@ export const defaultProfileData = {
 	coin: 0,
 	usdt: 0,
 	ref: '',
-	link: ''
+	link: '',
+	start: 0
 }
 
 export const defaultLevels = [
@@ -148,3 +149,5 @@ export const defaultLevels = [
 	},
 	{}
 ]
+
+export const bonuses = [1000, 750, 1500, 750, 750, 2500, 750, 750, 5000, 750, 5000, 5000]

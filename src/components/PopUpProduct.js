@@ -14,11 +14,13 @@ import { HeightContext } from "../context/HeightProvider"
 import { DataContext } from "../context/DataProvider"
 import { AuthContext } from "../context/AuthProvider"
 import { LevelsContext } from "../context/LevelsProvider"
+import addWpBonus from "../utils/addWpBonus"
+import getIdFromRef from "../utils/getIdFromRef"
 
 export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, openSuccessModal, openModal }) {
 	const { t } = useTranslation()
 	const { height, maxHeight } = useContext(HeightContext)
-	const { wpId, setData } = useContext(DataContext)
+	const { wpId, profileData } = useContext(DataContext)
 	const { auth } = useContext(AuthContext)
 	const { checkLevel } = useContext(LevelsContext)
 
@@ -136,8 +138,10 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 				comment: currentCoupon ? 'Coupon: ' + currentCoupon.code : '',
 				transaction_time: getUTCTime()
 			})
+			await checkLevel()
+			const refId = await getIdFromRef(auth, profileData.link)
+			if (refId) await addWpBonus(auth, +refId)
 			openSuccessModal()
-			checkLevel()
 			return
 		}
 		const transaction = await addTransaction(auth, {
@@ -169,7 +173,9 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 			const paymentStatus = await getPaymentStatus(payment.payment_id)
 			if (paymentStatus.payment_status === 'finished') {
 				clearInterval(newStatusInterval)
-				checkLevel()
+				await checkLevel()
+				//const refId = await getIdFromRef(auth, profileData.link)
+				//if (refId) await addWpBonus(auth, +refId)
 				openSuccessModal()
 			}
 		}, 5000)
