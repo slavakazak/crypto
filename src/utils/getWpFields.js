@@ -12,7 +12,7 @@ export default async function getWpFields(auth, wpId) {
 		email: wpUser.email || defaultProfileData.email,
 		gender: genders.find(gender => gender.tag === meta.t_gender) || defaultProfileData.gender,
 		age: parseInt(meta.t_age, 10) || defaultProfileData.age,
-		country: countries.find(country => country.tag === meta.t_country) || defaultProfileData.country,
+		country: countries.find(country => country.code === meta.t_country) || defaultProfileData.country,
 		// login: meta.t_login || defaultProfileData.login,
 		// password: meta.t_password || defaultProfileData.password,
 		// passwordChanged: Boolean(meta.t_password_changed) || defaultProfileData.passwordChanged,

@@ -21,6 +21,8 @@
 		}
 	},
 	"profile": {
+		"channel": "Канал",
+		"senior": "Старший",
 		"age": "Возраст",
 		"history": "История транзакций",
 		"start": "Как начать?",
@@ -129,13 +131,7 @@
 			"woman": "Женщина",
 			"default": "Пол"
 		},
-		"countries": {
-			"Россия": "Россия",
-			"Afghanistan": "Afghanistan",
-			"Albania": "Albania",
-			"Algeria": "Algeria",
-			"default": "Страна"
-		},
+		"country": "Страна",
 		"languages": {
 			"ru": "Русский",
 			"en": "English",

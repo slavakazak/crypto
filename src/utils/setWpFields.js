@@ -11,7 +11,7 @@ export default async function setWpFields(auth, wpId, data) {
 				t_username: data.username,
 				t_gender: data.gender?.tag,
 				t_age: parseInt(data.age, 10),
-				t_country: data.country?.tag,
+				t_country: data.country?.code,
 				// t_login: data.login,
 				// t_password: data.password,
 				// t_password_changed: data.passwordChanged,

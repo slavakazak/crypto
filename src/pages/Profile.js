@@ -8,12 +8,31 @@ import AddAvatar from '../components/AddAvatar'
 import { useTranslation } from 'react-i18next'
 import { useContext } from "react"
 import { DataContext } from "../context/DataProvider"
+import { AuthContext } from "../context/AuthProvider"
+import getNicknameFromRef from "../utils/getNicknameFromRef"
+import { CircleFlag } from 'react-circle-flags'
 
 export default function Profile() {
 	const { t } = useTranslation()
+	const { auth } = useContext(AuthContext)
 	const { profileData, setData } = useContext(DataContext)
 	const [popUpAvatar, setPopUpAvatar] = useState(false)
 	const [avatar, setAvatar] = useState(profileData.avatar)
+
+	const [refNickname, setRefNickname] = useState(null)
+
+	useEffect(() => {
+		if (!auth || !profileData.link) return
+		async function init() {
+			let newRefNickname = await getNicknameFromRef(auth, profileData.link)
+			const regex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/
+			if (!regex.test(newRefNickname) || newRefNickname === "admin") {
+				newRefNickname = null
+			}
+			setRefNickname(newRefNickname)
+		}
+		init()
+	}, [auth, profileData.link])
 
 	useEffect(() => {
 		setAvatar(profileData.avatar)
@@ -49,9 +68,14 @@ export default function Profile() {
 			<div id="profile">
 				<div className="top-menu">
 					<Back />
-					<div className="button">
+					<Link to={'https://t.me/K2_invest'} className="button">
 						<TelegramIcon />
-					</div>
+						<span>{t('profile.channel')}</span>
+					</Link>
+					{refNickname && <Link to={'https://t.me/' + refNickname} className="button">
+						<TelegramIcon />
+						<span>{t('profile.senior')}</span>
+					</Link>}
 					<Link to={'/settings'} className="button">
 						<EditIcon />
 					</Link>
@@ -76,7 +100,7 @@ export default function Profile() {
 				<Link to='/settings' className='profile-data'>
 					<div className={'item' + (profileData.gender ? ' active' : '')}>{t([`constants.genders.${profileData.gender?.tag}`, 'constants.genders.default'])}</div>
 					<div className={'item' + (profileData.age ? ' active' : '')}>{profileData.age || t('profile.age')}</div>
-					<div className='item item-center active'>{profileData.country.icon}</div>
+					<div className={'item' + (profileData.country ? ' item-center active' : '')}>{profileData.country ? <CircleFlag countryCode={profileData.country.code} height="24" /> : t('constants.country')}</div>
 				</Link>
 				<div className='info'>
 					<Link to='/balance' className='item'>

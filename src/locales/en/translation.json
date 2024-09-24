@@ -21,6 +21,8 @@
 		}
 	},
 	"profile": {
+		"channel": "Channel",
+		"senior": "Senior",
 		"age": "Age",
 		"history": "Transaction history",
 		"start": "How to start?",
@@ -129,13 +131,7 @@
 			"woman": "Woman",
 			"default": "Gender"
 		},
-		"countries": {
-			"Россия": "Россия",
-			"Afghanistan": "Afghanistan",
-			"Albania": "Albania",
-			"Algeria": "Algeria",
-			"default": "Country"
-		},
+		"country": "Country",
 		"languages": {
 			"ru": "Русский",
 			"en": "English",

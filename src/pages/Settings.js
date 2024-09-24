@@ -1,6 +1,6 @@
 import Back from "../components/Back"
 import { useEffect, useState } from "react"
-import { EyeCrossedIcon, SettingsIcon } from "../components/Icons"
+import { EyeCrossedIcon, OkIcon, SettingsIcon } from "../components/Icons"
 import SaveRow from "../components/SaveRow"
 import PopUp from "../components/PopUp"
 import Option from "../components/Option"
@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import Modal from "../components/Modal"
 import { useContext } from "react"
 import { DataContext } from "../context/DataProvider"
+import { CircleFlag } from 'react-circle-flags'
 
 export default function Settings() {
 	const { t } = useTranslation()
@@ -125,7 +126,7 @@ export default function Settings() {
 		setPopUpCountry(false)
 	}
 	function countrySaveClickHandler() {
-		if (country?.tag === profileData.country?.tag) return
+		if (country?.code === profileData.country?.code) return
 		setData({ country })
 		setPopUpCountry(false)
 	}
@@ -329,8 +330,8 @@ export default function Settings() {
 					<div className='profile-data'>
 						<div className={'item' + (profileData.gender ? ' active' : '')} onClick={genderClickHandler}>{t([`constants.genders.${profileData.gender?.tag}`, 'constants.genders.default'])}</div>
 						<input className='item' placeholder={t('settings.placeholder.age')} value={age || ''} onChange={ageChangeHandler} />
-						<div className='item item-center active' onClick={countryClickHandler}>
-							{profileData.country.icon}
+						<div className={'item' + (profileData.country ? ' item-center active' : '')} onClick={countryClickHandler}>
+							{profileData.country ? <CircleFlag countryCode={profileData.country.code} height="24" /> : t('constants.country')}
 						</div>
 					</div>
 				</div>
@@ -378,14 +379,18 @@ export default function Settings() {
 				description={t('settings.popUpCountry.description')}
 				onCancel={countryCancelClickHandler}
 				onSave={countrySaveClickHandler}
-				saveActive={country?.tag !== profileData.country?.tag}
+				saveActive={country?.code !== profileData.country?.code}
 				full={true}
 				search={countrySearch}
 				setSearch={setCountrySearch}
 			>
 				<div className="select">
-					{countries.filter(item => t([`constants.countries.${item?.tag}`]).toLowerCase().includes(countrySearch.trim().toLowerCase())).map((item, i) => (
-						<Option key={i} item={item} selected={country} langPath={'constants.countries'} setSelected={setCountry} />
+					{countries.filter(item => item.name.toLowerCase().includes(countrySearch.trim().toLowerCase())).map(item => (
+						<div key={item.id} className={"option" + (country?.code === item?.code ? ' active' : '')} onClick={() => setCountry(item)}>
+							<div className="icon-wrap"><CircleFlag countryCode={item.code} height="18" /></div>
+							<span>{item.name}</span>
+							<OkIcon />
+						</div>
 					))}
 				</div>
 			</PopUp>
