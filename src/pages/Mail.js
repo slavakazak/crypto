@@ -20,7 +20,6 @@ export default function Mail() {
 		async function init() {
 			setLoading(true)
 			const newMessages = await getMessages(auth, wpId)
-			console.log(newMessages)
 			setMessages(newMessages)
 			setLoading(false)
 		}

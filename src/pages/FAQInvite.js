@@ -1,39 +1,41 @@
 import Back from "../components/Back"
 import { useTranslation } from 'react-i18next'
 import Accordion from "../components/Accordion"
+import { Link } from "react-router-dom"
+import { useState, useContext, useEffect } from "react"
+import { AuthContext } from "../context/AuthProvider"
+import { DataContext } from "../context/DataProvider"
+import getFAQ from "../utils/getFAQ"
 
 export default function FAQInvite() {
 	const { t } = useTranslation()
+	const { auth } = useContext(AuthContext)
+	const { profileData } = useContext(DataContext)
+
+	const [faq, setFaq] = useState([])
+
+	useEffect(() => {
+		if (!auth) return
+		async function init() {
+			const newFaq = await getFAQ(auth)
+			setFaq(newFaq)
+			console.log(newFaq)
+		}
+		init()
+	}, [auth])
 
 	return (
 		<div id="faq">
 			<div className="top-menu">
 				<Back />
-				<h1>{t('faq.faqTitle')} Пригласить</h1>
+				<h1>{t('faq.faqTitle')} {t('faq.invite')}</h1>
 			</div>
-			<h2>{t('faq.algorithm')}</h2>
-			<Accordion number={1} title={t('faq.faqTitle1')}>
-				<p>{t('faq.faqText')}</p>
-				<br />
-				<p>{t('faq.faqText')}</p>
-			</Accordion>
-			<Accordion number={2} title={t('faq.faqTitle2')}>
-				<p>{t('faq.faqText')}</p>
-				<br />
-				<p>{t('faq.faqText')}</p>
-			</Accordion>
-			<Accordion number={3} title={t('faq.faqTitle3')}>
-				<p>{t('faq.faqText')}</p>
-				<br />
-				<p>{t('faq.faqText')}</p>
-			</Accordion>
-			<h2>{t('faq.exchange')}</h2>
-			<Accordion number={1} title={t('faq.faqTitle4')}>
-				<p>{t('faq.faqText')}</p>
-				<br />
-				<p>{t('faq.faqText')}</p>
-			</Accordion>
-			<div className="question">{t('faq.question')}</div>
+			{faq.filter(item => item.page === 'option2').reverse().map((item, i) => (
+				<Accordion key={i} number={i + 1} title={profileData.language.tag === 'en' && item.title_en ? item.title_en : item.title}>
+					<div dangerouslySetInnerHTML={{ __html: profileData.language.tag === 'en' && item.content_en ? item.content_en : item.content }} />
+				</Accordion>
+			))}
+			<Link className="question" to={'https://t.me/helper_kk'}>{t('faq.question')}</Link>
 		</div>
 	)
 }

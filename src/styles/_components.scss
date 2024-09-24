@@ -766,6 +766,14 @@
 			font-weight: 400;
 			letter-spacing: -0.2px;
 			margin: 10px 0 22px 0;
+
+			b, strong {
+				font-weight: 900;
+			}
+
+			a {
+				color: $accent;
+			}
 		}
 	}
 
@@ -779,7 +787,7 @@
 		}
 
 		.content {
-			max-height: 200px;
+			max-height: 1000px;
 		}
 	}
 }

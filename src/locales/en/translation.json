@@ -14,14 +14,6 @@
 		"career": "Career",
 		"incomeAllTime": "Income for all time",
 		"incomeMonth": "Income per month",
-		"slide1": {
-			"title": "We launched on Telegram!🔥",
-			"text": "Thank you for your support, it is greatly appreciated. Every day we grow and improve for your comfort on the K-2 platform!"
-		},
-		"slide2": {
-			"title": "We've launched!",
-			"text": "Thank you for your support, it is greatly appreciated."
-		},
 		"read": "Read..",
 		"popUpLanguage": {
 			"title": "Select language",
@@ -487,22 +479,17 @@
 		"title": "Mail"
 	},
 	"faq": {
-		"faqTitle": "Frequently Asked Questions",
-		"algorithm": "Algorithm",
-		"exchange": "Exchange",
-		"faqText": "On the other hand, the constant quantitative growth and scope of our activity allows us to carry out important tasks in developing appropriate conditions for activation.",
-		"faqTitle1": "What is a trading algorithm?",
-		"faqTitle2": "What is a trading algorithm, how does it work and why is it needed at all?",
-		"faqTitle3": "I want to start, but I don’t know where!",
-		"faqTitle4": "What is a trading exchange?",
+		"faqTitle": "Frequently asked questions",
+		"invite": "inviting friends",
+		"rating": "rating",
 		"question": "ASK YOUR QUESTION",
 		"startTitle": "Guide for Beginners",
 		"investors": "Start for investors",
 		"business": "Start for business inside K2",
 		"startTitle1": "What is a start?",
-		"startTitle2": "How to buy and configure a robot so as not to make mistakes?",
+		"startTitle2": "How to buy and set up a robot to avoid making mistakes?",
 		"startTitle3": "I want to start, but I don’t know where!",
 		"startTitle4": "What is business inside K2",
-		"write": "WRITE TO A MENTOR"
+		"write": "WRITE TO THE MENTOR"
 	}
 }

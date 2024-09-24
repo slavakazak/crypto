@@ -6,7 +6,7 @@ export default async function getIdFromRef(auth, ref) {
 		const response = await axios.get(`${url}/wp-json/custom/v1/id_from_ref/${ref}`, { headers: auth })
 		return response.data
 	} catch (error) {
-		console.error('Error fetching transactions:', error)
+		console.error('Error getIdFromRef:', error)
 		return []
 	}
 }

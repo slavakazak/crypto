@@ -1,9 +1,31 @@
 import Back from "../components/Back"
 import { useTranslation } from 'react-i18next'
 import Accordion from "../components/Accordion"
+import { Link } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import { DataContext } from "../context/DataProvider"
+import { AuthContext } from "../context/AuthProvider"
+import getNicknameFromRef from "../utils/getNicknameFromRef"
 
 export default function Start() {
 	const { t } = useTranslation()
+	const { auth } = useContext(AuthContext)
+	const { profileData } = useContext(DataContext)
+
+	const [refNickname, setRefNickname] = useState(null)
+
+	useEffect(() => {
+		if (!auth || !profileData.link) return
+		async function init() {
+			let newRefNickname = await getNicknameFromRef(auth, profileData.link)
+			const regex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/
+			if (!regex.test(newRefNickname) || newRefNickname === "admin") {
+				newRefNickname = null
+			}
+			setRefNickname(newRefNickname)
+		}
+		init()
+	}, [auth, profileData.link])
 
 	return (
 		<div id="faq">
@@ -33,7 +55,7 @@ export default function Start() {
 				<br />
 				<p>{t('faq.faqText')}</p>
 			</Accordion>
-			<div className="question">{t('faq.write')}</div>
+			{refNickname && <Link to={'https://t.me/' + refNickname} className="question">{t('faq.write')}</Link>}
 		</div>
 	)
 }

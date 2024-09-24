@@ -6,6 +6,7 @@
 		padding-right: $block-height;
 		align-items: flex-start;
 		height: auto;
+		margin-bottom: 15px;
 
 		.back {
 			height: 29px;
@@ -30,6 +31,7 @@
 	}
 
 	.question {
+		display: block;
 		margin-top: 25px;
 		width: 100%;
 		height: $block-height;

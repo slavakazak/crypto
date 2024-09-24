@@ -94,11 +94,11 @@ export default function Profile() {
 						<span>{t('profile.faq')}</span>
 						<RightArrowIcon />
 					</Link>
-					<div className='item'>
+					<Link to={'https://t.me/helper_kk'} className='item'>
 						<SupportIcon />
 						<span>{t('profile.support')}</span>
 						<RightArrowIcon />
-					</div>
+					</Link>
 				</div>
 				<div className='exit-row'>
 					<div className='remove'>{t('profile.delete')}</div>
