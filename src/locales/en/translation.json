@@ -203,6 +203,7 @@
 		"development": "In development",
 		"improvements": "Improvements",
 		"stroke": "Avatar outline in leaderboards",
+		"strokeShort": "Stroke in leaderboards",
 		"get": "GET",
 		"price": "Price",
 		"term": "Term",
@@ -242,6 +243,11 @@
 			"reference": {
 				"title": "To connect to the robot you need to do:"
 			}
+		},
+		"20": {
+			"term": "Unlimited",
+			"description": "Your avatar photo will now be outlined in K2's signature color. Every user in the “Rating” section will see this.",
+			"description2": "Also, your individuality will be emphasized by a purple checkmark, which is available only to users who have an outline in the leaderboards and verified mail."
 		}
 	},
 	"invite": {

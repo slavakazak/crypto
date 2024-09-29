@@ -61,7 +61,7 @@
 			height: 100%;
 			border-radius: 33px;
 			object-fit: cover;
-			object-position: center;
+			object-position: top center;
 		}
 	}
 
@@ -74,6 +74,14 @@
 		font-size: 22px;
 		font-weight: 700;
 		margin-bottom: 9px;
+	}
+
+	h5 {
+		color: $font;
+		text-align: center;
+		font-size: 14px;
+		font-weight: 700;
+		margin-bottom: 15px;
 	}
 
 	.price {
@@ -329,7 +337,7 @@
 			width: 34px;
 			height: 34px;
 			object-fit: cover;
-			object-position: center;
+			object-position: top center;
 			margin-right: 15px;
 		}
 

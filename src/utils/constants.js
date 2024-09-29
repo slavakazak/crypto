@@ -8,6 +8,7 @@ import k5avatar from '../img/k5avatar.png'
 import k6avatar from '../img/k6avatar.png'
 import k7avatar from '../img/k7avatar.png'
 import k2 from '../img/K2.png'
+import logo from '../img/logo.png'
 
 export const genders = [
 	{ tag: 'man', icon: <MenIcon /> },
@@ -286,6 +287,13 @@ export const products = [
 		name: 'K-X',
 		img: robot,
 		inactive: true
+	}
+]
+
+export const improvements = [
+	{
+		id: 20,
+		price: 22
 	}
 ]
 

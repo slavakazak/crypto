@@ -120,7 +120,7 @@ export default function Balance() {
 		if (type === 'withdrawal') return t('balance.type.withdrawal')
 		if (type === 'purchase') {
 			const product = products.find(item => item?.id === +productId)
-			return `${t('balance.type.purchase')} ${product?.name}`
+			return `${t('balance.type.purchase')} ${product?.name || t('workshop.strokeShort')}`
 		}
 		return ''
 	}

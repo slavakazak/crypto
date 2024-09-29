@@ -7,10 +7,24 @@ import Option from './Option'
 import { avatars, languages } from '../utils/constants'
 import { useContext } from 'react'
 import { DataContext } from "../context/DataProvider"
+import { AuthContext } from "../context/AuthProvider"
+import getImprovements from "../utils/getImprovements"
 
 export default function TopMenu() {
 	const { t, i18n } = useTranslation()
-	const { profileData, setData } = useContext(DataContext)
+	const { auth } = useContext(AuthContext)
+	const { profileData, setData, wpId } = useContext(DataContext)
+
+	const [outline, setOutline] = useState(false)
+
+	useEffect(() => {
+		if (!auth || !wpId) return
+		async function init() {
+			const myImprovements = await getImprovements(auth, wpId)
+			setOutline(myImprovements.includes('20'))
+		}
+		init()
+	}, [auth, wpId])
 
 	const [popUpLanguage, setPopUpLanguage] = useState(false)
 	const [language, setLanguage] = useState(profileData.language)
@@ -37,9 +51,9 @@ export default function TopMenu() {
 			<div className="top-menu main-top-menu">
 				<Link to='/profile' className="profile">
 					<div className='left-side'>
-						<div className="avatar outline">
+						<div className={'avatar' + (outline ? ' outline' : '')}>
 							<img src={profileData.avatar === 'my' ? profileData.myAvatar : avatars[profileData.avatar]} alt={profileData.username} />
-							<VerifiedIcon />
+							{outline && <VerifiedIcon />}
 						</div>
 						<span className='username'>{profileData.username}</span>
 					</div>

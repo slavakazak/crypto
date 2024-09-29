@@ -1,4 +1,3 @@
-import logo from '../img/logo.png'
 import { useTranslation } from 'react-i18next'
 import TopMenu from '../components/TopMenu'
 import { useState, useEffect } from 'react'
@@ -8,11 +7,12 @@ import Modal from '../components/Modal'
 import { Link } from 'react-router-dom'
 import PopUpProduct from '../components/PopUpProduct'
 import getRobots from '../utils/getRobots'
-import { products } from '../utils/constants'
+import { products, improvements, avatars } from '../utils/constants'
 import { useContext } from 'react'
 import { DataContext } from '../context/DataProvider'
 import { AuthContext } from '../context/AuthProvider'
 import getExchangeFromRef from '../utils/getExchangeFromRef'
+import getImprovements from '../utils/getImprovements'
 
 export default function Workshop() {
 	const { t } = useTranslation()
@@ -44,6 +44,8 @@ export default function Workshop() {
 	const [orderStage, setOrderStage] = useState('purchase')
 	const [availableRobots, setAvailableRobots] = useState([])
 	const [availableProducts, setAvailableProducts] = useState([])
+	const [availableImprovements, setAvailableImprovements] = useState([])
+	const [allImprovements, setAllImprovements] = useState([])
 	const [loading, setLoading] = useState(true)
 
 	async function updateProducts() {
@@ -52,6 +54,9 @@ export default function Workshop() {
 		const robots = await getRobots(auth, wpId)
 		setAvailableRobots(products.filter(product => robots.includes(String(product.id))))
 		setAvailableProducts(products.filter(product => !robots.includes(String(product.id))))
+		const myImprovements = await getImprovements(auth, wpId)
+		setAvailableImprovements(improvements.filter(improvement => myImprovements.includes(String(improvement.id))))
+		setAllImprovements(improvements.filter(improvement => !myImprovements.includes(String(improvement.id))))
 		setLoading(false)
 	}
 
@@ -157,12 +162,15 @@ export default function Workshop() {
 							))}
 						</div>
 					</>}
-					<h2>{t('workshop.improvements')}</h2>
-					<div className='improvement'>
-						<img src={logo} alt='K2' />
-						<span>{t('workshop.stroke')}</span>
-						<div className='icon'><InfoIcon /></div>
-					</div>
+					{availableImprovements.length !== 0 && <>
+						<h2>{t('workshop.improvements')}</h2>
+						{availableImprovements.map((improvement, i) => (
+							<div key={i} className='improvement'>
+								<img src={profileData.avatar === 'my' ? profileData.myAvatar : avatars[profileData.avatar]} alt={profileData.username} />
+								<span>{t('workshop.stroke')}</span>
+							</div>
+						))}
+					</>}
 				</> : <>
 					{availableProducts.length !== 0 && <>
 						<h2>{t('workshop.robots')}</h2>
@@ -182,12 +190,16 @@ export default function Workshop() {
 							</div>
 						</div>
 					</>}
-					<h2>{t('workshop.improvements')}</h2>
-					<div className='improvement'>
-						<img src={logo} alt='K2' />
-						<span>{t('workshop.stroke')}</span>
-						<div className='icon'><InfoIcon /></div>
-					</div>
+					{allImprovements.length !== 0 && <>
+						<h2>{t('workshop.improvements')}</h2>
+						{allImprovements.map((improvement, i) => (
+							<div key={i} className='improvement' onClick={openPopUp(improvement)}>
+								<img src={profileData.avatar === 'my' ? profileData.myAvatar : avatars[profileData.avatar]} alt={profileData.username} />
+								<span>{t('workshop.stroke')}</span>
+								<div className='icon'><InfoIcon /></div>
+							</div>
+						))}
+					</>}
 				</>}
 			</div>
 
