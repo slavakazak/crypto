@@ -73,8 +73,8 @@ export default function Career() {
 												number={k + 1}
 												current={level < profileData.level ? task.total : task.current}
 												total={task.total}
+												reference={k === 1 && level > 2 ? t('career.reference1') : k === 2 ? t('career.reference2') : ''}
 												text={level === 2 && k === 0 ? <>{t('career.levels.2.tasks.0.0')} <span onClick={testClickHandler}>{t('career.levels.2.tasks.0.1')}</span> {t('career.levels.2.tasks.0.2')}</> : t(`career.levels.${level}.tasks.${k}`)}
-												reference={task.reference}
 												completed={level < profileData.level ? true : task.completed}
 											/>)}
 											{levels[level - 1]?.achievements && <h4 className='task-title'>{t('career.achievements')}</h4>}

@@ -40,14 +40,45 @@ export function LevelsProvider({ children }) {
 		return res
 	}
 
-	//получить количество людей в команде данного уровня или выше
-	function getCountCommand(arr, level, line = 1) {
+	//получить количество людей в команде 2 уровня или выше (не больше 40% с ветки)
+	function getCountCommand(arr, line = 1, max = 0) {
 		if (!arr || arr.length === 0) return 0
 		let res = 0
-		arr.forEach(item => {
-			if (line > 1 && item.level >= level) res++
-			res += getCountCommand(item.partners, level, line + 1)
-		})
+		if (line === 1) {
+			arr.forEach(item => {
+				const sum = getCountCommand(item.partners, line + 1)
+				res += sum > max * 0.4 ? max * 0.4 : sum
+			})
+		} else {
+			arr.forEach(item => {
+				if (item.level >= 2) res++
+				res += getCountCommand(item.partners, line + 1)
+			})
+		}
+		return res
+	}
+
+	//получить количество людей в структуре данного уровня или выше (1 с ветки)
+	function getCountInvestors(arr, level, line = 1) {
+		if (!arr || arr.length === 0) return 0
+		let res = 0
+		if (line === 1) {
+			arr.forEach(item => {
+				if (item.level >= level) {
+					res++
+				} else {
+					res += getCountInvestors(item.partners, level, line + 1)
+				}
+			})
+		} else {
+			arr.forEach(item => {
+				if (item.level >= level) {
+					res++
+					return
+				}
+				res += getCountInvestors(item.partners, level, line + 1)
+			})
+		}
 		return res
 	}
 
@@ -92,6 +123,18 @@ export function LevelsProvider({ children }) {
 		}
 	}
 
+	function setTestInvestors(newLevels, level, task, count, max) {
+		if (count >= max) {
+			newLevels[level - 1].tasks[task].completed = true
+			newLevels[level - 1].tasks[task].current = max
+			return max
+		} else {
+			newLevels[level - 1].tasks[task].completed = false
+			newLevels[level - 1].tasks[task].current = count
+			return count
+		}
+	}
+
 	function isCompleted(newLevels, level) {
 		const tasks = newLevels[level - 1].tasks
 		for (let i = 0; i < tasks.length; i++) {
@@ -123,9 +166,8 @@ export function LevelsProvider({ children }) {
 		l = 2
 		const partners = await getPartners(auth, wpId)
 		const k2Partners = getCountPartners(partners, 2)
-		const k2Command = getCountCommand(partners, 2)
 		if (!newLevels[l - 1].tasks[1].completed) { //подключить 1 инвестора с уровнем K2
-			if (k2Partners + k2Command >= 1) {
+			if (k2Partners >= 1) {
 				newLevels[l - 1].tasks[1].completed = true
 			}
 		}
@@ -138,11 +180,11 @@ export function LevelsProvider({ children }) {
 		}
 		//проверка третьего уровня
 		l = 3
-		if (!newLevels[l - 1].tasks[0].completed) { //подключить 2 инвестора с уровнем K2 в первую линию
-			setTestCurrent(newLevels, l, 0, k2Partners, 2)
+		if (!newLevels[l - 1].tasks[0].completed) { //подключить 3 инвестора с уровнем K2 в первую линию
+			setTestCurrent(newLevels, l, 0, k2Partners, 3)
 		}
 		if (!newLevels[l - 1].tasks[1].completed) { //подключить 5 инвесторов с уровнем K2 в вашу команду
-			setTestCurrent(newLevels, l, 1, k2Command, 5)
+			setTestCurrent(newLevels, l, 1, getCountCommand(partners, 1, 5), 5)
 		}
 		if (isCompleted(newLevels, l)) {
 			level = level < l + 1 ? l + 1 : level
@@ -157,7 +199,7 @@ export function LevelsProvider({ children }) {
 			setTestCurrent(newLevels, l, 0, k2Partners, 5)
 		}
 		if (!newLevels[l - 1].tasks[1].completed) { //подключить 25 инвесторов с уровнем K2 в вашу команду
-			setTestCurrent(newLevels, l, 1, k2Command, 25)
+			setTestCurrent(newLevels, l, 1, getCountCommand(partners, 1, 25), 25)
 		}
 		if (isCompleted(newLevels, l)) {
 			level = level < l + 1 ? l + 1 : level
@@ -168,17 +210,14 @@ export function LevelsProvider({ children }) {
 		}
 		//проверка пятого уровня
 		l = 5
-		const k4Partners = getCountPartners(partners, 4)
-		const k4Command = getCountCommand(partners, 4)
+		const k4 = getCountInvestors(partners, 4)
 		if (!newLevels[l - 1].tasks[0].completed) { //подключить 10 инвесторов с уровнем K2 в первую линию
 			setTestCurrent(newLevels, l, 0, k2Partners, 10)
 		}
 		if (!newLevels[l - 1].tasks[1].completed) { //подключить 125 инвесторов с уровнем K2 в вашу команду
-			setTestCurrent(newLevels, l, 1, k2Command, 125)
+			setTestCurrent(newLevels, l, 1, getCountCommand(partners, 1, 125), 125)
 		}
-		if (!newLevels[l - 1].tasks[2].completed) { //помочь 2 инвесторам дойти до уровня K4 в вашей структуре
-			setTestCurrent(newLevels, l, 2, k4Partners + k4Command, 2)
-		}
+		setTestInvestors(newLevels, l, 2, k4, 2) //помочь 2 инвесторам дойти до уровня K4 в вашей структуре
 		if (isCompleted(newLevels, l)) {
 			level = level < l + 1 ? l + 1 : level
 			setLevelData(newLevels, avatars, level)
@@ -188,20 +227,16 @@ export function LevelsProvider({ children }) {
 		}
 		//проверка шестого уровня
 		l = 6
-		const k5Partners = getCountPartners(partners, 5)
-		const k5Command = getCountCommand(partners, 5)
+		const k5 = getCountInvestors(partners, 5)
 		if (!newLevels[l - 1].tasks[0].completed) { //подключить 20 инвесторов с уровнем K2 в первую линию
 			setTestCurrent(newLevels, l, 0, k2Partners, 20)
 		}
 		if (!newLevels[l - 1].tasks[1].completed) { //подключить 500 инвесторов с уровнем K2 в вашу команду
-			setTestCurrent(newLevels, l, 1, k2Command, 500)
+			setTestCurrent(newLevels, l, 1, getCountCommand(partners, 1, 500), 500)
 		}
-		if (!newLevels[l - 1].tasks[2].completed) { //помочь 2 инвесторам дойти до уровня K5 в вашей структуре
-			setTestCurrent(newLevels, l, 2, k5Partners + k5Command, 2)
-		}
-		if (!newLevels[l - 1].tasks[3].completed) { //помочь 1 инвестору дойти до уровня K4 в вашей структуре
-			setTestCurrent(newLevels, l, 3, k4Partners + k4Command, 1)
-		}
+		let taken = 0
+		taken += setTestInvestors(newLevels, l, 2, k5, 2) //помочь 2 инвесторам дойти до уровня K5 в вашей структуре
+		setTestInvestors(newLevels, l, 3, k4 - taken, 1) //помочь 1 инвестору дойти до уровня K4 в вашей структуре
 		if (isCompleted(newLevels, l)) {
 			level = level < l + 1 ? l + 1 : level
 			setLevelData(newLevels, avatars, level)
@@ -211,23 +246,17 @@ export function LevelsProvider({ children }) {
 		}
 		//проверка седьмого уровня
 		l = 7
-		const k6Partners = getCountPartners(partners, 6)
-		const k6Command = getCountCommand(partners, 6)
+		const k6 = getCountInvestors(partners, 6)
 		if (!newLevels[l - 1].tasks[0].completed) { //подключить 25 инвесторов с уровнем K2 в первую линию
 			setTestCurrent(newLevels, l, 0, k2Partners, 25)
 		}
 		if (!newLevels[l - 1].tasks[1].completed) { //подключить 1500 инвесторов с уровнем K2 в вашу команду
-			setTestCurrent(newLevels, l, 1, k2Command, 1500)
+			setTestCurrent(newLevels, l, 1, getCountCommand(partners, 1, 1500), 1500)
 		}
-		if (!newLevels[l - 1].tasks[2].completed) { //помочь 2 инвесторам дойти до уровня K6 в вашей структуре
-			setTestCurrent(newLevels, l, 2, k6Partners + k6Command, 2)
-		}
-		if (!newLevels[l - 1].tasks[3].completed) { //помочь 1 инвестору дойти до уровня K5 в вашей структуре
-			setTestCurrent(newLevels, l, 3, k5Partners + k5Command, 1)
-		}
-		if (!newLevels[l - 1].tasks[4].completed) { //помочь 1 инвестору дойти до уровня K4 в вашей структуре
-			setTestCurrent(newLevels, l, 4, k4Partners + k4Command, 1)
-		}
+		taken = 0
+		taken += setTestInvestors(newLevels, l, 2, k6, 2) //помочь 2 инвесторам дойти до уровня K6 в вашей структуре
+		taken += setTestInvestors(newLevels, l, 3, k5 - taken, 1) //помочь 1 инвестору дойти до уровня K5 в вашей структуре
+		setTestInvestors(newLevels, l, 4, k4 - taken, 1) //помочь 1 инвестору дойти до уровня K4 в вашей структуре
 		if (isCompleted(newLevels, l)) {
 			level = level < l + 1 ? l + 1 : level
 			setLevelData(newLevels, avatars, level)
@@ -237,26 +266,18 @@ export function LevelsProvider({ children }) {
 		}
 		//проверка восьмого уровня
 		l = 8
-		const k7Partners = getCountPartners(partners, 7)
-		const k7Command = getCountCommand(partners, 7)
+		const k7 = getCountInvestors(partners, 7)
 		if (!newLevels[l - 1].tasks[0].completed) { //подключить 30 инвесторов с уровнем K2 в первую линию
 			setTestCurrent(newLevels, l, 0, k2Partners, 30)
 		}
 		if (!newLevels[l - 1].tasks[1].completed) { //подключить 4000 инвесторов с уровнем K2 в вашу команду
-			setTestCurrent(newLevels, l, 1, k2Command, 4000)
+			setTestCurrent(newLevels, l, 1, getCountCommand(partners, 1, 4000), 4000)
 		}
-		if (!newLevels[l - 1].tasks[2].completed) { //помочь 2 инвесторам дойти до уровня K7 в вашей структуре
-			setTestCurrent(newLevels, l, 2, k7Partners + k7Command, 2)
-		}
-		if (!newLevels[l - 1].tasks[3].completed) { //помочь 1 инвестору дойти до уровня K6 в вашей структуре
-			setTestCurrent(newLevels, l, 3, k6Partners + k6Command, 1)
-		}
-		if (!newLevels[l - 1].tasks[4].completed) { //помочь 1 инвестору дойти до уровня K5 в вашей структуре
-			setTestCurrent(newLevels, l, 4, k5Partners + k5Command, 1)
-		}
-		if (!newLevels[l - 1].tasks[5].completed) { //помочь 1 инвестору дойти до уровня K4 в вашей структуре
-			setTestCurrent(newLevels, l, 5, k4Partners + k4Command, 1)
-		}
+		taken = 0
+		taken += setTestInvestors(newLevels, l, 2, k7, 2) //помочь 2 инвесторам дойти до уровня K7 в вашей структуре
+		taken += setTestInvestors(newLevels, l, 3, k6 - taken, 1) //помочь 1 инвестору дойти до уровня K6 в вашей структуре
+		taken += setTestInvestors(newLevels, l, 4, k5 - taken, 1) //помочь 1 инвестору дойти до уровня K5 в вашей структуре
+		setTestInvestors(newLevels, l, 5, k4 - taken, 1) //помочь 1 инвестору дойти до уровня K4 в вашей структуре
 		if (isCompleted(newLevels, l)) {
 			level = level < l + 1 ? l + 1 : level
 			setLevelData(newLevels, avatars, level)
@@ -266,29 +287,19 @@ export function LevelsProvider({ children }) {
 		}
 		//проверка девятого уровня
 		l = 9
-		const k8Partners = getCountPartners(partners, 8)
-		const k8Command = getCountCommand(partners, 8)
+		const k8 = getCountInvestors(partners, 8)
 		if (!newLevels[l - 1].tasks[0].completed) { //подключить 40 инвесторов с уровнем K2 в первую линию
 			setTestCurrent(newLevels, l, 0, k2Partners, 40)
 		}
 		if (!newLevels[l - 1].tasks[1].completed) { //подключить 10000 инвесторов с уровнем K2 в вашу команду
-			setTestCurrent(newLevels, l, 1, k2Command, 10000)
+			setTestCurrent(newLevels, l, 1, getCountCommand(partners, 1, 10000), 10000)
 		}
-		if (!newLevels[l - 1].tasks[2].completed) { //помочь 2 инвесторам дойти до уровня K8 в вашей структуре
-			setTestCurrent(newLevels, l, 2, k8Partners + k8Command, 2)
-		}
-		if (!newLevels[l - 1].tasks[3].completed) { //помочь 1 инвестору дойти до уровня K7 в вашей структуре
-			setTestCurrent(newLevels, l, 3, k7Partners + k7Command, 1)
-		}
-		if (!newLevels[l - 1].tasks[4].completed) { //помочь 1 инвестору дойти до уровня K6 в вашей структуре
-			setTestCurrent(newLevels, l, 4, k6Partners + k6Command, 1)
-		}
-		if (!newLevels[l - 1].tasks[5].completed) { //помочь 1 инвестору дойти до уровня K5 в вашей структуре
-			setTestCurrent(newLevels, l, 5, k5Partners + k5Command, 1)
-		}
-		if (!newLevels[l - 1].tasks[6].completed) { //помочь 1 инвестору дойти до уровня K4 в вашей структуре
-			setTestCurrent(newLevels, l, 6, k4Partners + k4Command, 1)
-		}
+		taken = 0
+		taken += setTestInvestors(newLevels, l, 2, k8, 2) //помочь 2 инвесторам дойти до уровня K8 в вашей структуре
+		taken += setTestInvestors(newLevels, l, 3, k7 - taken, 1) //помочь 1 инвестору дойти до уровня K7 в вашей структуре 
+		taken += setTestInvestors(newLevels, l, 4, k6 - taken, 1) //помочь 1 инвестору дойти до уровня K6 в вашей структуре
+		taken += setTestInvestors(newLevels, l, 5, k5 - taken, 1) //помочь 1 инвестору дойти до уровня K5 в вашей структуре
+		taken += setTestInvestors(newLevels, l, 6, k4 - taken, 1) //помочь 1 инвестору дойти до уровня K4 в вашей структуре
 		if (isCompleted(newLevels, l)) {
 			level = level < l + 1 ? l + 1 : level
 			setLevelData(newLevels, avatars, level)

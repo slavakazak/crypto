@@ -12,10 +12,11 @@ import { products } from '../utils/constants'
 import { useContext } from 'react'
 import { DataContext } from '../context/DataProvider'
 import { AuthContext } from '../context/AuthProvider'
+import getExchangeFromRef from '../utils/getExchangeFromRef'
 
 export default function Workshop() {
 	const { t } = useTranslation()
-	const { wpId } = useContext(DataContext)
+	const { wpId, profileData } = useContext(DataContext)
 	const { auth } = useContext(AuthContext)
 
 	const [inventory, setInventory] = useState(false)
@@ -33,7 +34,6 @@ export default function Workshop() {
 		setModalType(type)
 		setModal(true)
 	}
-
 
 	function closeModal() {
 		setModal(false)
@@ -78,12 +78,27 @@ export default function Workshop() {
 		updateProducts()
 	}
 
+	const [refExchange, setRefExchange] = useState(null)
+
+	useEffect(() => {
+		if (!auth || !profileData.link) return
+		async function init() {
+			let newRefExchange = await getExchangeFromRef(auth, profileData.link)
+			const regex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/
+			if (!regex.test(newRefExchange) || newRefExchange === "admin") {
+				newRefExchange = null
+			}
+			setRefExchange(newRefExchange)
+		}
+		init()
+	}, [auth, profileData.link])
+
 	function openInventoryModal() {
 		openModal({
 			title: t('modal.reference'),
 			content: <>
 				<p>{t('workshop.inventoryModal.text1')}</p>
-				<p>1. {t('workshop.inventoryModal.text2')} <Link className="link" to={'/'}>Ссылка</Link></p>
+				<p>1. {t('workshop.inventoryModal.text2')} <Link className="link" to={refExchange}>{refExchange}</Link></p>
 				<p>3. {t('workshop.inventoryModal.text3')}</p>
 				<p>3. {t('workshop.inventoryModal.text4')}</p>
 				<p>4. {t('workshop.inventoryModal.text5')} <Link className="link" to={'https://t.me/helper_kk'}>t.me/helper_kk</Link> {t('workshop.inventoryModal.text6')}</p>

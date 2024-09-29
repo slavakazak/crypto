@@ -329,31 +329,31 @@ export const defaultLevels = [
 	},
 	{
 		tasks: [
-			{ completed: false, current: 0, total: 2 },
-			{ reference: '', completed: false, current: 0, total: 5 }
+			{ completed: false, current: 0, total: 3 },
+			{ completed: false, current: 0, total: 5 }
 		],
 		achievements: [0]
 	},
 	{
 		tasks: [
 			{ completed: false, current: 0, total: 5 },
-			{ reference: '', completed: false, current: 0, total: 25 }
+			{ completed: false, current: 0, total: 25 }
 		],
 		achievements: [0]
 	},
 	{
 		tasks: [
 			{ completed: false, current: 0, total: 10 },
-			{ reference: '', completed: false, current: 0, total: 125 },
-			{ reference: '', completed: false, current: 0, total: 2 }
+			{ completed: false, current: 0, total: 125 },
+			{ completed: false, current: 0, total: 2 }
 		],
 		achievements: [0, 1, 2]
 	},
 	{
 		tasks: [
 			{ completed: false, current: 0, total: 20 },
-			{ reference: '', completed: false, current: 0, total: 500 },
-			{ reference: '', completed: false, current: 0, total: 2 },
+			{ completed: false, current: 0, total: 500 },
+			{ completed: false, current: 0, total: 2 },
 			{ completed: false, current: 0, total: 1 }
 		],
 		achievements: [0, 1, 2]
@@ -361,8 +361,8 @@ export const defaultLevels = [
 	{
 		tasks: [
 			{ completed: false, current: 0, total: 25 },
-			{ reference: '', completed: false, current: 0, total: 1500 },
-			{ reference: '', completed: false, current: 0, total: 2 },
+			{ completed: false, current: 0, total: 1500 },
+			{ completed: false, current: 0, total: 2 },
 			{ completed: false, current: 0, total: 1 },
 			{ completed: false, current: 0, total: 1 }
 		],
@@ -371,8 +371,8 @@ export const defaultLevels = [
 	{
 		tasks: [
 			{ completed: false, current: 0, total: 30 },
-			{ reference: '', completed: false, current: 0, total: 4000 },
-			{ reference: '', completed: false, current: 0, total: 2 },
+			{ completed: false, current: 0, total: 4000 },
+			{ completed: false, current: 0, total: 2 },
 			{ completed: false, current: 0, total: 1 },
 			{ completed: false, current: 0, total: 1 },
 			{ completed: false, current: 0, total: 1 }
@@ -382,8 +382,8 @@ export const defaultLevels = [
 	{
 		tasks: [
 			{ completed: false, current: 0, total: 40 },
-			{ reference: '', completed: false, current: 0, total: 10000 },
-			{ reference: '', completed: false, current: 0, total: 2 },
+			{ completed: false, current: 0, total: 10000 },
+			{ completed: false, current: 0, total: 2 },
 			{ completed: false, current: 0, total: 1 },
 			{ completed: false, current: 0, total: 1 },
 			{ completed: false, current: 0, total: 1 },

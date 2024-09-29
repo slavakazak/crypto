@@ -387,6 +387,7 @@
 
 			.number {
 				margin-right: 13px;
+				flex-shrink: 0;
 			}
 
 			.avatar {
@@ -428,6 +429,7 @@
 			font-size: 11px;
 			font-weight: 700;
 			letter-spacing: -0.33px;
+			flex-shrink: 0;
 		}
 
 		p {

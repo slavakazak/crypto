@@ -17,8 +17,10 @@ const botName = process.env.REACT_APP_BOT_NAME
 export default function Bonuses() {
 	const { t } = useTranslation()
 	const { auth } = useContext(AuthContext)
-	const { profileData, tg, wpId } = useContext(DataContext)
+	const { profileData, tg, wpId, setData } = useContext(DataContext)
 	const { levels } = useContext(LevelsContext)
+
+	const [load, setLoad] = useState(true)
 
 	const [current, setCurrent] = useState(0)
 	const [progressTotal, setProgressTotal] = useState(66)
@@ -29,7 +31,6 @@ export default function Bonuses() {
 
 	const progressTack2Total = 37
 	const [progressTack2, setProgressTack2] = useState(0)
-
 
 
 	//получить количество партнёров второго уровня или выше
@@ -82,18 +83,7 @@ export default function Bonuses() {
 	const [travelTime, setTravelTime] = useState('00:00')
 
 	useEffect(() => {
-		if (!auth || !wpId) return
-		async function init() {
-			const partners = await getPartners(auth, wpId)
-			const newCurrent = getCountPartners(partners)
-			setCurrent(newCurrent)
-			const newProgressTotal = newCurrent >= 22 ? 111 : 66
-			setProgressTotal(newProgressTotal)
-			setProgress(Math.round(newCurrent * 3 / newProgressTotal * 100))
-			setProgressTack1(newCurrent / progressTack1Total * 100)
-			setProgressTack2(newCurrent / progressTack2Total * 100)
-		}
-		init()
+		updateBonuses()
 		if (!levels || !levels[1]?.time) return
 		const interval = setInterval(() => {
 			const today = new Date()
@@ -115,8 +105,23 @@ export default function Bonuses() {
 		}
 	}, [auth, wpId, levels])
 
-	function updateBonuses() {
+	async function updateBonuses() {
+		if (!auth || !wpId) return
+		const partners = await getPartners(auth, wpId)
+		const newCurrent = getCountPartners(partners)
+		setCurrent(newCurrent)
+		const newProgressTotal = newCurrent >= 22 ? 111 : 66
+		setProgressTotal(newProgressTotal)
+		setProgress(Math.round(newCurrent * 3 / newProgressTotal * 100))
+		setProgressTack1(newCurrent / progressTack1Total * 100)
+		setProgressTack2(newCurrent / progressTack2Total * 100)
+		setLoad(false)
+	}
 
+	async function refresh() {
+		setLoad(true)
+		await setData({})
+		await updateBonuses()
 	}
 
 	return (
@@ -140,94 +145,96 @@ export default function Bonuses() {
 						<span>{t('bonuses.travel')}</span>
 						<Timer time={travelTime} />
 					</div>
-					<div className="icon" onClick={updateBonuses}><RefreshIcon /></div>
+					<div className="icon" onClick={refresh}><RefreshIcon /></div>
 				</div>
-				{page === 'month' && <div className="tab month">
-					<h2>{t('bonuses.monthTitle')}</h2>
-					<p className="description">{t('bonuses.monthDescription')}</p>
-					<img src={promo} alt={t('bonuses.month')} />
-				</div>}
-				{page === 'start' && <div className="tab start">
-					<div className='title'>
-						<h2>{t('bonuses.start')}</h2>
-						<div className='info' onClick={startModalHandler}><InfoIcon size={22} /></div>
-					</div>
-					<p className="description">{t('bonuses.startDescription')}</p>
-					<div className='start-row'>
-						{bonuses.map((bonus, i) => (
-							<div key={i} className={'block' + (i < profileData.start ? ' active' : '')}>
-								<div className='number'>{i + 1}</div>
-								<div className='bonus'>
-									<CoinIcon />
-									<span>{bonus}</span>
+				{load ? <div className='preloader'><div className='loader' /></div> : <>
+					{page === 'month' && <div className="tab month">
+						<h2>{t('bonuses.monthTitle')}</h2>
+						<p className="description">{t('bonuses.monthDescription')}</p>
+						<img src={promo} alt={t('bonuses.month')} />
+					</div>}
+					{page === 'start' && <div className="tab start">
+						<div className='title'>
+							<h2>{t('bonuses.start')}</h2>
+							<div className='info' onClick={startModalHandler}><InfoIcon size={22} /></div>
+						</div>
+						<p className="description">{t('bonuses.startDescription')}</p>
+						<div className='start-row'>
+							{bonuses.map((bonus, i) => (
+								<div key={i} className={'block' + (i < profileData.start ? ' active' : '')}>
+									<div className='number'>{i + 1}</div>
+									<div className='bonus'>
+										<CoinIcon />
+										<span>{bonus}</span>
+									</div>
+								</div>
+							))}
+						</div>
+						<div className={'earned' + (profileData.start === 12 ? ' active' : '')}>
+							<p>{t('bonuses.earned')}:</p>
+							<span>{bonuses.reduce((a, c, i) => i < profileData.start ? a + c : a, 0)}/{bonuses.reduce((a, c) => a + c, 0)}</span>
+							<CoinIcon size={19} />
+						</div>
+					</div>}
+					{page === 'travel' && <div className="tab travel">
+						<h2>{t('bonuses.travelTitle')}</h2>
+						<p className="description"><span>{t('bonuses.travelDescription')}</span></p>
+						<iframe
+							width="100%"
+							height="200"
+							src={`https://www.youtube.com/embed/0zMLl9WbHVg?si=6Adtx-tK7540Ybhp&fs=0&hl=${profileData.language.tag}&rel=0`}
+							title="YouTube video player"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+							referrerPolicy="strict-origin-when-cross-origin"
+						/>
+						<div className='title'>
+							<h3>{t('bonuses.terms')}</h3>
+						</div>
+						<p className="grey-description">{t('bonuses.termsDescription')}</p>
+						<div className='progress'>
+							<div className='note'>K2 = 3 {t('bonuses.points')}</div>
+							<p className='title'>{t('bonuses.progress')}</p>
+							<div className='row'>
+								<div className='text'>{t('bonuses.progressDescription')}</div>
+								<span className='sum'>{current * 3 > 111 ? 111 : current * 3}<span>/{progressTotal}</span> {t('bonuses.points2')}</span>
+							</div>
+							<div className='progress-bar'><div className='line' style={{ width: progress > 100 ? '100%' : progress + '%' }} /></div>
+							<div className='number-row'>
+								<span className='start' style={{ display: progress < 8 ? 'none' : 'block' }}>0%</span>
+								<span className='current' style={{ left: progress < 2 ? '2%' : progress > 97 ? '96%' : progress + '%' }}>{progress > 100 ? 100 : progress}%</span>
+								<span className='end' style={{ display: progress > 87 ? 'none' : 'block' }}>100%</span>
+							</div>
+						</div>
+						<h4 className='task-title'>{t('bonuses.tasks')}</h4>
+						<div className='task'>
+							<div className='number'>1</div>
+							<div className='content'>
+								<p className='text'>{t('bonuses.task1')}</p>
+								<div className='progress-bar'><div className='line' style={{ width: progressTack1 > 100 ? '100%' : progressTack1 + '%' }} /></div>
+								<div className='number-row'>
+									<span className='start' style={{ display: progressTack1 < 5 ? 'none' : 'block' }}>0</span>
+									<span className='current' style={{ left: progressTack1 < 1 ? '1%' : progressTack1 > 98 ? '98%' : progressTack1 + '%' }}>{current > 22 ? 22 : current}</span>
+									<span className='end' style={{ display: progressTack1 > 91 ? 'none' : 'block' }}>{progressTack1Total}</span>
 								</div>
 							</div>
-						))}
-					</div>
-					<div className={'earned' + (profileData.start === 12 ? ' active' : '')}>
-						<p>{t('bonuses.earned')}:</p>
-						<span>{bonuses.reduce((a, c, i) => i < profileData.start ? a + c : a, 0)}/{bonuses.reduce((a, c) => a + c, 0)}</span>
-						<CoinIcon size={19} />
-					</div>
-				</div>}
-				{page === 'travel' && <div className="tab travel">
-					<h2>{t('bonuses.travelTitle')}</h2>
-					<p className="description"><span>{t('bonuses.travelDescription')}</span></p>
-					<iframe
-						width="100%"
-						height="200"
-						src={`https://www.youtube.com/embed/0zMLl9WbHVg?si=6Adtx-tK7540Ybhp&fs=0&hl=${profileData.language.tag}&rel=0`}
-						title="YouTube video player"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-						referrerPolicy="strict-origin-when-cross-origin"
-					/>
-					<div className='title'>
-						<h3>{t('bonuses.terms')}</h3>
-					</div>
-					<p className="grey-description">{t('bonuses.termsDescription')}</p>
-					<div className='progress'>
-						<div className='note'>K2 = 3 {t('bonuses.points')}</div>
-						<p className='title'>{t('bonuses.progress')}</p>
-						<div className='row'>
-							<div className='text'>{t('bonuses.progressDescription')}</div>
-							<span className='sum'>{current * 3 > 111 ? 111 : current * 3}<span>/{progressTotal}</span> {t('bonuses.points2')}</span>
+							<div className={'check' + (progressTack1 >= 100 ? ' active' : '')}><OkIcon size={11} /></div>
 						</div>
-						<div className='progress-bar'><div className='line' style={{ width: progress > 100 ? '100%' : progress + '%' }} /></div>
-						<div className='number-row'>
-							<span className='start' style={{ display: progress < 8 ? 'none' : 'block' }}>0%</span>
-							<span className='current' style={{ left: progress < 2 ? '2%' : progress > 97 ? '96%' : progress + '%' }}>{progress > 100 ? 100 : progress}%</span>
-							<span className='end' style={{ display: progress > 87 ? 'none' : 'block' }}>100%</span>
-						</div>
-					</div>
-					<h4 className='task-title'>{t('bonuses.tasks')}</h4>
-					<div className='task'>
-						<div className='number'>1</div>
-						<div className='content'>
-							<p className='text'>{t('bonuses.task1')}</p>
-							<div className='progress-bar'><div className='line' style={{ width: progressTack1 > 100 ? '100%' : progressTack1 + '%' }} /></div>
-							<div className='number-row'>
-								<span className='start' style={{ display: progressTack1 < 5 ? 'none' : 'block' }}>0</span>
-								<span className='current' style={{ left: progressTack1 < 1 ? '1%' : progressTack1 > 98 ? '98%' : progressTack1 + '%' }}>{current > 22 ? 22 : current}</span>
-								<span className='end' style={{ display: progressTack1 > 91 ? 'none' : 'block' }}>{progressTack1Total}</span>
+						<div className={'task' + (progressTack1 < 100 ? ' inactive' : '')}>
+							<div className='overlay' />
+							<div className='number'>2</div>
+							<div className='content'>
+								<p className='text'>{t('bonuses.task2')}</p>
+								<div className='progress-bar'><div className='line' style={{ width: progressTack2 > 100 ? '100%' : progressTack2 + '%' }} /></div>
+								<div className='number-row'>
+									<span className='start' style={{ display: progressTack2 < 5 ? 'none' : 'block' }}>0</span>
+									<span className='current' style={{ left: progressTack2 < 1 ? '1%' : progressTack2 > 98 ? '98%' : progressTack2 + '%' }}>{current > 37 ? 37 : current}</span>
+									<span className='end' style={{ display: progressTack2 > 91 ? 'none' : 'block' }}>{progressTack2Total}</span>
+								</div>
 							</div>
+							<div className={'check' + (progressTack2 >= 100 ? ' active' : '')}><OkIcon size={11} /></div>
 						</div>
-						<div className={'check' + (progressTack1 >= 100 ? ' active' : '')}><OkIcon size={11} /></div>
-					</div>
-					<div className={'task' + (progressTack1 < 100 ? ' inactive' : '')}>
-						<div className='overlay' />
-						<div className='number'>2</div>
-						<div className='content'>
-							<p className='text'>{t('bonuses.task2')}</p>
-							<div className='progress-bar'><div className='line' style={{ width: progressTack2 > 100 ? '100%' : progressTack2 + '%' }} /></div>
-							<div className='number-row'>
-								<span className='start' style={{ display: progressTack2 < 5 ? 'none' : 'block' }}>0</span>
-								<span className='current' style={{ left: progressTack2 < 1 ? '1%' : progressTack2 > 98 ? '98%' : progressTack2 + '%' }}>{current > 37 ? 37 : current}</span>
-								<span className='end' style={{ display: progressTack2 > 91 ? 'none' : 'block' }}>{progressTack2Total}</span>
-							</div>
-						</div>
-						<div className={'check' + (progressTack2 >= 100 ? ' active' : '')}><OkIcon size={11} /></div>
-					</div>
-				</div>}
+					</div>}
+				</>}
 			</div>
 			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} content={modalContent} type={modalType} />
 		</>

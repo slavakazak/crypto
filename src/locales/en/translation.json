@@ -307,6 +307,8 @@
 		"seeTasks": "VIEW TASKS",
 		"tasksTitle": "Tasks",
 		"tasksDescription": "Track the dynamics of task completion to move to the next level",
+		"reference1": "According to the terms of the marketing plan from one branch, it is considered no more than 40% of the total amount needed to fulfill the condition",
+		"reference2": "According to the terms of the marketing plan, only one ambassador with the required career level is considered from one branch.",
 		"leagues": {
 			"0": "Paper",
 			"1": "Wooden",
@@ -340,7 +342,7 @@
 			"3": {
 				"inactive": "Investors with the K2 robot",
 				"tasks": {
-					"0": "Connect 2 investors with level K2 to the first line",
+					"0": "Connect 3 investors with level K2 to the first line",
 					"1": "Connect 5 investors with K2 level to your team"
 				},
 				"achievements": {
