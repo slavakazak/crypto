@@ -53,7 +53,7 @@ export default function TopMenu() {
 					<div className='left-side'>
 						<div className={'avatar' + (outline ? ' outline' : '')}>
 							<img src={profileData.avatar === 'my' ? profileData.myAvatar : avatars[profileData.avatar]} alt={profileData.username} />
-							{outline && <VerifiedIcon />}
+							{outline && !profileData.email.includes('@noemail.com') && <VerifiedIcon />}
 						</div>
 						<span className='username'>{profileData.username}</span>
 					</div>
