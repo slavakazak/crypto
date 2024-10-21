@@ -21,14 +21,17 @@ export default async function setWpFields(auth, wpId, data) {
 				t_avatars: data.avatars?.join(','),
 				t_my_avatar: data.myAvatar,
 				t_avatar: data.avatar,
-				t_language: data.language?.tag,
+				t_language: data.language,
 				t_level: parseInt(data.level, 10),
 				t_token: +data.token,
 				t_coin: +data.coin,
 				t_usdt: +data.usdt,
 				t_ref: data.ref,
 				t_link: data.link,
-				t_start: data.start
+				t_start: data.start,
+				t_daily: data.daily,
+				t_daily_time: data.dailyTime,
+				t_video: data.video ? 1 : 0
 			},
 			password: data.password
 		}

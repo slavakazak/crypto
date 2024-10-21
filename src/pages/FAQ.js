@@ -19,7 +19,6 @@ export default function FAQ() {
 		async function init() {
 			const newFaq = await getFAQ(auth)
 			setFaq(newFaq)
-			console.log(newFaq)
 		}
 		init()
 	}, [auth])
@@ -31,11 +30,11 @@ export default function FAQ() {
 				<h1>{t('faq.faqTitle')}</h1>
 			</div>
 			{faq.filter(item => item.page === 'option1').reverse().map((item, i) => (
-				<Accordion key={i} number={i + 1} title={profileData.language.tag === 'en' && item.title_en ? item.title_en : item.title}>
-					<div dangerouslySetInnerHTML={{ __html: profileData.language.tag === 'en' && item.content_en ? item.content_en : item.content }} />
+				<Accordion key={i} number={i + 1} title={profileData.language === 'en' && item.title_en ? item.title_en : item.title}>
+					<div dangerouslySetInnerHTML={{ __html: profileData.language === 'en' && item.content_en ? item.content_en : item.content }} />
 				</Accordion>
 			))}
-			<Link className="question" to={'https://t.me/helper_kk'}>{t('faq.question')}</Link>
+			<Link className="question" to={'https://t.me/k2_support_bot'}>{t('faq.question')}</Link>
 		</div>
 	)
 }

@@ -11,7 +11,7 @@ export default function InviteTab({ items, loading }) {
 			{loading ? <div className='preloader'><div className='loader' /></div> : items?.length === 0 ? t('invite.noUsers') : <div className="tab-list">
 				{items.map((partner, i) => {
 					const date = new Date(partner.registered_date.replace(' ', 'T') + 'Z')
-					const dateFormat = new Intl.DateTimeFormat(profileData.language.tag, { year: "numeric", month: "numeric", day: "numeric" })
+					const dateFormat = new Intl.DateTimeFormat(profileData.language, { year: "numeric", month: "numeric", day: "numeric" })
 					return (
 						<div key={i} className="item">
 							<div className="left-side">

@@ -92,23 +92,23 @@ export default function Invite() {
 	return (
 		<>
 			<div id="invite">
-				<h1>{t('invite.title')}</h1>
-				<p className="description">{t('invite.description')}</p>
+				<h1 className="animate__animated animate__zoomIn">{t('invite.title')}</h1>
+				<p className="description animate__animated animate__zoomIn">{t('invite.description')}</p>
 				<div className="buttons-row">
-					<div className="big-button" onClick={bonusClickHandler}>
+					<div className="big-button animate__animated animate__bounceInLeft" onClick={bonusClickHandler}>
 						<div className="icon"><BonusIcon /></div>
 						<span>{t('invite.bonuses')}</span>
 					</div>
-					<div className="big-button">
+					<div className="big-button grey animate__animated animate__bounceInLeft">
 						<div className="icon"><MetricsIcon /></div>
 						<span>{t('invite.metrics')}</span>
 					</div>
-					<Link to={'/faq-invite'} className="big-button">
+					<Link to={'/faq-invite'} className="big-button animate__animated animate__bounceInLeft">
 						<div className="icon"><QuestionIcon size={41} /></div>
 						<span>{t('invite.faq')}</span>
 					</Link>
 				</div>
-				<div className="invite">
+				<div className="invite animate__animated animate__bounceInRight">
 					<PresentIcon />
 					<div className="col">
 						<h2>{t('invite.inviteTitle')}</h2>
@@ -119,9 +119,11 @@ export default function Invite() {
 						</div>
 					</div>
 				</div>
-				<TabMenu pages={pages} page={page} setPage={setPage} onReload={updatePartners} amount={(page === 'invited' ? partners?.length : command?.length) || 0} />
-				{page === 'invited' && <InviteTab items={partners} loading={loading} />}
-				{page === 'command' && <InviteTab items={command} loading={loading} />}
+				<div className="animate__animated animate__zoomIn">
+					<TabMenu pages={pages} page={page} setPage={setPage} onReload={updatePartners} amount={(page === 'invited' ? partners?.length : command?.length) || 0} />
+					{page === 'invited' && <InviteTab items={partners} loading={loading} />}
+					{page === 'command' && <InviteTab items={command} loading={loading} />}
+				</div>
 			</div>
 			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} text={modalText} type={modalType} />
 		</>

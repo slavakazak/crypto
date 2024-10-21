@@ -184,20 +184,20 @@
 			position: relative;
 
 			.count {
-				width: 9px;
-				height: 9px;
+				width: 14px;
+				height: 14px;
 				background: $accent;
-				border-radius: 5px;
+				border-radius: 7px;
 				color: $font;
-				font-size: 5px;
+				font-size: 8px;
 				font-weight: 500;
 				letter-spacing: -0.1px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				position: absolute;
-				top: 0;
-				right: -4px;
+				top: -3px;
+				right: -6px;
 			}
 		}
 
@@ -210,18 +210,9 @@
 			box-shadow: 0px 0px 8.9px 0px $accent;
 			margin-top: 17px;
 
-			@media (max-height: 615px) {
-				width: 116px;
-				height: 154px;
-			}
-
-			@media (max-height: 570px) {
-				width: 87px;
-				height: 115px;
-			}
-
 			.slick-slider, .slick-list {
 				border-radius: 38px;
+				min-height: 150px;
 			}
 
 			div {
@@ -235,6 +226,27 @@
 				object-fit: cover;
 				object-position: top center;
 				border-radius: 38px;
+			}
+
+			@media (max-height: 720px) {
+				width: 116px;
+				height: 154px;
+			}
+
+			@media (max-height: 630px) {
+				margin-top: 0px;
+				width: 87px;
+				height: 115px;
+				border-radius: 20px;
+
+				.slick-slider, .slick-list {
+					border-radius: 20px;
+					min-height: 115px;
+				}
+
+				img {
+					border-radius: 20px;
+				}
 			}
 		}
 
@@ -295,6 +307,7 @@
 		padding: 17px 15px 0 21px;
 		position: relative;
 		border: 1px solid rgba($accent, 0.5);
+		min-height: 150px;
 
 		.slide {
 			padding-bottom: 56px;

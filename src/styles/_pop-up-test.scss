@@ -1,0 +1,114 @@
+.pop-up-wrapper.pop-up-test {
+	.pop-up.pop-up-full {
+		padding: 24px 15px 42px 15px;
+		overflow-y: scroll;
+	}
+
+	.description {
+		margin-bottom: 25px;
+	}
+
+	.text {
+		text-align: center;
+		font-size: 14px;
+		font-weight: 400;
+		letter-spacing: -0.28px;
+		margin-bottom: 18px;
+	}
+
+	.question-block {
+		display: none;
+
+		&.active {
+			display: block;
+		}
+	}
+
+	.question {
+		padding: 15px 20px;
+		border-radius: $radius;
+		border: 1px solid $accent;
+		background: $accent;
+		margin-bottom: 18px;
+	}
+
+	.variants {
+		margin-bottom: 10px;
+	}
+
+	.variant {
+		border-radius: $radius;
+		border: 1px solid $border;
+		padding: 15px 49px 15px 20px;
+		margin-bottom: 15px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: -0.24px;
+
+		&.active {
+			padding: 15px 20px 15px 20px;
+			border: 1px solid $accent;
+		}
+
+		.ok {
+			fill: $accent;
+			flex-shrink: 0;
+		}
+	}
+
+	.button-wrapper {
+		text-align: center;
+	}
+
+	.test-button {
+		display: inline-block;
+		border-radius: $radius;
+		background: $accent;
+		cursor: pointer;
+		width: 174px;
+		height: $block-height;
+		text-align: center;
+		line-height: $block-height;
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: -0.24px;
+	}
+
+	h3 {
+		font-size: 36px;
+		font-weight: 700;
+		letter-spacing: -0.72px;
+		text-align: center;
+	}
+
+	.result {
+		border-radius: $radius;
+		border: 1px solid $accent;
+		margin-top: 22px;
+		margin-bottom: 25px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: -0.24px;
+		height: $block-height;
+		padding: 0 20px;
+	}
+
+	.errors {
+		border-radius: $radius;
+		border: 1px solid $border;
+		padding: 15px 20px;
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: -0.24px;
+		text-align: justify;
+		margin-bottom: 25px;
+	}
+}

@@ -1,4 +1,4 @@
-import { FlagEnIcon, FlagRusIcon, MenIcon, WomenIcon } from "../components/Icons"
+import { MenIcon, WomenIcon } from "../components/Icons"
 import robot from '../img/robot.png'
 import k1avatar from '../img/k1avatar.png'
 import k2avatar from '../img/k2avatar.png'
@@ -8,7 +8,6 @@ import k5avatar from '../img/k5avatar.png'
 import k6avatar from '../img/k6avatar.png'
 import k7avatar from '../img/k7avatar.png'
 import k2 from '../img/K2.png'
-import logo from '../img/logo.png'
 
 export const genders = [
 	{ tag: 'man', icon: <MenIcon /> },
@@ -267,10 +266,7 @@ export const countries = countriesNoId.map((country, id) => ({ ...country, code:
 
 export const avatars = { k1avatar, k2avatar, k3avatar, k4avatar, k5avatar, k6avatar, k7avatar }
 
-export const languages = [
-	{ tag: 'ru', icon: <FlagRusIcon /> },
-	{ tag: 'en', icon: <FlagEnIcon /> },
-]
+export const languages = ['ru', 'en']
 
 export const products = [
 	{
@@ -278,9 +274,9 @@ export const products = [
 		id: 16,
 		img: robot,
 		inactive: false,
-		price: 499,
-		profit: '7,68%',
-		indicators: ['53,8%', '7,68%', '71,4%', '56,7%', '-5,9%', '-3,18%', '45,1%', '20-50%'],
+		price: 555,
+		profit: '7,51%',
+		indicators: ['67,62%', '7,51%', '77,7%', '58,08%', '-16%', '-3,18%', '45,1%', '20-50%'],
 		icon: k2,
 	},
 	{
@@ -293,7 +289,7 @@ export const products = [
 export const improvements = [
 	{
 		id: 20,
-		price: 22
+		price: 88
 	}
 ]
 
@@ -321,7 +317,10 @@ export const defaultProfileData = {
 	usdt: 0,
 	ref: '',
 	link: '',
-	start: 0
+	start: 0,
+	daily: 0,
+	dailyTime: '',
+	video: false
 }
 
 export const defaultLevels = [
@@ -402,4 +401,4 @@ export const defaultLevels = [
 	{}
 ]
 
-export const bonuses = [1000, 750, 1500, 750, 750, 2500, 750, 750, 5000, 750, 5000, 5000]
+export const bonuses = [1000, 850, 1500, 850, 850, 2500, 850, 850, 5555, 850, 5555, 5555]

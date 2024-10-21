@@ -1,4 +1,4 @@
-import { genders, countries, languages, defaultProfileData } from './constants'
+import { genders, countries, defaultProfileData } from './constants'
 import getWpUser from './getWpUser'
 
 export default async function getWpFields(auth, wpId) {
@@ -22,13 +22,16 @@ export default async function getWpFields(auth, wpId) {
 		avatars: meta.t_avatars ? meta.t_avatars.split(',') : defaultProfileData.avatars,
 		myAvatar: meta.t_my_avatar || defaultProfileData.myAvatar,
 		avatar: meta.t_avatar || defaultProfileData.avatar,
-		language: languages.find(language => language.tag === meta.t_language) || defaultProfileData.language,
+		language: meta.t_language || defaultProfileData.language,
 		level: parseInt(meta.t_level, 10) || defaultProfileData.level,
 		token: +meta.t_token || defaultProfileData.token,
 		coin: +meta.t_coin || defaultProfileData.coin,
 		usdt: +meta.t_usdt || defaultProfileData.usdt,
 		ref: meta.t_ref || wpUser.id || defaultProfileData.ref,
 		link: meta.t_link || defaultProfileData.link,
-		start: meta.t_start || defaultProfileData.start
+		start: meta.t_start || defaultProfileData.start,
+		daily: meta.t_daily || defaultProfileData.daily,
+		dailyTime: meta.t_daily_time || defaultProfileData.dailyTime,
+		video: meta.t_video || defaultProfileData.video
 	}
 }

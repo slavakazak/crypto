@@ -11,11 +11,13 @@ import { DataContext } from "../context/DataProvider"
 import { AuthContext } from "../context/AuthProvider"
 import getNicknameFromRef from "../utils/getNicknameFromRef"
 import { CircleFlag } from 'react-circle-flags'
+import Modal from "../components/Modal"
+import deleteUser from "../utils/deleteUser"
 
 export default function Profile() {
 	const { t } = useTranslation()
 	const { auth } = useContext(AuthContext)
-	const { profileData, setData } = useContext(DataContext)
+	const { profileData, setData, wpId, tg } = useContext(DataContext)
 	const [popUpAvatar, setPopUpAvatar] = useState(false)
 	const [avatar, setAvatar] = useState(profileData.avatar)
 
@@ -61,6 +63,27 @@ export default function Profile() {
 		event.stopPropagation()
 		setData({ myAvatar: '', avatar: profileData.avatars[0] })
 		setAvatar(profileData.avatars[0])
+	}
+
+	const [modal, setModal] = useState(false)
+	const [modalText, setModalText] = useState('')
+
+	function openModal(text) {
+		setModalText(text)
+		setModal(true)
+	}
+
+	const [popUpDelete, setPopUpDelete] = useState(false)
+	const [pin, setPin] = useState('')
+
+	async function deleteSaveClickHandler() {
+		if (pin !== profileData.pin) {
+			openModal(t('settings.messages.invalidPIN'))
+			return
+		}
+		if (wpId === 1) return
+		await deleteUser(auth, wpId)
+		tg.close()
 	}
 
 	return (
@@ -118,14 +141,14 @@ export default function Profile() {
 						<span>{t('profile.faq')}</span>
 						<RightArrowIcon />
 					</Link>
-					<Link to={'https://t.me/helper_kk'} className='item'>
+					<Link to={'https://t.me/k2_support_bot'} className='item'>
 						<SupportIcon />
 						<span>{t('profile.support')}</span>
 						<RightArrowIcon />
 					</Link>
 				</div>
 				<div className='exit-row'>
-					<div className='remove'>{t('profile.delete')}</div>
+					<div className='remove' onClick={() => setPopUpDelete(true)}>{t('profile.delete')}</div>
 					{/* <div className='exit'>{t('profile.logOut')}</div> */}
 				</div>
 			</div>
@@ -156,6 +179,23 @@ export default function Profile() {
 					}
 				</div>
 			</PopUp>
+
+			<PopUp
+				active={popUpDelete}
+				onClose={() => setPopUpDelete(false)}
+				title={t('profile.popUpDelete.title')}
+				description={t('profile.popUpDelete.description')}
+				onCancel={() => setPopUpDelete(false)}
+				onSave={deleteSaveClickHandler}
+				saveText={t('profile.popUpDelete.confirm')}
+				saveActive={pin}
+			>
+				<div className="select">
+					<input placeholder={'PIN'} type="password" value={pin} onChange={e => setPin(e.target.value)} />
+				</div>
+			</PopUp>
+
+			<Modal active={modal} onClose={() => setModal(false)} title={t('modal.error')} text={modalText} type='error' />
 		</>
 	)
 }

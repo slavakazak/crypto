@@ -7,6 +7,6 @@ export default async function getIdFromRef(auth, ref) {
 		return response.data
 	} catch (error) {
 		console.error('Error getIdFromRef:', error)
-		return []
+		return null
 	}
 }

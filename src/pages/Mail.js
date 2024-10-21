@@ -38,10 +38,10 @@ export default function Mail() {
 
 	function messageClickHandler(message) {
 		return async () => {
-			let content = profileData.language.tag === 'en' && message.content_en ? message.content_en : message.content
-			content = content.replace('http://', 'https://').replace('" width="560" height="315"', `&fs=0&hl=${profileData.language.tag}&rel=0" width="100%" height="200"`)
+			let content = profileData.language === 'en' && message.content_en ? message.content_en : message.content
+			content = content.replace('http://', 'https://').replace('" width="560" height="315"', `&fs=0&hl=${profileData.language}&rel=0" width="100%" height="200"`)
 			openPopUp(
-				profileData.language.tag === 'en' && message.title_en ? message.title_en : message.title,
+				profileData.language === 'en' && message.title_en ? message.title_en : message.title,
 				<div dangerouslySetInnerHTML={{ __html: content }} />
 			)
 			setMessages(previous => {
@@ -62,11 +62,11 @@ export default function Mail() {
 				</div>
 				{loading ? <div className='preloader'><div className='loader' /></div> : messages.length === 0 ? <>Нет сообщений</> : messages.map((message, i) => {
 					const dateTime = new Date(message.date)
-					const dateTimeFormat = new Intl.DateTimeFormat(profileData.language.tag, { month: "short", day: "numeric" })
+					const dateTimeFormat = new Intl.DateTimeFormat(profileData.language, { month: "short", day: "numeric" })
 					return (<div key={i} className={'message' + (message.is_read ? '' : ' active')} onClick={messageClickHandler(message)}>
 						<div className="left-side">
 							<div className="dot" />
-							<span className="title">{profileData.language.tag === 'en' && message.title_en ? message.title_en : message.title}</span>
+							<span className="title">{profileData.language === 'en' && message.title_en ? message.title_en : message.title}</span>
 						</div>
 						<span className="date">{dateTimeFormat.format(dateTime)}</span>
 					</div>)

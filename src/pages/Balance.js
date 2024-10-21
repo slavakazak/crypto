@@ -10,6 +10,7 @@ import { useContext } from "react"
 import { DataContext } from "../context/DataProvider"
 import { AuthContext } from "../context/AuthProvider"
 import Back from "../components/Back"
+import PopUp from "../components/PopUp"
 
 export default function Balance() {
 	const { t } = useTranslation()
@@ -89,7 +90,10 @@ export default function Balance() {
 		// 	comment: 'Первый заказ пользователя',
 		// 	transaction_time: getUTCTime() //YYYY-MM-DD HH:MM:SS по UTS+0
 		// }
-		updateTransactions()
+		async function init() {
+			await updateTransactions()
+		}
+		init()
 	}, [wpId])
 
 	const [searchActive, setSearchActive] = useState(false)
@@ -114,8 +118,13 @@ export default function Balance() {
 		return ''
 	}
 
-	function getType(type, productId) {
-		if (type === 'accrual') return t('balance.type.accrual')
+	function getType(type, productId, partnerName, comment) {
+		if (type === 'accrual') {
+			if (partnerName) return t('balance.type.accrual') + ' ' + t('balance.type.from') + ' ' + partnerName
+			if (comment && comment.includes('Ежедневная активность')) return t('balance.type.accrual') + ' ' + t('balance.type.daily')
+			if (comment && comment.includes('Просмотр видео')) return t('balance.type.accrual') + ' ' + t('balance.type.video')
+			return t('balance.type.accrual')
+		}
 		if (type === 'swap') return t('balance.type.swap')
 		if (type === 'withdrawal') return t('balance.type.withdrawal')
 		if (type === 'purchase') {
@@ -139,29 +148,71 @@ export default function Balance() {
 		return ''
 	}
 
-	function refresh() {
-		updateTransactions()
-		setData({})
+	async function refresh() {
+		await updateTransactions()
+		await setData({})
 	}
+
+
+	const [popUpWithdrawal, setPopUpWithdrawal] = useState(false)
+	const [wallet, setWallet] = useState(profileData.wallet)
+	const [pin, setPin] = useState()
+
+	function openWithdrawal() {
+		if (profileData.usdt < 50) return
+		setPopUpWithdrawal(true)
+	}
+
+	async function withdrawalClickHandler() {
+		if (profileData.usdt < 50) return
+		if (!wallet || !/^0x[a-fA-F0-9]{40}$/.test(wallet.trim())) {
+			openModal(t('modal.error'), t('settings.messages.invalidWallet'), 'error')
+			return
+		}
+		if (pin !== profileData.pin) {
+			openModal(t('modal.error'), t('settings.messages.invalidPIN'), 'error')
+			return
+		}
+
+		const transactionData = {
+			user_id: wpId,
+			transaction_type: 'withdrawal',
+			transaction_status: 'processing',
+			price: profileData.usdt,
+			currency: 'USDT',
+			comment: profileData.wallet,
+			transaction_time: getUTCTime()
+		}
+		await addTransaction(auth, transactionData)
+		await setData({ usdt: 0 })
+
+		openModal(t('modal.reference'), () => <div>{t('balance.successModalText')} <span onClick={() => setModal(false)}>{t('balance.transactions')}</span>.</div>, 'success')
+
+		setPopUpWithdrawal(false)
+	}
+
+	useEffect(() => {
+		setWallet(profileData.wallet)
+	}, [profileData])
 
 	return (
 		<>
 			<div id="balance">
-				<div className="top-menu">
+				<div className="top-menu animate__animated animate__zoomIn">
 					<Back />
 					<div className="head">
 						<h1>{t('balance.balance')}</h1>
 						<div className="info" onClick={balanceInfoHandler}><InfoIcon size={18} /></div>
 					</div>
 				</div>
-				<div className="sub-title">
+				<div className="sub-title animate__animated animate__zoomIn">
 					<div className="col">
 						<span>{t('balance.wallets')}</span>
 						<div className="info" onClick={walletsInfoHandler}><InfoIcon size={10} /></div>
 					</div>
 					<div className="icon" onClick={refresh}><RefreshIcon /></div>
 				</div>
-				<div className="wallets">
+				<div className="wallets animate__animated animate__zoomIn">
 					<div className="wallet">
 						<div className="currency">
 							<div className="icon token"><TokenIcon /></div>
@@ -184,34 +235,34 @@ export default function Balance() {
 						<div className="value">{profileData.usdt}</div>
 					</div>
 				</div>
-				<div className={'withdrawal' + (profileData.usdt > 0 ? ' active' : '')}>{t('balance.withdrawal')}</div>
-				<div className="search-row">
+				<div className={'withdrawal animate__animated animate__zoomIn' + (profileData.usdt >= 50 ? ' active' : '')} onClick={openWithdrawal}>{t('balance.withdrawal')}</div>
+				<div className="search-row animate__animated animate__zoomIn">
 					<h2 className={searchActive ? 'hidden' : ''}>{t('balance.transactions')}</h2>
 					<div className={'search-wrapper' + (searchActive ? ' active' : '')}>
 						<input ref={searchRef} type="text" className="search" placeholder={t('balance.search')} onChange={e => setSearch(e.target.value)} value={search} />
-						<div className="search-button" onClick={openSearch}><SearchIcon /></div>
-						<div className="cross-button" onClick={closeSearch}><CrossIcon /></div>
+						{/* <div className="search-button" onClick={openSearch}><SearchIcon /></div>
+						<div className="cross-button" onClick={closeSearch}><CrossIcon /></div> */}
 					</div>
-					<div className="filter-button"><FilterIcon /></div>
+					{/* <div className="filter-button"><FilterIcon /></div> */}
 				</div>
-				<div className="transactions">
+				<div className="transactions animate__animated animate__zoomIn">
 					{!transactionsDates ? <div className='preloader'><div className='loader' /></div> :
 						Object.keys(transactionsDates).map((item, i) => {
 							const date = new Date(item + 'T00:00:00Z')
-							const dateFormat = new Intl.DateTimeFormat(profileData.language.tag, { month: "long", day: "numeric" })
+							const dateFormat = new Intl.DateTimeFormat(profileData.language, { month: "long", day: "numeric" })
 							return (
 								<div key={i}>
 									<div className="date">{dateFormat.format(date)}</div>
 									<div className="transactions-block">
 										{transactionsDates[item].map((transaction, i) => {
 											const dateTime = new Date(transaction.transaction_time.replace(' ', 'T') + 'Z')
-											const dateTimeFormat = new Intl.DateTimeFormat(profileData.language.tag, { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric" })
+											const dateTimeFormat = new Intl.DateTimeFormat(profileData.language, { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric" })
 											return (
 												<div key={i} className="transaction">
 													<div className="right-side">
 														<div className="icon">{getTypeIcon(transaction.transaction_type)}</div>
 														<div className="info-block">
-															<div className="type">{getType(transaction.transaction_type, transaction.product_id)}</div>
+															<div className="type">{getType(transaction.transaction_type, transaction.product_id, transaction.partner_name, transaction.comment)}</div>
 															<div className="time">{dateTimeFormat.format(dateTime)}</div>
 															<div className="status">{t('balance.status.text')}: {getStatus(transaction.transaction_status)}</div>
 														</div>
@@ -238,6 +289,23 @@ export default function Balance() {
 						})}
 				</div>
 			</div>
+
+			<PopUp
+				active={popUpWithdrawal}
+				onClose={() => setPopUpWithdrawal(false)}
+				title={t('balance.popUpTitle')}
+				description={t('balance.popUpDescription')}
+				onCancel={() => setPopUpWithdrawal(false)}
+				onSave={withdrawalClickHandler}
+				saveText={t('balance.withdrawal')}
+				saveActive={profileData.usdt >= 50}
+			>
+				<div className="select">
+					<input placeholder={t('settings.popUpChangePin.placeholder.wallet')} value={wallet} onChange={e => setWallet(e.target.value)} />
+					<input placeholder={t('settings.popUpChangePin.placeholder.pin')} type="password" value={pin} onChange={e => setPin(e.target.value)} />
+				</div>
+			</PopUp>
+
 			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} content={modalContent} type={modalType} />
 		</>
 	)

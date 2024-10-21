@@ -7,5 +7,6 @@ export default async function getWpUser(auth, wpId) {
 		return response.data
 	} catch (error) {
 		console.error('Error getting user id:', error)
+		return null
 	}
 }

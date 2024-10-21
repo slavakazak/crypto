@@ -1,6 +1,6 @@
 export default function Switch({ second, setSecond, firstText, secondText }) {
 	return (
-		<div className='switch'>
+		<div className='switch animate__animated animate__zoomIn'>
 			<div className={'slider' + (second ? ' second' : '')} />
 			<div className='options'>
 				<div className='option' onClick={() => setSecond(false)}>{firstText}</div>

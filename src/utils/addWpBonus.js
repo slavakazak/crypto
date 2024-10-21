@@ -5,7 +5,7 @@ import getDateTimeString from "./getDateTimeString"
 import { bonuses } from "./constants"
 const url = process.env.REACT_APP_SITE_URL
 
-export default async function addWpBonus(auth, wpId) {
+export default async function addWpBonus(auth, wpId, partnerId) {
 	try {
 		// Получение текущих мета полей пользователя
 		const response = await axios.get(`${url}/wp-json/wp/v2/users/${wpId}`, { headers: auth })
@@ -36,7 +36,7 @@ export default async function addWpBonus(auth, wpId) {
 			currency: 'coin',
 			transaction_time: getUTCTime(),
 			user_id: wpId,
-			comment: 'start bonus ' + (start + 1)
+			comment: 'start bonus ' + (start + 1) + ' от пользователя ' + partnerId
 		})
 	} catch (error) {
 		console.error('Error adding bonus:', error.response?.data || error.message);

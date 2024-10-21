@@ -6,7 +6,7 @@ export default function DayString({ number }) {
 	const { t } = useTranslation()
 	const { profileData } = useContext(DataContext)
 	let day
-	if (profileData.language.tag === 'en') {
+	if (profileData.language === 'en') {
 		day = t('day2')
 		if (number === 1) {
 			day = t('day1')

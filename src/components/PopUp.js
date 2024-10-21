@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useContext } from 'react'
 import { HeightContext } from "../context/HeightProvider"
 
-export default function PopUp({ active, onClose, title, description, children, onCancel, onSave, saveActive, full = false, saveText, search, setSearch }) {
+export default function PopUp({ active, onClose, title, description, children, onCancel, onSave, saveActive = true, full = false, saveText, search, setSearch }) {
 	const { t } = useTranslation()
 	const { height, maxHeight } = useContext(HeightContext)
 	const [animation, setAnimation] = useState(false)

@@ -1,23 +1,23 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { CalendarIcon, RightArrowIcon, SuccessIcon, TokenIcon, YouTubeIcon, CirclesIcon } from "../components/Icons"
 import PopUpYouTube from "../components/PopUpYouTube"
 import PopUpDaily from "../components/PopUpDaily"
 import { useTranslation } from 'react-i18next'
+import { DataContext } from "../context/DataProvider"
 
 export default function Task() {
 	const { t } = useTranslation()
+	const { profileData } = useContext(DataContext)
 
 	const [youTube, setYouTube] = useState(false)
-	const [youTubeText, setYouTubeText] = useState('')
+	const [youTubeTitle, setYouTubeTitle] = useState('')
 	const [youTubeDescription, setYouTubeDescription] = useState('')
-	const [youTubeLink, setYouTubeLink] = useState('')
 	const [youTubeBonus, setYouTubeBonus] = useState()
 
-	function openYoyTube(text, description, link, bonus) {
+	function openYoyTube(title, description, bonus) {
 		setYouTube(true)
-		setYouTubeText(text)
+		setYouTubeTitle(title)
 		setYouTubeDescription(description)
-		setYouTubeLink(link)
 		setYouTubeBonus(bonus)
 	}
 
@@ -27,20 +27,20 @@ export default function Task() {
 		<>
 
 			<div id="task">
-				<div className="circles"><CirclesIcon /></div>
-				<h1>{t('task.title')}</h1>
+				<div className="circles animate__animated animate__zoomIn"><CirclesIcon /></div>
+				<h1 className="animate__animated animate__zoomIn">{t('task.title')}</h1>
 				<h2>{t('task.youTube')}</h2>
-				<div className="task-block" onClick={() => openYoyTube(t('task.task1Title'), t('task.task1Description'), '/', 1000)}>
+				<div className={'task-block' + (profileData.video ? ' active' : '')} onClick={() => openYoyTube(t('task.task1Title'), t('task.task1Description'), 5000)}>
 					<div className="left-side">
 						<YouTubeIcon />
 						<div>
 							<div className="text">{t('task.task1Title')}</div>
-							<div className="bonus"><TokenIcon /><span>+1000</span></div>
+							<div className="bonus"><TokenIcon /><span>+5000</span></div>
 						</div>
 					</div>
-					<RightArrowIcon />
+					{profileData.video ? <SuccessIcon size={33} /> : <RightArrowIcon />}
 				</div>
-				<div className="task-block active">
+				{/* <div className="task-block active">
 					<div className="left-side">
 						<YouTubeIcon />
 						<div>
@@ -49,9 +49,9 @@ export default function Task() {
 						</div>
 					</div>
 					<SuccessIcon size={33} />
-				</div>
-				<h2>{t('task.daily')}</h2>
-				<div className="task-block" onClick={() => setDaily(true)}>
+				</div> */}
+				<h2 className="animate__animated animate__zoomIn">{t('task.daily')}</h2>
+				<div className="task-block animate__animated animate__zoomIn" onClick={() => setDaily(true)}>
 					<div className="left-side">
 						<CalendarIcon />
 						<div>
@@ -63,7 +63,7 @@ export default function Task() {
 				</div>
 			</div>
 
-			<PopUpYouTube active={youTube} onClose={() => setYouTube(false)} text={youTubeText} description={youTubeDescription} link={youTubeLink} bonus={youTubeBonus} />
+			<PopUpYouTube active={youTube} onClose={() => setYouTube(false)} title={youTubeTitle} description={youTubeDescription} bonus={youTubeBonus} />
 
 			<PopUpDaily active={daily} onClose={() => setDaily(false)} />
 		</>

@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react"
 import { DataContext } from "../context/DataProvider"
 import { AuthContext } from "../context/AuthProvider"
 import getNicknameFromRef from "../utils/getNicknameFromRef"
+import getFAQ from "../utils/getFAQ"
 
 export default function Start() {
 	const { t } = useTranslation()
@@ -27,34 +28,28 @@ export default function Start() {
 		init()
 	}, [auth, profileData.link])
 
+	const [faq, setFaq] = useState([])
+
+	useEffect(() => {
+		if (!auth) return
+		async function init() {
+			const newFaq = await getFAQ(auth)
+			setFaq(newFaq)
+		}
+		init()
+	}, [auth])
+
 	return (
 		<div id="faq">
 			<div className="top-menu">
 				<Back />
 				<h1>{t('faq.startTitle')}</h1>
 			</div>
-			<h2>{t('faq.investors')}</h2>
-			<Accordion number={1} title={t('faq.startTitle1')}>
-				<p>{t('faq.faqText')}</p>
-				<br />
-				<p>{t('faq.faqText')}</p>
-			</Accordion>
-			<Accordion number={2} title={t('faq.startTitle2')}>
-				<p>{t('faq.faqText')}</p>
-				<br />
-				<p>{t('faq.faqText')}</p>
-			</Accordion>
-			<Accordion number={3} title={t('faq.startTitle3')}>
-				<p>{t('faq.faqText')}</p>
-				<br />
-				<p>{t('faq.faqText')}</p>
-			</Accordion>
-			<h2>{t('faq.business')}</h2>
-			<Accordion number={1} title={t('faq.startTitle4')}>
-				<p>{t('faq.faqText')}</p>
-				<br />
-				<p>{t('faq.faqText')}</p>
-			</Accordion>
+			{faq.filter(item => item.page === 'option4').reverse().map((item, i) => (
+				<Accordion key={i} number={i + 1} title={profileData.language === 'en' && item.title_en ? item.title_en : item.title}>
+					<div dangerouslySetInnerHTML={{ __html: profileData.language === 'en' && item.content_en ? item.content_en : item.content }} />
+				</Accordion>
+			))}
 			{refNickname && <Link to={'https://t.me/' + refNickname} className="question">{t('faq.write')}</Link>}
 		</div>
 	)

@@ -17,6 +17,7 @@ import { LevelsContext } from "../context/LevelsProvider"
 import addWpBonus from "../utils/addWpBonus"
 import getIdFromRef from "../utils/getIdFromRef"
 import { avatars } from "../utils/constants"
+import { Link } from "react-router-dom"
 
 export default function PopUpProduct({ currentProduct, orderStage, setOrderStage, openSuccessModal, openModal }) {
 	const { t } = useTranslation()
@@ -27,12 +28,12 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 
 	const currencies = {
 		"USDTBSC": {
-			firstName: 'USDC',
+			firstName: 'USDT',
 			lastName: 'BSC',
 			img: usdtbsc
 		},
 		"USDTTRC20": {
-			firstName: 'USDC',
+			firstName: 'USDT',
 			lastName: 'TRX',
 			img: usdttrx
 		}
@@ -45,24 +46,9 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 			fix: 0
 		},
 		{
-			code: 'percent10',
-			percent: 10,
+			code: 'coupon',
+			percent: 80,
 			fix: 0
-		},
-		{
-			code: 'fix10',
-			percent: 0,
-			fix: 10
-		},
-		{
-			code: 'percent99',
-			percent: 99,
-			fix: 0
-		},
-		{
-			code: 'fix498',
-			percent: 0,
-			fix: 498
 		}
 	]
 
@@ -70,8 +56,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 	const [currency, setCurrency] = useState('USDTBSC')
 	const [coupon, setCoupon] = useState('')
 	const [currentCoupon, setCurrentCoupon] = useState(null)
-	const [privacyPolicy, setPrivacyPolicy] = useState(false)
-	const [disclaimer, setDisclaimer] = useState(false)
+	const [offer, setOffer] = useState(false)
 	const [placing, setPlacing] = useState(true)
 	const [amount, setAmount] = useState(null)
 	const [address, setAddress] = useState('')
@@ -84,8 +69,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 	useEffect(() => {
 		setCurrencyActive(false)
 		setCoupon('')
-		setPrivacyPolicy(false)
-		setDisclaimer(false)
+		setOffer(false)
 		setPlacing(true)
 		setAmount(null)
 		setAddress('')
@@ -126,7 +110,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 	}
 
 	async function placingClickHandler() {
-		if (!disclaimer || !privacyPolicy || !placing) return
+		if (!offer || !placing) return
 		setPlacing(false)
 		if (getPrice() === 0) {
 			await addTransaction(auth, {
@@ -141,7 +125,7 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 			})
 			await checkLevel()
 			const refId = await getIdFromRef(auth, profileData.link)
-			if (refId) await addWpBonus(auth, +refId)
+			if (refId) await addWpBonus(auth, +refId, profileData.link)
 			openSuccessModal()
 			return
 		}
@@ -199,6 +183,10 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 
 	function confirmClickHandler() {
 		openSuccessModal()
+	}
+
+	function offerClickHandler(e) {
+		e.stopPropagation()
 	}
 
 	return (
@@ -276,17 +264,12 @@ export default function PopUpProduct({ currentProduct, orderStage, setOrderStage
 							<img className='currency-icon' src={currencies[currency].img} alt={currency} />
 						</div>
 					</div>
-					<div className='agreement' onClick={() => setPrivacyPolicy(previous => !previous)}>
-						<div className={'checkbox' + (privacyPolicy ? ' active' : '')}><OkIcon /></div>
-						<input type='checkbox' checked={privacyPolicy} onChange={() => setPrivacyPolicy(previous => !previous)} />
-						<p>{t('workshop.agree')} <span onClick={e => e.stopPropagation()}>{t('workshop.privacyPolicy')}</span></p>
+					<div className='agreement offer' onClick={() => setOffer(previous => !previous)}>
+						<div className={'checkbox' + (offer ? ' active' : '')}><OkIcon /></div>
+						<input type='checkbox' checked={offer} onChange={() => setOffer(previous => !previous)} />
+						<p>{t('workshop.agree')} <a href={'/docs/offer.pdf'} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>{t('workshop.offer')}</a></p>
 					</div>
-					<div className='agreement disclaimer' onClick={() => setDisclaimer(previous => !previous)}>
-						<div className={'checkbox' + (disclaimer ? ' active' : '')}><OkIcon /></div>
-						<input type='checkbox' checked={disclaimer} onChange={() => setDisclaimer(previous => !previous)} />
-						<p>{t('workshop.agree')} <span onClick={e => e.stopPropagation()}>{t('workshop.disclaimer')}</span></p>
-					</div>
-					<div className={'buy' + (disclaimer && privacyPolicy && placing ? ' active' : '')} onClick={placingClickHandler}>ОФОРМИТЬ ЗАКАЗ</div>
+					<div className={'buy' + (offer && placing ? ' active' : '')} onClick={placingClickHandler}>ОФОРМИТЬ ЗАКАЗ</div>
 				</>}
 				{orderStage === 'confirm' && <>
 					<h2>{t('workshop.confirmTitle')}</h2>

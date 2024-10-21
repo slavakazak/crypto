@@ -47,7 +47,7 @@ export function LevelsProvider({ children }) {
 		if (line === 1) {
 			arr.forEach(item => {
 				const sum = getCountCommand(item.partners, line + 1)
-				res += sum > max * 0.4 ? max * 0.4 : sum
+				res += sum > Math.floor(max * 0.4) ? Math.floor(max * 0.4) : sum
 			})
 		} else {
 			arr.forEach(item => {
@@ -323,3 +323,237 @@ export function LevelsProvider({ children }) {
 		</LevelsContext.Provider>
 	)
 }
+
+
+const levels = [
+	{
+		"tasks": [
+			{
+				"completed": true
+			}
+		],
+		"time": "2024-09-01 21:37:27"
+	},
+	{
+		"tasks": [
+			{
+				"completed": false
+			},
+			{
+				"completed": false
+			}
+		],
+		"achievements": [
+			0,
+			1
+		],
+		"referrals": 0,
+		"earned": 0,
+		"time": "2024-09-01 21:37:27"
+	},
+	{
+		"tasks": [
+			{
+				"completed": false,
+				"current": 0,
+				"total": 3
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 5
+			}
+		],
+		"achievements": [
+			0
+		],
+	},
+	{
+		"tasks": [
+			{
+				"completed": false,
+				"current": 0,
+				"total": 5
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 25
+			}
+		],
+		"achievements": [
+			0
+		]
+	},
+	{
+		"tasks": [
+			{
+				"completed": false,
+				"current": 0,
+				"total": 10
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 125
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 2
+			}
+		],
+		"achievements": [
+			0,
+			1,
+			2
+		]
+	},
+	{
+		"tasks": [
+			{
+				"completed": false,
+				"current": 0,
+				"total": 20
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 500
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 2
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			}
+		],
+		"achievements": [
+			0,
+			1,
+			2
+		]
+	},
+	{
+		"tasks": [
+			{
+				"completed": false,
+				"current": 0,
+				"total": 25
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1500
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 2
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			}
+		],
+		"achievements": [
+			0,
+			1,
+			2
+		]
+	},
+	{
+		"tasks": [
+			{
+				"completed": false,
+				"current": 0,
+				"total": 30
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 4000
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 2
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			}
+		],
+		"achievements": [
+			0,
+			1,
+			2
+		]
+	},
+	{
+		"tasks": [
+			{
+				"completed": false,
+				"current": 0,
+				"total": 40
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 10000
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 2
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			},
+			{
+				"completed": false,
+				"current": 0,
+				"total": 1
+			}
+		],
+		"achievements": [
+			0,
+			1,
+			2
+		]
+	},
+	{}
+]

@@ -35,28 +35,27 @@ export default function Workshop() {
 		setModal(true)
 	}
 
+	const [currentProduct, setCurrentProduct] = useState(null)
+	const [orderStage, setOrderStage] = useState('purchase')
+	const [robots, setRobots] = useState([])
+	const [myImprovements, setMyImprovements] = useState([])
+	const [allImprovements, setAllImprovements] = useState([])
+	const [loading, setLoading] = useState(true)
+
 	function closeModal() {
 		setModal(false)
 		setModalContent('')
+		setOrderStage('')
 	}
-
-	const [currentProduct, setCurrentProduct] = useState(null)
-	const [orderStage, setOrderStage] = useState('purchase')
-	const [availableRobots, setAvailableRobots] = useState([])
-	const [availableProducts, setAvailableProducts] = useState([])
-	const [availableImprovements, setAvailableImprovements] = useState([])
-	const [allImprovements, setAllImprovements] = useState([])
-	const [loading, setLoading] = useState(true)
 
 	async function updateProducts() {
 		if (!auth) return
 		setLoading(true)
-		const robots = await getRobots(auth, wpId)
-		setAvailableRobots(products.filter(product => robots.includes(String(product.id))))
-		setAvailableProducts(products.filter(product => !robots.includes(String(product.id))))
-		const myImprovements = await getImprovements(auth, wpId)
-		setAvailableImprovements(improvements.filter(improvement => myImprovements.includes(String(improvement.id))))
-		setAllImprovements(improvements.filter(improvement => !myImprovements.includes(String(improvement.id))))
+		const newRobots = await getRobots(auth, wpId)
+		setRobots(newRobots.map(robot => products.find(product => product.id === +robot)))
+		const newImprovements = await getImprovements(auth, wpId)
+		setMyImprovements(newImprovements.map(newImprovement => improvements.find(improvement => improvement.id === +newImprovement)))
+		setAllImprovements(improvements.filter(improvement => !newImprovements.includes(String(improvement.id))))
 		setLoading(false)
 	}
 
@@ -106,7 +105,7 @@ export default function Workshop() {
 				<p>1. {t('workshop.inventoryModal.text2')} <Link className="link" to={refExchange}>{refExchange}</Link></p>
 				<p>3. {t('workshop.inventoryModal.text3')}</p>
 				<p>3. {t('workshop.inventoryModal.text4')}</p>
-				<p>4. {t('workshop.inventoryModal.text5')} <Link className="link" to={'https://t.me/helper_kk'}>t.me/helper_kk</Link> {t('workshop.inventoryModal.text6')}</p>
+				<p>4. {t('workshop.inventoryModal.text5')} <Link className="link" to={'https://t.me/k2_support_bot'}>t.me/k2_support_bot</Link> {t('workshop.inventoryModal.text6')}</p>
 				<br />
 				<p>”{t('workshop.messageTemplate')}”</p>
 				<br />
@@ -148,11 +147,11 @@ export default function Workshop() {
 				<TopMenu />
 				<Switch second={inventory} setSecond={setInventory} firstText={t('workshop.workshop')} secondText={t('workshop.inventory')} />
 				{loading ? <div className='preloader'><div className='loader' /></div> : inventory ? <>
-					{availableRobots.length !== 0 && <>
-						<h2>{t('workshop.robots')}</h2>
+					{robots.length !== 0 && <>
+						<h2 className='animate__animated animate__zoomIn'>{t('workshop.robots')}</h2>
 						<div className='robots'>
-							{availableRobots.map((item, i) => (
-								<div key={i} className='robot'>
+							{robots.map((item, i) => (
+								<div key={i} className='robot animate__animated animate__zoomIn'>
 									<div className='image'><img src={item.img} alt={item.name} /></div>
 									<div className='title'>
 										<h3>{item.name}</h3>
@@ -162,22 +161,22 @@ export default function Workshop() {
 							))}
 						</div>
 					</>}
-					{availableImprovements.length !== 0 && <>
-						<h2>{t('workshop.improvements')}</h2>
-						{availableImprovements.map((improvement, i) => (
-							<div key={i} className='improvement'>
+					{myImprovements.length !== 0 && <>
+						<h2 className='animate__animated animate__zoomIn'>{t('workshop.improvements')}</h2>
+						{myImprovements.map((improvement, i) => (
+							<div key={i} className='improvement animate__animated animate__zoomIn'>
 								<img src={profileData.avatar === 'my' ? profileData.myAvatar : avatars[profileData.avatar]} alt={profileData.username} />
 								<span>{t('workshop.stroke')}</span>
 							</div>
 						))}
 					</>}
 				</> : <>
-					{availableProducts.length !== 0 && <>
-						<h2>{t('workshop.robots')}</h2>
+					{products.length !== 0 && <>
+						<h2 className='animate__animated animate__zoomIn'>{t('workshop.robots')}</h2>
 						<div className='shop-slider'>
-							<div className='slider-track' style={{ width: (availableProducts.length * 169 + 15) + 'px' }}>
-								{availableProducts.map((product, i) => (
-									<div key={i} className={'product-card' + (product.inactive ? ' inactive' : '')} onClick={openPopUp(product)}>
+							<div className='slider-track' style={{ width: (products.length * 169 + 15) + 'px' }}>
+								{products.map((product, i) => (
+									<div key={i} className={'product-card animate__animated animate__zoomIn' + (product.inactive ? ' inactive' : '')} onClick={openPopUp(product)}>
 										<div className='image'><img src={product.img} alt={product.name} /></div>
 										<div className='title'>
 											<h3>{product.name}</h3>
@@ -191,9 +190,9 @@ export default function Workshop() {
 						</div>
 					</>}
 					{allImprovements.length !== 0 && <>
-						<h2>{t('workshop.improvements')}</h2>
+						<h2 className='animate__animated animate__zoomIn'>{t('workshop.improvements')}</h2>
 						{allImprovements.map((improvement, i) => (
-							<div key={i} className='improvement' onClick={openPopUp(improvement)}>
+							<div key={i} className='improvement animate__animated animate__zoomIn' onClick={openPopUp(improvement)}>
 								<img src={profileData.avatar === 'my' ? profileData.myAvatar : avatars[profileData.avatar]} alt={profileData.username} />
 								<span>{t('workshop.stroke')}</span>
 								<div className='icon'><InfoIcon /></div>

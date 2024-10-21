@@ -39,16 +39,16 @@ export default function TopMenu() {
 	}
 
 	function languageSaveClickHandler() {
-		if (language.tag === profileData.language.tag) return
+		if (language === profileData.language) return
 		setData({ language })
-		i18n.changeLanguage(language.tag)
+		i18n.changeLanguage(language)
 		setPopUpLanguage(false)
 	}
 
 	return (
 		<>
 
-			<div className="top-menu main-top-menu">
+			<div className="top-menu main-top-menu animate__animated animate__zoomIn">
 				<Link to='/profile' className="profile">
 					<div className='left-side'>
 						<div className={'avatar' + (outline ? ' outline' : '')}>
@@ -79,7 +79,7 @@ export default function TopMenu() {
 					<QuestionIcon size={18} />
 				</Link>
 				<div className="button" onClick={() => setPopUpLanguage(true)}>
-					{profileData.language.icon}
+					{profileData.language.toUpperCase()}
 				</div>
 			</div>
 
@@ -90,7 +90,7 @@ export default function TopMenu() {
 				description={t('home.popUpLanguage.description')}
 				onCancel={languageCancelClickHandler}
 				onSave={languageSaveClickHandler}
-				saveActive={language.tag !== profileData.language.tag}
+				saveActive={language !== profileData.language}
 				full={true}
 			>
 				<div className="select">

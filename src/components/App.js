@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Link } from "react-router-dom"
 import Menu from "./Menu"
 import Workshop from "../pages/Workshop"
 import Task from "../pages/Task"
@@ -20,17 +20,29 @@ import FAQInvite from "../pages/FAQInvite"
 import { DataContext } from "../context/DataProvider"
 import { HeightContext } from "../context/HeightProvider"
 import { LevelsContext } from "../context/LevelsProvider"
+import Modal from "./Modal"
 
 export default function App() {
-	const { i18n } = useTranslation()
+	const { i18n, t } = useTranslation()
 	const { profileData, wpId } = useContext(DataContext)
 	const { height, maxHeight } = useContext(HeightContext)
 	const { checkLevel, levelsLoad } = useContext(LevelsContext)
 
 	//Set language
 	useEffect(() => {
-		i18n.changeLanguage(profileData.language.tag)
-	}, [profileData.language.tag, i18n])
+		i18n.changeLanguage(profileData.language)
+	}, [profileData.language, i18n])
+
+	const [modal, setModal] = useState(false)
+	const [modalTitle, setModalTitle] = useState('')
+	const [modalContent, setModalContent] = useState('')
+
+	function openModal(title, content) {
+		setModalTitle(title)
+		setModalContent(content)
+		setModal(true)
+	}
+
 
 	//Loading
 	const [loading, setLoading] = useState(true)
@@ -40,6 +52,18 @@ export default function App() {
 		async function init() {
 			await checkLevel()
 			setLoading(false)
+			if (!profileData.nickname ||
+				!profileData.fullName ||
+				!profileData.email ||
+				!profileData.country ||
+				!profileData.gender ||
+				!profileData.age ||
+				!profileData.pin) {
+				openModal(`${t('greetings.title')}, ${profileData.username}!`, <>
+					<p>{t('greetings.text')}</p>
+					<Link className="settings-link" to={'/settings'} onClick={() => setModal(false)}>{t('greetings.link')}</Link>
+				</>)
+			}
 		}
 		init()
 	}, [wpId, levelsLoad])
@@ -71,6 +95,7 @@ export default function App() {
 				</Routes>
 			</div>
 			<Menu style={{ display: maxHeight - height < 150 ? 'flex' : 'none' }} />
+			<Modal active={modal} onClose={() => setModal(false)} title={modalTitle} content={modalContent} />
 		</>
 	)
 }

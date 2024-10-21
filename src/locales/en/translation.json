@@ -8,6 +8,11 @@
 		"success": "Success!",
 		"reference": "Reference"
 	},
+	"greetings": {
+		"title": "Greetings",
+		"text": "To continue working with the K2 ecosystem, fill out all fields in your profile!",
+		"link": "Fill out profile"
+	},
 	"home": {
 		"balance": "Balance",
 		"level": "Level",
@@ -33,6 +38,11 @@
 		"popUpAvatar": {
 			"title": "Changing your avatar",
 			"description": "Choose an avatar that reflects your inner world"
+		},
+		"popUpDelete": {
+			"title": "Account deletion",
+			"description": "Confirm account deletion",
+			"confirm": "confirm"
 		}
 	},
 	"settings": {
@@ -51,7 +61,8 @@
 			"busyLogin": "Login is busy",
 			"emptyPassword": "The password must not be empty",
 			"invalidWallet": "Invalid wallet address",
-			"invalidExchange": "Invalid exchange link"
+			"invalidExchange": "Invalid exchange link",
+			"noRef": "There is no user with this referral code"
 		},
 		"editProfile": "Edit profile",
 		"personalData": "Personal information",
@@ -59,6 +70,7 @@
 		"securityData": "Security data",
 		"financialData": "Financial data",
 		"bitgetData": "Bitget data",
+		"refData": "Upstream ref code",
 		"placeholder": {
 			"nickname": "Nickname",
 			"fullName": "Ivanov Ivan Ivanovich",
@@ -141,6 +153,9 @@
 	"balance": {
 		"type": {
 			"accrual": "Accrual",
+			"from": "from",
+			"daily": "for daily activity",
+			"video": "for watching a video",
 			"swap": "Swap",
 			"withdrawal": "Withdrawal",
 			"purchase": "Purchase"
@@ -159,6 +174,8 @@
 		"withdrawal": "WITHDRAWAL",
 		"transactions": "Transactions",
 		"search": "Enter type, date or amount",
+		"popUpTitle": "Withdrawal of funds",
+		"popUpDescription": "Here you can create your request for withdrawal of funds",
 		"balanceModal": {
 			"text1": "In the balance section you can see the number of coins credited to your wallets.",
 			"text2": "For your recommendation of K2, the company thanks you with a bonus in the form of",
@@ -175,7 +192,8 @@
 			"text3": "an in-game token that is awarded for the purchase of K2 ecosystem products by invited users according to the marketing plan.",
 			"text4": "an in-game token that is awarded automatically by converting COIN at 00.00 every Monday. This token is available for generating a withdrawal request.",
 			"text5": "Conversion rate"
-		}
+		},
+		"successModalText": "The application has been successfully created and will be processed within the next 5 business days. You can track the status of your application in the section"
 	},
 	"workshop": {
 		"workshop": "Workshop",
@@ -219,8 +237,7 @@
 		"noCoupon": "Coupon not found!",
 		"result": "Total",
 		"agree": "I have read and agree with",
-		"privacyPolicy": "Privacy policy",
-		"disclaimer": "Disclaimer",
+		"offer": "Public offer",
 		"confirmTitle": "Order confirmation",
 		"confirmDescription": "To confirm your order, you need to send the asset you have chosen to the address below",
 		"confirm": "PLACE AN ORDER"
@@ -229,9 +246,10 @@
 		"16": {
 			"text": "Secret development of brilliant scientists. With the help of embedded algorithms, it makes a profit!",
 			"term": "Unlimited",
-			"description": "Description of the algorithm: K2 is a trend algorithm, which consists of 77 trading strategies working on 14 trading pairs: ETH, SOL, TRX, ADA, ALGO, DOT, EOS, ETC, FIL, FTM, GRT, LINK, LTC, MATIC. Each trading pair contains from 2 to 7 trading strategies. One of K2's goals is to minimize variance by increasing the number of trading strategies within. With this, K2 using a margin of up to 1% of the deposit gives a positive result with 52 percent or more of profitable transactions.",
+			"description": "K2 is a trend algorithm, which consists of 109 trading strategies working on 17 trading pairs: ETH, SOL, TRX, ADA, ALGO, ATOM, AVAX, DOT, EOS, ETC, FIL, FTM, GRT, LINK, LTC, GRT, HBAR . Each trading pair contains from 2 to 13 trading strategies. One of K2's goals is to minimize variance by increasing the number of trading strategies within. With this, K2 using a margin of up to 1% of the deposit gives a positive result with 52 percent or more of profitable transactions.",
+			"description2": "",
 			"indicators": {
-				"0": "Profitability 01.01.2024-31.07.2024: -------",
+				"0": "Profitability 01.01.2024-30.09.2024: -------",
 				"1": "Average monthly profitability: -------------",
 				"2": "Profitable months: -------------------------",
 				"3": "Profitable transactions: -------------------",
@@ -251,7 +269,7 @@
 		}
 	},
 	"invite": {
-		"text": "Start making money with me on trading robots🔥",
+		"text": "Start making money with me on trading robots🔥\n💸 +1000 tokens as the first person",
 		"title": "INVITE YOUR FRIENDS!",
 		"description": "You and your friend will receive bonuses!",
 		"bonuses": "Bonuses",
@@ -277,7 +295,7 @@
 		"travel": "Travel Bonus",
 		"monthTitle": "Iphone/macbook",
 		"monthDescription": "Participate in the promotion and win the main prize!",
-		"startDescription": "Get 24500 coins for 12 sales!",
+		"startDescription": "Get 26765 coins for 12 sales!",
 		"earned": "Earned",
 		"travelTitle": "k2-club dubai",
 		"travelDescription": "Participate in the promotion and take a trip to Dubai with the leaders of K2!",
@@ -295,7 +313,7 @@
 			"text1": "This is your opportunity from the K2 company to earn even more than the marketing plan allows!",
 			"text2": "Start Bonus is available to ambassadors with the level of K3 and is valid for 60 days from the moment of purchase of the robot.",
 			"text3": "Already with the first purchase of a robot based on your recommendation, you get increased commissions.",
-			"text4": "I have completed the entire start bonus and you will earn 24500 coins, which is equivalent to 2450 usdt.",
+			"text4": "I have completed the entire start bonus and you will earn 26765 coins, which is equivalent to 2450 usdt.",
 			"text5": "Only forward! We believe in you!"
 		}
 	},
@@ -454,7 +472,7 @@
 		"records": "Company records",
 		"my": "My achievements",
 		"command": "Team Achievements",
-		"august": "August",
+		"august": "september",
 		"result": "Result",
 		"nomination": "Nomination",
 		"date": "Date"
@@ -495,5 +513,322 @@
 		"startTitle3": "I want to start, but I don’t know where!",
 		"startTitle4": "What is business inside K2",
 		"write": "WRITE TO THE MENTOR"
+	},
+	"test": {
+		"title": "AMBASSADOR TEST",
+		"description": "Take the test to test your knowledge",
+		"question": "Question",
+		"variants": "Answer options",
+		"next": "Next",
+		"congratulations": "Congratulations!",
+		"passed": "Test passed successfully!",
+		"result": "Result",
+		"thankYou": "THANK YOU!",
+		"failed": "Test failed!",
+		"errors": "Errors",
+		"again": "TRY AGAIN",
+		"questions": {
+			"1": {
+				"text": "What is prohibited for investors and ambassadors of the K2 company?",
+				"a": "Discuss the use of products",
+				"b": "Promise and guarantee income from K2 company products",
+				"c": "Attract new investors",
+				"d": "Share investment ideas"
+			},
+			"2": {
+				"text": "What funds are prohibited from investing in the K2 company?",
+				"a": "Own savings",
+				"b": "Borrowed, credit and last money",
+				"c": "Funds from salary",
+				"d": "Donated money"
+			},
+			"3": {
+				"text": "What are the consequences for recommending and promoting third-party products in the K2 community?",
+				"a": "Warning",
+				"b": "Exit without refund",
+				"c": "Temporary account blocking",
+				"d": "Ban from participating in chats"
+			},
+			"4": {
+				"text": "What are the main advantages of cryptocurrencies?",
+				"a": "Limited international transfers",
+				"b": "Decentralization, security and instant international transfers",
+				"c": "High dependence on centralized banks",
+				"d": "No investment instrument available"
+			},
+			"5": {
+				"text": "Which category of people can benefit from studying cryptocurrencies?",
+				"a": "Only experienced traders",
+				"b": "Absolutely everyone interested in passive income",
+				"c": "Only specialists in the field of finance",
+				"d": "People with degrees in economics"
+			},
+			"6": {
+				"text": "What can you do after completing the course on cryptocurrencies?",
+				"a": "Exclusively carry out financial transactions without understanding",
+				"b": "Not only understand cryptocurrencies, but also use them in everyday life",
+				"c": "Ignore the security of your assets",
+				"d": "Put all your money into one cryptocurrency"
+			},
+			"7": {
+				"text": "What is cryptocurrency?",
+				"a": "A form of digital currency that uses cryptography to secure transactions",
+				"b": "Traditional currency controlled by central banks",
+				"c": "Dollar or euro in electronic format",
+				"d": "Trading software"
+			},
+			"8": {
+				"text": "What is the main function of blockchain technology?",
+				"a": "Data storage on one server",
+				"b": "Storing information in the form of a chain of blocks, accessible to all network participants",
+				"c": "Creating new currencies without user participation",
+				"d": "Speed ​​up traditional banking transactions"
+			},
+			"9": {
+				"text": "How are trading robots changing the world of trading?",
+				"a": "They take longer to complete trades",
+				"b": "They increase the efficiency, accuracy and security of transactions",
+				"c": "They completely replace people in decision making",
+				"d": "They reduce the number of available investment opportunities"
+			},
+			"10": {
+				"text": "What is arbitrage in economics?",
+				"a": "The process of creating new currencies",
+				"b": "Several logically related transactions aimed at profiting from price differences",
+				"c": "Real estate investment",
+				"d": "Placement of funds in a bank account"
+			},
+			"11": {
+				"text": "What is a smart contract?",
+				"a": "Agreement signed physically",
+				"b": "An algorithm that allows you to make secure transactions without the participation of intermediaries",
+				"c": "Special type of loan agreement",
+				"d": "Standard banking product"
+			},
+			"12": {
+				"text": "What is an algorithm according to the Crypto Dictionary?",
+				"a": "Instructions for trading on the foreign exchange market",
+				"b": "Step-by-step instructions defining actions in response to market conditions",
+				"c": "Formula for calculating profit",
+				"d": "Analytics program"
+			},
+			"13": {
+				"text": "What is the main goal of a trading robot?",
+				"a": "Elimination of all risks",
+				"b": "Minimization of the human factor and automation of the trading process",
+				"c": "Increase in the number of traders",
+				"d": "Restriction of access to financial markets"
+			},
+			"14": {
+				"text": "What data do trading robots base their work on?",
+				"a": "Only on historical data",
+				"b": "On market data such as prices, trading volumes, news updates, etc",
+				"c": "Exclusively based on expert opinions",
+				"d": "On random data"
+			},
+			"15": {
+				"text": "What are the risks associated with using trading robots?",
+				"a": "Lack of profitability",
+				"b": "Software error or system crash",
+				"c": "High commissions on the exchange",
+				"d": "Robot development difficulty"
+			},
+			"16": {
+				"text": "What is an algorithm in the context of the K2 trading robot?",
+				"a": "An arbitrary set of rules",
+				"b": "Step-by-step instructions defining actions in response to market conditions",
+				"c": "Trust management system",
+				"d": "Asset management instructions"
+			},
+			"17": {
+				"text": "What is the difference between K2 and the Martingale system?",
+				"a": "K2 trades only during the day",
+				"b": "K2 does not increase the rate after losing trades, which reduces the risk of liquidation",
+				"c": "K2 requires trust management",
+				"d": "K2 only works on the stock market"
+			},
+			"18": {
+				"text": "How is the K2 algorithm monitored?",
+				"a": "Users independently check the algorithm",
+				"b": "Product developers carry out constant monitoring",
+				"c": "The algorithm does not require monitoring",
+				"d": "Monitoring occurs once a year"
+			},
+			"19": {
+				"text": "What minimum length should a password be for optimal security?",
+				"a": "6-8 characters",
+				"b": "8-10 characters",
+				"c": "12-16 characters",
+				"d": "16-20 characters"
+			},
+			"20": {
+				"text": "What does two-factor authentication (2FA) add to the login process?",
+				"a": "Ease of use",
+				"b": "Additional login code",
+				"c": "Password recovery option",
+				"d": "Speed up the login process"
+			},
+			"21": {
+				"text": "What role do password managers play in security?",
+				"a": "Stores passwords in clear text",
+				"b": "Automatically generates and stores complex passwords",
+				"c": "Check for phishing attacks",
+				"d": "Change passwords without the user's knowledge"
+			},
+			"22": {
+				"text": "What is the first step to register an account on the Bitget exchange?",
+				"a": "Go to email to confirm address",
+				"b": "Download the Bitget app on your phone",
+				"c": "Enter referral code",
+				"d": "Pass verification"
+			},
+			"23": {
+				"text": "What should a strong registration password contain?",
+				"a": "Letters only",
+				"b": "Letters, numbers and special characters",
+				"c": "Numbers only",
+				"d": "Username"
+			},
+			"24": {
+				"text": "What security measure is recommended to be installed after verification?",
+				"a": "Install antivirus",
+				"b": "Set up two-factor authentication using Google Authenticator",
+				"c": "Change password",
+				"d": "Disable email"
+			},
+			"25": {
+				"text": "What is KYC?",
+				"a": "Account registration process",
+				"b": "Customer Identity Verification Process",
+				"c": "Process of obtaining a loan",
+				"d": "Asset trading process"
+			},
+			"26": {
+				"text": "What is the main purpose of the KYC process on the Bitget exchange?",
+				"a": "Increase trading limits",
+				"b": "Security and user protection",
+				"c": "Receiving trading bonuses",
+				"d": "Accelerate withdrawals"
+			},
+			"27": {
+				"text": "Which document is not required when verifying the first level on the Bitget exchange?",
+				"a": "Passport",
+				"b": "Income certificate",
+				"c": "ID",
+				"d": "Driver's license"
+			},
+			"28": {
+				"text": "What is the main purpose of installing Google Authenticator?",
+				"a": "Increasing account security",
+				"b": "Increasing the withdrawal limit",
+				"c": "Simplifying the trading process",
+				"d": "Change account password"
+			},
+			"29": {
+				"text": "What is recommended to do with login data on the Bitget exchange?",
+				"a": "Store them electronically on your computer",
+				"b": "Write in a separate notebook and store in a safe place",
+				"c": "Send them to a friend for safekeeping",
+				"d": "Do not tell anyone, but do not write down"
+			},
+			"30": {
+				"text": "What type of wallet do you use when storing your assets on an exchange?",
+				"a": "Hot Wallet",
+				"b": "Exchange Wallet",
+				"c": "Offline wallet",
+				"d": "Long-term wallet"
+			},
+			"31": {
+				"text": "Which of the following is NOT a recommendation for storing a seed phrase?",
+				"a": "Keep it in a safe place",
+				"b": "Share phrase with trusted people",
+				"c": "Create backups",
+				"d": "Use durable materials"
+			},
+			"32": {
+				"text": "What information is important to check when creating a new wallet?",
+				"a": "Minimum balance",
+				"b": "Correct seed phrase",
+				"c": "Number of transactions",
+				"d": "Withdrawal limits"
+			},
+			"33": {
+				"text": "What should you do if you lose access to your wallet and seed phrase?",
+				"a": "Contact exchange support",
+				"b": "You will not be able to restore access to your assets",
+				"c": "Try to guess the seed phrase",
+				"d": "Create a new wallet and start over"
+			},
+			"34": {
+				"text": "Where are the user's assets when using K2?",
+				"a": "On a third-party account",
+				"b": "On the user's exchange account and available 24/7",
+				"c": "In an offline wallet",
+				"d": "On a personal bank account"
+			},
+			"35": {
+				"text": "How do you connect to the K2 trading algorithm?",
+				"a": "Through software installation",
+				"b": "By link via copy trading",
+				"c": "By phone call",
+				"d": "Via a special application"
+			},
+			"36": {
+				"text": "What risk level can the user choose when setting up K2?",
+				"a": "High risk only",
+				"b": "Comfortable risk level of his choice",
+				"c": "Unable to select risk level",
+				"d": "Low risk only"
+			},
+			"37": {
+				"text": "In what cases can developers interfere with the algorithm's activities?",
+				"a": "In bad weather",
+				"b": "When the permissible drawdown level is exceeded or a two-month drawdown",
+				"c": "If desired by the user",
+				"d": "When changing the algorithm to a new one"
+			},
+			"38": {
+				"text": "How often are K2 profitability statistics updated?",
+				"a": "Every month",
+				"b": "Every quarter",
+				"c": "Every month at the beginning of the month",
+				"d": "Every two months"
+			},
+			"39": {
+				"text": "What communication channels for K2 are possible (select the most complete list)?",
+				"a": "Official telegram channel and technical support service",
+				"b": "K2 Technical Support Service",
+				"c": "Official telegram channel, technical support service, official mail",
+				"d": "Bitget Exchange Support"
+			},
+			"40": {
+				"text": "What time (Moscow time) does the trading day close?",
+				"a": "15.00",
+				"b": "17.00",
+				"c": "19.00",
+				"d": "23.29"
+			},
+			"41": {
+				"text": "In what case is it possible to transfer to a structure to another ambassador?",
+				"a": "After the investor contacts the company's technical support service",
+				"b": "On your own, after purchasing a new robot",
+				"c": "In case of consent of three higher-level partners (including the ambassador) sent to the company's technical support service in the prescribed manner",
+				"d": "If no more than 60 days have passed since the robot was activated"
+			},
+			"42": {
+				"text": "You received a call from the K2 technical support service and were informed that your account on the Bitget exchange is subject to blocking. To avoid this, you need to follow the link provided and log into your account. What is the correct order of action?",
+				"a": "I will stop the dialogue and independently contact the company's technical support or ambassador",
+				"b": "I will do everything necessary to avoid blocking as quickly as possible.",
+				"c": "First, I'll check the name of the technical support manager, after which I'll do everything necessary to avoid blocking as quickly as possible.",
+				"d": "I won't do anything"
+			},
+			"43": {
+				"text": "Select the most complete list of types of income in the K2 company",
+				"a": "User and Labor",
+				"b": "User and reputation",
+				"c": "Custom, labor, reputation",
+				"d": "User, labor, reputation, investment"
+			}
+		}
 	}
 }

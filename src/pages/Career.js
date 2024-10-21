@@ -9,11 +9,12 @@ import { LevelsContext } from '../context/LevelsProvider'
 import Progress from '../components/Progress'
 import Tack from '../components/Task'
 import League from '../components/League'
+import PopUpTest from '../components/PopUpTest'
 
 export default function Career() {
 	const { t } = useTranslation()
 	const { profileData } = useContext(DataContext)
-	const { levels, setTasks, checkLevel } = useContext(LevelsContext)
+	const { levels } = useContext(LevelsContext)
 
 	const leagues = [[1], [2, 3], [4, 5], [6, 7], [8, 9], [10]]
 
@@ -27,10 +28,11 @@ export default function Career() {
 		}
 	}
 
+	const [popUpTest, setPopUpTest] = useState(false)
+
 	async function testClickHandler() {
-		await setTasks(2, 0)
+		setPopUpTest(true)
 		setPopUp(false)
-		await checkLevel()
 	}
 
 	return (
@@ -52,7 +54,7 @@ export default function Career() {
 							const current = level < profileData.level ? total : tasks.filter(task => task.completed).length
 							const progressCurrent = level < profileData.level ? total : tasks.reduce((a, c) => a + (c.completed ? 1 : c.current ? c.current / c.total : 0), 0)
 							const date = levels[level - 1]?.time ? new Date(levels[level - 1]?.time.replace(' ', 'T') + 'Z') : new Date()
-							const dateFormat = new Intl.DateTimeFormat(profileData.language.tag, { year: "numeric", month: "numeric", day: "numeric" })
+							const dateFormat = new Intl.DateTimeFormat(profileData.language, { year: "numeric", month: "numeric", day: "numeric" })
 							return (
 								<div key={level} className='current-row'>
 									<div className={'level' + (level < profileData.level ? ' passed' : '')}>
@@ -106,6 +108,8 @@ export default function Career() {
 			</div>
 
 			<PopUpCareer active={popUp} onClose={() => setPopUp(false)}>{content}</PopUpCareer>
+
+			<PopUpTest active={popUpTest} onClose={() => setPopUpTest(false)} />
 		</>
 
 	)

@@ -1,7 +1,7 @@
 import { QuestionIcon, TrophyIcon } from "../components/Icons"
 import { useTranslation } from 'react-i18next'
 import { useState, useContext, useEffect } from "react"
-import photo from '../img/photo.png'
+import photo from '../img/photo1.jpeg'
 import RatingTab from "../components/RatingTab"
 import TabMenu from "../components/TabMenu"
 import Slider from "react-slick"
@@ -21,8 +21,8 @@ export default function Rating() {
 		{ value: 'god', text: t('rating.god') },
 		{ value: 'income', text: t('rating.income') },
 		{ value: 'invitations', text: t('rating.invitations') },
-		{ value: 'travel', text: t('rating.travel') },
-		{ value: 'records', text: t('rating.records') }
+		// { value: 'travel', text: t('rating.travel') },
+		// { value: 'records', text: t('rating.records') }
 	]
 	const myPages = [
 		{ value: 'my', text: t('rating.my') },
@@ -84,22 +84,23 @@ export default function Rating() {
 	}
 
 	const slides = [
-		{ username: "Иванов Иван", nomination: t('rating.god'), photo, result: 12 },
-		{ username: "Иванов Иван", nomination: t('rating.income'), photo, result: 12 },
-		{ username: "Иванов Иван", nomination: t('rating.invitations'), photo, result: 12 },
-		{ username: "Иванов Иван", nomination: t('rating.travel'), photo, result: 12, days: true }
+		{ username: "Евгений Песецкий", nomination: t('rating.god'), photo, result: 12 },
+		{ username: "Евгений Песецкий", nomination: t('rating.income'), photo, result: 33800 },
+		// { username: "Евгений Песецкий", nomination: t('rating.invitations'), photo, result: 12 },
+		// { username: "Евгений Песецкий", nomination: t('rating.travel'), photo, result: 12, days: true }
 	]
 
 	return (
 		<div id="rating">
-			<div className="head">
+			<div className="head animate__animated animate__zoomIn">
 				<h1>{t('rating.title')}</h1>
 				<div className="right-side">
-					<div className={'button' + (myRating ? ' active' : '')} onClick={() => setMyRating(previous => !previous)}><TrophyIcon size={24} /></div>
+					<div className={'button' + (myRating ? ' active' : '')}><TrophyIcon size={24} /></div>
+					{/* <div className={'button' + (myRating ? ' active' : '')} onClick={() => setMyRating(previous => !previous)}><TrophyIcon size={24} /></div> */}
 					<Link to={'/faq-rating'} className="button"><QuestionIcon size={22} /></Link>
 				</div>
 			</div>
-			<Slider {...settingsSlider} className="slider">
+			<Slider {...settingsSlider} className="slider animate__animated animate__bounceInRight">
 				{slides.map((slide, i) => (
 					<div key={i} className="slide">
 						<div className="content">
@@ -118,19 +119,21 @@ export default function Rating() {
 					</div>
 				))}
 			</Slider>
-			{!myRating && <>
-				<TabMenu pages={pages} page={page} setPage={setPage} />
-				{page === 'god' && <RatingTab items={gods} />}
-				{page === 'income' && <RatingTab items={income} />}
-				{page === 'invitations' && <RatingTab items={invitations} />}
-				{page === 'travel' && <RatingTab items={travel} />}
-				{page === 'records' && <RatingTab items={records} />}
-			</>}
-			{myRating && <>
-				<TabMenu pages={myPages} page={myPage} setPage={setMyPage} />
-				{myPage === 'my' && <RatingTab items={my} />}
-				{myPage === 'command' && <RatingTab items={command} />}
-			</>}
+			<div className="animate__animated animate__zoomIn">
+				{!myRating && <>
+					<TabMenu pages={pages} page={page} setPage={setPage} />
+					{page === 'god' && <RatingTab items={gods} />}
+					{page === 'income' && <RatingTab items={income} />}
+					{page === 'invitations' && <RatingTab items={invitations} />}
+					{/* {page === 'travel' && <RatingTab items={travel} />}
+				{page === 'records' && <RatingTab items={records} />} */}
+				</>}
+				{myRating && <>
+					<TabMenu pages={myPages} page={myPage} setPage={setMyPage} />
+					{myPage === 'my' && <RatingTab items={my} />}
+					{myPage === 'command' && <RatingTab items={command} />}
+				</>}
+			</div>
 		</div>
 	)
 }

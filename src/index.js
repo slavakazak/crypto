@@ -1,5 +1,6 @@
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import 'animate.css'
 import "./styles/styles.scss"
 import { createRoot } from "react-dom/client"
 import App from "./components/App"

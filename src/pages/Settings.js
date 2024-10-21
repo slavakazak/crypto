@@ -9,11 +9,15 @@ import { useTranslation } from 'react-i18next'
 import Modal from "../components/Modal"
 import { useContext } from "react"
 import { DataContext } from "../context/DataProvider"
+import { AuthContext } from "../context/AuthProvider"
 import { CircleFlag } from 'react-circle-flags'
+import getWpUser from "../utils/getWpUser"
+import getIdFromRef from "../utils/getIdFromRef"
 
 export default function Settings() {
 	const { t } = useTranslation()
 	const { profileData, setData } = useContext(DataContext)
+	const { auth } = useContext(AuthContext)
 
 	const [modal, setModal] = useState(false)
 	const [modalText, setModalText] = useState('')
@@ -57,6 +61,9 @@ export default function Settings() {
 	const [wallet, setWallet] = useState(profileData.wallet)
 	const [exchange, setExchange] = useState(profileData.exchange)
 
+	const [ref, setRef] = useState('')
+	const [refActive, setRefActive] = useState(false)
+
 	function focusHandler() {
 		setTimeout(() => {
 			let focusedElement = document.activeElement
@@ -86,6 +93,21 @@ export default function Settings() {
 		setPin(profileData.pin)
 		setWallet(profileData.wallet)
 		setExchange(profileData.exchange)
+
+		async function init() {
+			if (profileData.link && profileData.link !== '1') {
+				const user = await getWpUser(auth, profileData.link)
+				if (user && user.meta) {
+					setRef(user.meta.t_ref)
+					setRefActive(false)
+				} else {
+					setRefActive(true)
+				}
+			} else {
+				setRefActive(true)
+			}
+		}
+		init()
 	}, [profileData])
 
 	//обработчики ввода полей
@@ -248,7 +270,7 @@ export default function Settings() {
 	}
 
 	//сохранить изменения
-	function saveClickHandler(e) {
+	async function saveClickHandler(e) {
 		if (!formChanged) return
 		if (!nickname.trim()) {
 			openModal(t('settings.messages.emptyNickname'))
@@ -298,6 +320,15 @@ export default function Settings() {
 			newUsername = fullName.trim()
 		}
 
+		let refId = '1'
+		if (ref) {
+			refId = await getIdFromRef(auth, ref)
+			if (!refId) {
+				openModal(t('settings.messages.noRef'))
+				return
+			}
+		}
+
 		setData({
 			nickname: nickname.trim(),
 			fullName: fullName.trim(),
@@ -309,8 +340,14 @@ export default function Settings() {
 			//passwordChanged,
 			pin,
 			wallet: wallet.trim(),
-			exchange: exchange.trim()
+			exchange: exchange.trim(),
+			link: refId,
+			gender,
+			country
 		})
+
+		setPopUpCountry(false)
+		setPopUpGender(false)
 
 		setFormChanged(false)
 	}
@@ -353,6 +390,10 @@ export default function Settings() {
 					<input placeholder={t('settings.placeholder.wallet')} className="input wallet-input" value={wallet} onChange={handler(setWallet)} />
 					<input placeholder={t('settings.placeholder.exchange')} className="input exchange-input" value={exchange} onChange={handler(setExchange)} />
 				</div>
+				<div className="form-section">
+					<div className="label">{t('settings.refData')}</div>
+					<input placeholder={t('settings.refData')} readOnly={!refActive} className="input wallet-input" value={ref} onChange={handler(setRef)} />
+				</div>
 				<SaveRow onCancel={cancelClickHandler} onSave={saveClickHandler} active={formChanged} />
 			</div>
 
@@ -362,7 +403,7 @@ export default function Settings() {
 				title={t('settings.popUpGender.title')}
 				description={t('settings.popUpGender.description')}
 				onCancel={genderCancelClickHandler}
-				onSave={genderSaveClickHandler}
+				onSave={saveClickHandler}
 				saveActive={gender?.tag !== profileData.gender?.tag}
 			>
 				<div className="select">
@@ -378,7 +419,7 @@ export default function Settings() {
 				title={t('settings.popUpCountry.title')}
 				description={t('settings.popUpCountry.description')}
 				onCancel={countryCancelClickHandler}
-				onSave={countrySaveClickHandler}
+				onSave={saveClickHandler}
 				saveActive={country?.code !== profileData.country?.code}
 				full={true}
 				search={countrySearch}

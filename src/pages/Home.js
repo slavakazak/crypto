@@ -43,10 +43,10 @@ export default function Home() {
 
 	async function openMessage() {
 		const message = messages[currentMessage]
-		let content = profileData.language.tag === 'en' && message.content_en ? message.content_en : message.content
-		content = content.replace('http://', 'https://').replace('" width="560" height="315"', `&fs=0&hl=${profileData.language.tag}&rel=0" width="100%" height="200"`)
+		let content = profileData.language === 'en' && message.content_en ? message.content_en : message.content
+		content = content.replace('http://', 'https://').replace('" width="560" height="315"', `&fs=0&hl=${profileData.language}&rel=0" width="100%" height="200"`)
 		openPopUp(
-			profileData.language.tag === 'en' && message.title_en ? message.title_en : message.title,
+			profileData.language === 'en' && message.title_en ? message.title_en : message.title,
 			<div dangerouslySetInnerHTML={{ __html: content }} />
 		)
 		await markMessageAsRead(auth, wpId, message.id)
@@ -111,7 +111,7 @@ export default function Home() {
 
 			<div id="home">
 				<TopMenu />
-				<div className='card'>
+				<div className='card animate__animated animate__zoomIn'>
 					<div className='card-header'>
 						<div className='balance' onClick={changeBalance}>
 							<div className='title'>
@@ -180,13 +180,13 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				<div className='slider-container'>
+				<div className='slider-container animate__animated animate__zoomIn'>
 					<div className='slider'>
 						<Slider {...settingsBannerSlider} beforeChange={(_, i) => setCurrentMessage(i)}>
-							{messages.map((message, i) => (
+							{messages.filter(message => message.message_excerpt || message.message_excerpt_en).map((message, i) => (
 								<div key={i} className='slide'>
-									<h2>{profileData.language.tag === 'en' && message.title_en ? message.title_en : message.title}</h2>
-									<p>{profileData.language.tag === 'en' && message.message_excerpt_en ? message.message_excerpt_en : message.message_excerpt}</p>
+									<h2>{profileData.language === 'en' && message.title_en ? message.title_en : message.title}</h2>
+									<p>{profileData.language === 'en' && message.message_excerpt_en ? message.message_excerpt_en : message.message_excerpt}</p>
 								</div>
 							))}
 						</Slider>

@@ -69,6 +69,10 @@
 		max-height: 350px;
 	}
 
+	span {
+		color: $accent;
+	}
+
 	&.active {
 		display: flex;
 		animation-name: open-modal-wrapper;

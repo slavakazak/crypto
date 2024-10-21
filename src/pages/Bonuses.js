@@ -5,7 +5,9 @@ import Back from '../components/Back'
 import { CoinIcon, InfoIcon, OkIcon, RefreshIcon } from '../components/Icons'
 import Timer from '../components/Timer'
 import getDateTimeString from '../utils/getDateTimeString'
-import promo from '../img/month-promo.png'
+import promo1 from '../img/promo1.png'
+import promo2 from '../img/promo2.png'
+import promo3 from '../img/promo3.png'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthProvider'
 import { DataContext } from '../context/DataProvider'
@@ -38,7 +40,8 @@ export default function Bonuses() {
 		if (!arr || arr.length === 0) return 0
 		let res = 0
 		arr.forEach(item => {
-			if (item.level >= 2) res++
+			const time = item.levels && JSON.parse(item.levels)[1]?.time
+			if (item.level >= 2 && time >= '2024-09-30 21:00:00' && time <= '2024-12-31 21:00:00') res++
 		})
 		return res
 	}
@@ -151,7 +154,9 @@ export default function Bonuses() {
 					{page === 'month' && <div className="tab month">
 						<h2>{t('bonuses.monthTitle')}</h2>
 						<p className="description">{t('bonuses.monthDescription')}</p>
-						<img src={promo} alt={t('bonuses.month')} />
+						<img src={promo1} alt={t('bonuses.month')} />
+						<img src={promo2} alt={t('bonuses.month')} />
+						<img src={promo3} alt={t('bonuses.month')} />
 					</div>}
 					{page === 'start' && <div className="tab start">
 						<div className='title'>
@@ -182,7 +187,7 @@ export default function Bonuses() {
 						<iframe
 							width="100%"
 							height="200"
-							src={`https://www.youtube.com/embed/0zMLl9WbHVg?si=6Adtx-tK7540Ybhp&fs=0&hl=${profileData.language.tag}&rel=0`}
+							src={`https://www.youtube.com/embed/2Lq7SiiIY-U?si=vGuwQz9yxkRDrODV&fs=0&hl=${profileData.language}&rel=0`}
 							title="YouTube video player"
 							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
 							referrerPolicy="strict-origin-when-cross-origin"
